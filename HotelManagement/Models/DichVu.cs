@@ -7,23 +7,24 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HotelManagement
+namespace HotelManagement.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class TaiKhoanKH
+    public partial class DichVu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TaiKhoanKH()
+        public DichVu()
         {
-            this.KhachHangs = new HashSet<KhachHang>();
+            this.ChiTietHoaDonDichVus = new HashSet<ChiTietHoaDonDichVu>();
         }
     
-        public string TenTaiKhoan { get; set; }
-        public string MatKhau { get; set; }
+        public string MaDichVu { get; set; }
+        public string TenDichVu { get; set; }
+        public decimal GiaDichVu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhachHang> KhachHangs { get; set; }
+        public virtual ICollection<ChiTietHoaDonDichVu> ChiTietHoaDonDichVus { get; set; }
     }
 }

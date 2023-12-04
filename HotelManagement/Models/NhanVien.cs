@@ -7,31 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HotelManagement
+namespace HotelManagement.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class HoaDon
+    public partial class NhanVien
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HoaDon()
+        public NhanVien()
         {
-            this.ChiTietHoaDonDichVus = new HashSet<ChiTietHoaDonDichVu>();
+            this.HoaDons = new HashSet<HoaDon>();
+            this.PhieuThues = new HashSet<PhieuThue>();
         }
     
-        public string MaHoaDon { get; set; }
-        public System.DateTime NgayLapHoaDon { get; set; }
-        public decimal TienPhong { get; set; }
-        public Nullable<decimal> TienDichVu { get; set; }
-        public int MaKhachHang { get; set; }
         public int MaNhanVien { get; set; }
-        public int MaPhieu { get; set; }
+        public string CCCD { get; set; }
+        public string SoDienThoai { get; set; }
+        public string TenNhanVien { get; set; }
+        public Nullable<System.DateTime> NgaySinh { get; set; }
+        public string ChucDanh { get; set; }
+        public string TenTaiKhoan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHoaDonDichVu> ChiTietHoaDonDichVus { get; set; }
-        public virtual NhanVien NhanVien { get; set; }
-        public virtual KhachHang KhachHang { get; set; }
-        public virtual PhieuThue PhieuThue { get; set; }
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        public virtual TaiKhoanNV TaiKhoanNV { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhieuThue> PhieuThues { get; set; }
     }
 }

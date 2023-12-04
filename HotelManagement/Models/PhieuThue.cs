@@ -7,24 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HotelManagement
+namespace HotelManagement.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Phong
+    public partial class PhieuThue
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Phong()
+        public PhieuThue()
         {
+            this.HoaDons = new HashSet<HoaDon>();
             this.PhieuThuePhongs = new HashSet<PhieuThuePhong>();
         }
     
-        public string MaPhong { get; set; }
-        public bool HienTrang { get; set; }
-        public string MaLoaiPhong { get; set; }
+        public int MaPhieu { get; set; }
+        public Nullable<System.DateTime> NgayLap { get; set; }
+        public System.DateTime ThoiGianNhanPhong { get; set; }
+        public System.DateTime ThoiGianTraPhong { get; set; }
+        public string HienTrang { get; set; }
+        public int MaKhachHang { get; set; }
+        public int MaNhanVien { get; set; }
     
-        public virtual LoaiPhong LoaiPhong { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
+        public virtual NhanVien NhanVien { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuThuePhong> PhieuThuePhongs { get; set; }
     }

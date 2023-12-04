@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HotelManagement
+namespace HotelManagement.Models
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Hotel_managementEntities : DbContext
+    public partial class Hotel_ManagementEntities : DbContext
     {
-        public Hotel_managementEntities()
-            : base("name=Hotel_managementEntities")
+        public Hotel_ManagementEntities()
+            : base("name=Hotel_ManagementEntities")
         {
         }
     

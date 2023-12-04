@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HotelManagement
+namespace HotelManagement.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class PhieuThuePhong
+    public partial class ChiTietHoaDonDichVu
     {
-        public int MaPhieu { get; set; }
-        public string MaPhong { get; set; }
-        public Nullable<byte> SoNguoiO { get; set; }
+        public byte SoLuong { get; set; }
+        public string MaHoaDon { get; set; }
+        public string MaDichVu { get; set; }
     
-        public virtual PhieuThue PhieuThue { get; set; }
-        public virtual Phong Phong { get; set; }
+        public virtual HoaDon HoaDon { get; set; }
+        public virtual DichVu DichVu { get; set; }
     }
 }

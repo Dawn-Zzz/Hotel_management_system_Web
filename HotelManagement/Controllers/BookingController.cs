@@ -6,21 +6,21 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using HotelManagement;
+using HotelManagement.Models;
 
 namespace HotelManagement.Controllers
 {
-    public class LoaiPhongController : Controller
+    public class BookingController : Controller
     {
-        private Hotel_managementEntities db = new Hotel_managementEntities();
+        private Hotel_ManagementEntities db = new Hotel_ManagementEntities();
 
-        // GET: LoaiPhong
+        // GET: Booking
         public ActionResult Index()
         {
             return View(db.LoaiPhongs.ToList());
         }
 
-        // GET: LoaiPhong/Details/5
+        // GET: Booking/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -35,13 +35,13 @@ namespace HotelManagement.Controllers
             return View(loaiPhong);
         }
 
-        // GET: LoaiPhong/Create
+        // GET: Booking/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: LoaiPhong/Create
+        // POST: Booking/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -58,7 +58,7 @@ namespace HotelManagement.Controllers
             return View(loaiPhong);
         }
 
-        // GET: LoaiPhong/Edit/5
+        // GET: Booking/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -73,7 +73,7 @@ namespace HotelManagement.Controllers
             return View(loaiPhong);
         }
 
-        // POST: LoaiPhong/Edit/5
+        // POST: Booking/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -89,7 +89,7 @@ namespace HotelManagement.Controllers
             return View(loaiPhong);
         }
 
-        // GET: LoaiPhong/Delete/5
+        // GET: Booking/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -104,7 +104,7 @@ namespace HotelManagement.Controllers
             return View(loaiPhong);
         }
 
-        // POST: LoaiPhong/Delete/5
+        // POST: Booking/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
