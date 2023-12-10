@@ -12,7 +12,7 @@ namespace HotelManagement.Controllers
 {
     public class LoaiPhongController : Controller
     {
-        private Hotel_managementEntities db = new Hotel_managementEntities();
+        private Hotel_ManagementEntities db = new Hotel_ManagementEntities();
 
         // GET: LoaiPhong
         public ActionResult Index()

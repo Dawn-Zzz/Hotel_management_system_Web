@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Hotel_managementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Hotel_ManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="ChiTietHoaDonDichVu">
           <Key>
             <PropertyRef Name="MaHoaDon" />
@@ -255,7 +255,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Hotel_managementModelStoreContainer">
+        <EntityContainer Name="Hotel_ManagementModelStoreContainer">
           <EntitySet Name="ChiTietHoaDonDichVu" EntityType="Self.ChiTietHoaDonDichVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DichVu" EntityType="Self.DichVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
@@ -320,7 +320,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Hotel_managementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Hotel_ManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="ChiTietHoaDonDichVu">
           <Key>
             <PropertyRef Name="MaHoaDon" />
@@ -595,7 +595,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Hotel_managementEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Hotel_ManagementEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ChiTietHoaDonDichVus" EntityType="Self.ChiTietHoaDonDichVu" />
           <EntitySet Name="DichVus" EntityType="Self.DichVu" />
           <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
@@ -661,9 +661,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Hotel_managementModelStoreContainer" CdmEntityContainer="Hotel_managementEntities">
+        <EntityContainerMapping StorageEntityContainer="Hotel_ManagementModelStoreContainer" CdmEntityContainer="Hotel_ManagementEntities">
           <EntitySetMapping Name="ChiTietHoaDonDichVus">
-            <EntityTypeMapping TypeName="Hotel_managementModel.ChiTietHoaDonDichVu">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.ChiTietHoaDonDichVu">
               <MappingFragment StoreEntitySet="ChiTietHoaDonDichVu">
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
@@ -672,7 +672,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DichVus">
-            <EntityTypeMapping TypeName="Hotel_managementModel.DichVu">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.DichVu">
               <MappingFragment StoreEntitySet="DichVu">
                 <ScalarProperty Name="MaDichVu" ColumnName="MaDichVu" />
                 <ScalarProperty Name="TenDichVu" ColumnName="TenDichVu" />
@@ -681,7 +681,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="HoaDons">
-            <EntityTypeMapping TypeName="Hotel_managementModel.HoaDon">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.HoaDon">
               <MappingFragment StoreEntitySet="HoaDon">
                 <ScalarProperty Name="MaHoaDon" ColumnName="MaHoaDon" />
                 <ScalarProperty Name="NgayLapHoaDon" ColumnName="NgayLapHoaDon" />
@@ -694,7 +694,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="KhachHangs">
-            <EntityTypeMapping TypeName="Hotel_managementModel.KhachHang">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.KhachHang">
               <MappingFragment StoreEntitySet="KhachHang">
                 <ScalarProperty Name="MaKhachHang" ColumnName="MaKhachHang" />
                 <ScalarProperty Name="CCCD" ColumnName="CCCD" />
@@ -707,7 +707,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoaiPhongs">
-            <EntityTypeMapping TypeName="Hotel_managementModel.LoaiPhong">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.LoaiPhong">
               <MappingFragment StoreEntitySet="LoaiPhong">
                 <ScalarProperty Name="MaLoaiPhong" ColumnName="MaLoaiPhong" />
                 <ScalarProperty Name="TenLoaiPhong" ColumnName="TenLoaiPhong" />
@@ -717,7 +717,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="NhanViens">
-            <EntityTypeMapping TypeName="Hotel_managementModel.NhanVien">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.NhanVien">
               <MappingFragment StoreEntitySet="NhanVien">
                 <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
                 <ScalarProperty Name="CCCD" ColumnName="CCCD" />
@@ -730,7 +730,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhieuThues">
-            <EntityTypeMapping TypeName="Hotel_managementModel.PhieuThue">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.PhieuThue">
               <MappingFragment StoreEntitySet="PhieuThue">
                 <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
                 <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
@@ -743,7 +743,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PhieuThuePhongs">
-            <EntityTypeMapping TypeName="Hotel_managementModel.PhieuThuePhong">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.PhieuThuePhong">
               <MappingFragment StoreEntitySet="PhieuThuePhong">
                 <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
                 <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
@@ -752,7 +752,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Phongs">
-            <EntityTypeMapping TypeName="Hotel_managementModel.Phong">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.Phong">
               <MappingFragment StoreEntitySet="Phong">
                 <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
                 <ScalarProperty Name="HienTrang" ColumnName="HienTrang" />
@@ -761,7 +761,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TaiKhoanKHs">
-            <EntityTypeMapping TypeName="Hotel_managementModel.TaiKhoanKH">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.TaiKhoanKH">
               <MappingFragment StoreEntitySet="TaiKhoanKH">
                 <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
                 <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
@@ -769,7 +769,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TaiKhoanNVs">
-            <EntityTypeMapping TypeName="Hotel_managementModel.TaiKhoanNV">
+            <EntityTypeMapping TypeName="Hotel_ManagementModel.TaiKhoanNV">
               <MappingFragment StoreEntitySet="TaiKhoanNV">
                 <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
                 <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />

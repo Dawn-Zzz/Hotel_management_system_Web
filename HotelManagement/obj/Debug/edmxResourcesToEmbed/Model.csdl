@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Hotel_managementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="Hotel_ManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="ChiTietHoaDonDichVu">
     <Key>
       <PropertyRef Name="MaHoaDon" />
@@ -274,7 +274,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Hotel_managementEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="Hotel_ManagementEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="ChiTietHoaDonDichVus" EntityType="Self.ChiTietHoaDonDichVu" />
     <EntitySet Name="DichVus" EntityType="Self.DichVu" />
     <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
