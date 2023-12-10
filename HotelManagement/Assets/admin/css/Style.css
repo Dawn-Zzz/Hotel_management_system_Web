@@ -1,0 +1,51 @@
+﻿.navbar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 99;
+    width: calc(100% - 14rem);
+}
+
+.sidebar {
+    position: fixed;
+    left: 0;
+}
+
+.sticky-footer {
+    
+}
+
+.render-body-section {
+    margin-top: 6rem;
+    margin-left: 14rem;
+    width: calc(100% - 14rem);
+}
+
+.sticky-footer {
+    margin-left: 14rem;
+}
+
+.row {
+    margin: 0 1.25rem;
+}
+
+.room-body {
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 3.25rem 0.25rem;
+}
+
+.acction-link {
+    color: #999;
+    padding: 0 16px;
+    text-decoration: none;
+}
+
+.acction-link:hover {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.table tbody th:first-child, td:first-child{
+    padding-left: 40px
+}
