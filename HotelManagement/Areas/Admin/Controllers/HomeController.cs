@@ -37,5 +37,9 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             return View();
         }
+        public ActionResult RegistrationForm()
+        {
+            return View();
+        }
     }
 }

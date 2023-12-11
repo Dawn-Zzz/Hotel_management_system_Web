@@ -22,9 +22,9 @@ namespace HotelManagement
 
             routes.MapRoute(
                 name: "AdminDefault",
-                url: "Admin/{id}",
+                url: "Admin",
                 defaults: new { controller = "Home", id = UrlParameter.Optional },
-                namespaces: new[] { "YourNamespace.Controllers" }
+                namespaces: new[] { "MyApplication.Areas.MyArea.Controllers" }
             );
 
             routes.MapRoute(

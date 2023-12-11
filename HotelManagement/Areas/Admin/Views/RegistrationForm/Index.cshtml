@@ -1,0 +1,64 @@
+﻿@model IEnumerable<HotelManagement.PhieuThue>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NgayLap)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThoiGianNhanPhong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ThoiGianTraPhong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HienTrang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KhachHang.CCCD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NhanVien.CCCD)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NgayLap)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThoiGianNhanPhong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ThoiGianTraPhong)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HienTrang)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KhachHang.CCCD)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NhanVien.CCCD)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaPhieu }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaPhieu }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaPhieu })
+        </td>
+    </tr>
+}
+
+</table>
