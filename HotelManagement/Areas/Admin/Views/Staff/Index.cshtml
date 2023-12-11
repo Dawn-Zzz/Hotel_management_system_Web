@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HotelManagement.DichVu>
+﻿@model IEnumerable<HotelManagement.NhanVien>
 
 @{
     ViewBag.Title = "Index";
@@ -7,34 +7,67 @@
 
 <h2>Index</h2>
 
+@using (Html.BeginForm("Search", "Staff", FormMethod.Get))
+{
+    <div class="input-group">
+        <div class="form-outline">
+
+            <label class="form-label" for="form1">Search</label>
+            @Html.TextBox("name", null, new { @class = "form-control" })
+        </div>
+
+        <input type="submit" value=" Tìm " name="name" />
+    </div>
+}
+
+
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TenDichVu)
+            @Html.DisplayNameFor(model => model.CCCD)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.GiaDichVu)
+            @Html.DisplayNameFor(model => model.SoDienThoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TenNhanVien)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChucDanh)
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TenDichVu)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.GiaDichVu)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.MaDichVu }) |
-            @Html.ActionLink("Details", "Details", new { id=item.MaDichVu }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.MaDichVu })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CCCD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoDienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenNhanVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChucDanh)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaNhanVien }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MaNhanVien }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MaNhanVien })
+            </td>
+        </tr>
+    }
 
 </table>

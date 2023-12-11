@@ -2026,11 +2026,6 @@
     <Content Include="Areas\Admin\Views\Service\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Service\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Staff\Create.cshtml" />
-    <Content Include="Areas\Admin\Views\Staff\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Staff\Details.cshtml" />
-    <Content Include="Areas\Admin\Views\Staff\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Staff\Index.cshtml" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.bundle.js.map" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.js.map" />
@@ -2217,6 +2212,11 @@
     <Content Include="Areas\Admin\Views\RegistrationForm\Details.cshtml" />
     <Content Include="Areas\Admin\Views\RegistrationForm\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\RegistrationForm\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Staff\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -17,27 +17,29 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/Staff
         public ActionResult Index()
         {
-            return View(db.DichVus.ToList());
+            var nhanViens = db.NhanViens.Include(n => n.TaiKhoanNV);
+            return View(nhanViens.ToList());
         }
 
         // GET: Admin/Staff/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DichVu dichVu = db.DichVus.Find(id);
-            if (dichVu == null)
+            NhanVien nhanVien = db.NhanViens.Find(id);
+            if (nhanVien == null)
             {
                 return HttpNotFound();
             }
-            return View(dichVu);
+            return View(nhanVien);
         }
 
         // GET: Admin/Staff/Create
         public ActionResult Create()
         {
+            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau");
             return View();
         }
 
@@ -46,31 +48,33 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaDichVu,TenDichVu,GiaDichVu")] DichVu dichVu)
+        public ActionResult Create([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh,TenTaiKhoan")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
-                db.DichVus.Add(dichVu);
+                db.NhanViens.Add(nhanVien);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(dichVu);
+            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau", nhanVien.TenTaiKhoan);
+            return View(nhanVien);
         }
 
         // GET: Admin/Staff/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DichVu dichVu = db.DichVus.Find(id);
-            if (dichVu == null)
+            NhanVien nhanVien = db.NhanViens.Find(id);
+            if (nhanVien == null)
             {
                 return HttpNotFound();
             }
-            return View(dichVu);
+            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau", nhanVien.TenTaiKhoan);
+            return View(nhanVien);
         }
 
         // POST: Admin/Staff/Edit/5
@@ -78,39 +82,40 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaDichVu,TenDichVu,GiaDichVu")] DichVu dichVu)
+        public ActionResult Edit([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh,TenTaiKhoan")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(dichVu).State = EntityState.Modified;
+                db.Entry(nhanVien).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(dichVu);
+            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau", nhanVien.TenTaiKhoan);
+            return View(nhanVien);
         }
 
         // GET: Admin/Staff/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DichVu dichVu = db.DichVus.Find(id);
-            if (dichVu == null)
+            NhanVien nhanVien = db.NhanViens.Find(id);
+            if (nhanVien == null)
             {
                 return HttpNotFound();
             }
-            return View(dichVu);
+            return View(nhanVien);
         }
 
         // POST: Admin/Staff/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(int id)
         {
-            DichVu dichVu = db.DichVus.Find(id);
-            db.DichVus.Remove(dichVu);
+            NhanVien nhanVien = db.NhanViens.Find(id);
+            db.NhanViens.Remove(nhanVien);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

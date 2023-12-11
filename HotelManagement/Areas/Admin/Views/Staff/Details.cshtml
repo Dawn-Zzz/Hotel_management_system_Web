@@ -1,4 +1,4 @@
-﻿@model HotelManagement.DichVu
+﻿@model HotelManagement.NhanVien
 
 @{
     ViewBag.Title = "Details";
@@ -8,28 +8,60 @@
 <h2>Details</h2>
 
 <div>
-    <h4>DichVu</h4>
+    <h4>NhanVien</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.TenDichVu)
+            @Html.DisplayNameFor(model => model.CCCD)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TenDichVu)
+            @Html.DisplayFor(model => model.CCCD)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.GiaDichVu)
+            @Html.DisplayNameFor(model => model.SoDienThoai)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.GiaDichVu)
+            @Html.DisplayFor(model => model.SoDienThoai)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TenNhanVien)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenNhanVien)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ChucDanh)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ChucDanh)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TaiKhoanNV.MatKhau)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TaiKhoanNV.MatKhau)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaDichVu }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaNhanVien }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
