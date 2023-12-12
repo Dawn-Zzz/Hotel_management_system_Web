@@ -17,7 +17,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/Staff
         public ActionResult Index()
         {
-            var nhanViens = db.NhanViens.Include(n => n.TaiKhoanNV);
+            var nhanViens = db.NhanViens.Include(n => n.TaiKhoanNVs);
             return View(nhanViens.ToList());
         }
 
@@ -28,7 +28,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NhanVien nhanVien = db.NhanViens.Include(nv => nv.TaiKhoanNV).Where(nv => nv.MaNhanVien == id).FirstOrDefault();
+            NhanVien nhanVien = db.NhanViens.Include(nv => nv.TaiKhoanNVs).Where(nv => nv.MaNhanVien == id).FirstOrDefault();
             if (nhanVien == null)
             {
                 return HttpNotFound();
@@ -49,7 +49,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh,TenTaiKhoan")] NhanVien nhanVien)
+        public ActionResult Create([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau", nhanVien.TenTaiKhoan);
+
             return View(nhanVien);
         }
 
@@ -84,7 +84,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh,TenTaiKhoan")] NhanVien nhanVien)
+        public ActionResult Edit([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau", nhanVien.TenTaiKhoan);
+
             return View(nhanVien);
         }
 

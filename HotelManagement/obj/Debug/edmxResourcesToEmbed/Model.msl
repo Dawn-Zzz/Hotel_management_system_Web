@@ -41,7 +41,6 @@
           <ScalarProperty Name="LoaiKhachHang" ColumnName="LoaiKhachHang" />
           <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
           <ScalarProperty Name="SoDienThoai" ColumnName="SoDienThoai" />
-          <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -64,7 +63,6 @@
           <ScalarProperty Name="TenNhanVien" ColumnName="TenNhanVien" />
           <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
           <ScalarProperty Name="ChucDanh" ColumnName="ChucDanh" />
-          <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -104,6 +102,7 @@
         <MappingFragment StoreEntitySet="TaiKhoanKH">
           <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
           <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+          <ScalarProperty Name="MaKhachHang" ColumnName="MaKhachHang" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -113,6 +112,7 @@
           <ScalarProperty Name="TenTaiKhoan" ColumnName="TenTaiKhoan" />
           <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
           <ScalarProperty Name="Quyen" ColumnName="Quyen" />
+          <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

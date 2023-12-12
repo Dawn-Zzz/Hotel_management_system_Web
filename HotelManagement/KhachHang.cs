@@ -20,23 +20,22 @@ namespace HotelManagement
         {
             this.HoaDons = new HashSet<HoaDon>();
             this.PhieuThues = new HashSet<PhieuThue>();
+            this.TaiKhoanKHs = new HashSet<TaiKhoanKH>();
         }
     
         public int MaKhachHang { get; set; }
+        [Required]
         public string CCCD { get; set; }
         public string TenKhachHang { get; set; }
         public string LoaiKhachHang { get; set; }
-
-        [DataType(DataType.Date, ErrorMessage = "Date only")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public System.DateTime? NgaySinh { get; set; }
+        public Nullable<System.DateTime> NgaySinh { get; set; }
         public string SoDienThoai { get; set; }
-        public string TenTaiKhoan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
-        public virtual TaiKhoanKH TaiKhoanKH { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuThue> PhieuThues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaiKhoanKH> TaiKhoanKHs { get; set; }
     }
 }

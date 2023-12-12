@@ -17,7 +17,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/Guest
         public ActionResult Index()
         {
-            var khachHangs = db.KhachHangs.Include(k => k.TaiKhoanKH);
+            var khachHangs = db.KhachHangs.Include(k => k.TaiKhoanKHs);
             return View(khachHangs.ToList());
         }
 
@@ -48,7 +48,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai/*,TenTaiKhoan*/")] KhachHang khachHang)
+        public ActionResult Create([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,SoDienThoai")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.LoaiKhachHang = new SelectList(db.TaiKhoanKHs, "MaKhachHang", "LoaiKhachHang", khachHang.LoaiKhachHang);
+            //ViewBag.LoaiKhachHang = new SelectList(db.TaiKhoanKHs, "MaKhachHang", "LoaiKhachHang", khachHang.LoaiKhachHang);
             return View(khachHang);
         }
 
@@ -83,7 +83,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai/*,TenTaiKhoan*/")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai/*")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {

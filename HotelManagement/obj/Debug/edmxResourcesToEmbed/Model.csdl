@@ -46,10 +46,9 @@
     <Property Name="LoaiKhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="NgaySinh" Type="DateTime" Precision="3" />
     <Property Name="SoDienThoai" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
-    <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon02" FromRole="KhachHang" ToRole="HoaDon" />
-    <NavigationProperty Name="TaiKhoanKH" Relationship="Self.FK_KhachHang" FromRole="KhachHang" ToRole="TaiKhoanKH" />
     <NavigationProperty Name="PhieuThues" Relationship="Self.FK_PhieuThue01" FromRole="KhachHang" ToRole="PhieuThue" />
+    <NavigationProperty Name="TaiKhoanKHs" Relationship="Self.FK_TaiKhoanKH" FromRole="KhachHang" ToRole="TaiKhoanKH" />
   </EntityType>
   <EntityType Name="LoaiPhong">
     <Key>
@@ -71,10 +70,9 @@
     <Property Name="TenNhanVien" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="NgaySinh" Type="DateTime" Precision="3" />
     <Property Name="ChucDanh" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="HoaDons" Relationship="Self.FK_HoaDon01" FromRole="NhanVien" ToRole="HoaDon" />
-    <NavigationProperty Name="TaiKhoanNV" Relationship="Self.FK_NhanVien" FromRole="NhanVien" ToRole="TaiKhoanNV" />
     <NavigationProperty Name="PhieuThues" Relationship="Self.FK_PhieuThue02" FromRole="NhanVien" ToRole="PhieuThue" />
+    <NavigationProperty Name="TaiKhoanNVs" Relationship="Self.FK_TaiKhoanNV" FromRole="NhanVien" ToRole="TaiKhoanNV" />
   </EntityType>
   <EntityType Name="PhieuThue">
     <Key>
@@ -119,7 +117,8 @@
     </Key>
     <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <NavigationProperty Name="KhachHangs" Relationship="Self.FK_KhachHang" FromRole="TaiKhoanKH" ToRole="KhachHang" />
+    <Property Name="MaKhachHang" Type="Int32" />
+    <NavigationProperty Name="KhachHang" Relationship="Self.FK_TaiKhoanKH" FromRole="TaiKhoanKH" ToRole="KhachHang" />
   </EntityType>
   <EntityType Name="TaiKhoanNV">
     <Key>
@@ -128,7 +127,8 @@
     <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Quyen" Type="Byte" Nullable="false" />
-    <NavigationProperty Name="NhanViens" Relationship="Self.FK_NhanVien" FromRole="TaiKhoanNV" ToRole="NhanVien" />
+    <Property Name="MaNhanVien" Type="Int32" />
+    <NavigationProperty Name="NhanVien" Relationship="Self.FK_TaiKhoanNV" FromRole="TaiKhoanNV" ToRole="NhanVien" />
   </EntityType>
   <Association Name="FK_CTHDDV01">
     <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
@@ -190,18 +190,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_KhachHang">
-    <End Role="TaiKhoanKH" Type="Self.TaiKhoanKH" Multiplicity="0..1" />
-    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TaiKhoanKH">
-        <PropertyRef Name="TenTaiKhoan" />
-      </Principal>
-      <Dependent Role="KhachHang">
-        <PropertyRef Name="TenTaiKhoan" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_PhieuThue01">
     <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
     <End Role="PhieuThue" Type="Self.PhieuThue" Multiplicity="*" />
@@ -210,6 +198,18 @@
         <PropertyRef Name="MaKhachHang" />
       </Principal>
       <Dependent Role="PhieuThue">
+        <PropertyRef Name="MaKhachHang" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaiKhoanKH">
+    <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+    <End Role="TaiKhoanKH" Type="Self.TaiKhoanKH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="KhachHang">
+        <PropertyRef Name="MaKhachHang" />
+      </Principal>
+      <Dependent Role="TaiKhoanKH">
         <PropertyRef Name="MaKhachHang" />
       </Dependent>
     </ReferentialConstraint>
@@ -226,18 +226,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_NhanVien">
-    <End Role="TaiKhoanNV" Type="Self.TaiKhoanNV" Multiplicity="1" />
-    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TaiKhoanNV">
-        <PropertyRef Name="TenTaiKhoan" />
-      </Principal>
-      <Dependent Role="NhanVien">
-        <PropertyRef Name="TenTaiKhoan" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_PhieuThue02">
     <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
     <End Role="PhieuThue" Type="Self.PhieuThue" Multiplicity="*" />
@@ -246,6 +234,18 @@
         <PropertyRef Name="MaNhanVien" />
       </Principal>
       <Dependent Role="PhieuThue">
+        <PropertyRef Name="MaNhanVien" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TaiKhoanNV">
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+    <End Role="TaiKhoanNV" Type="Self.TaiKhoanNV" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhanVien">
+        <PropertyRef Name="MaNhanVien" />
+      </Principal>
+      <Dependent Role="TaiKhoanNV">
         <PropertyRef Name="MaNhanVien" />
       </Dependent>
     </ReferentialConstraint>
@@ -306,25 +306,25 @@
       <End Role="PhieuThue" EntitySet="PhieuThues" />
       <End Role="HoaDon" EntitySet="HoaDons" />
     </AssociationSet>
-    <AssociationSet Name="FK_KhachHang" Association="Self.FK_KhachHang">
-      <End Role="TaiKhoanKH" EntitySet="TaiKhoanKHs" />
-      <End Role="KhachHang" EntitySet="KhachHangs" />
-    </AssociationSet>
     <AssociationSet Name="FK_PhieuThue01" Association="Self.FK_PhieuThue01">
       <End Role="KhachHang" EntitySet="KhachHangs" />
       <End Role="PhieuThue" EntitySet="PhieuThues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaiKhoanKH" Association="Self.FK_TaiKhoanKH">
+      <End Role="KhachHang" EntitySet="KhachHangs" />
+      <End Role="TaiKhoanKH" EntitySet="TaiKhoanKHs" />
     </AssociationSet>
     <AssociationSet Name="FK_Phong" Association="Self.FK_Phong">
       <End Role="LoaiPhong" EntitySet="LoaiPhongs" />
       <End Role="Phong" EntitySet="Phongs" />
     </AssociationSet>
-    <AssociationSet Name="FK_NhanVien" Association="Self.FK_NhanVien">
-      <End Role="TaiKhoanNV" EntitySet="TaiKhoanNVs" />
-      <End Role="NhanVien" EntitySet="NhanViens" />
-    </AssociationSet>
     <AssociationSet Name="FK_PhieuThue02" Association="Self.FK_PhieuThue02">
       <End Role="NhanVien" EntitySet="NhanViens" />
       <End Role="PhieuThue" EntitySet="PhieuThues" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TaiKhoanNV" Association="Self.FK_TaiKhoanNV">
+      <End Role="NhanVien" EntitySet="NhanViens" />
+      <End Role="TaiKhoanNV" EntitySet="TaiKhoanNVs" />
     </AssociationSet>
     <AssociationSet Name="FK_PTP01" Association="Self.FK_PTP01">
       <End Role="PhieuThue" EntitySet="PhieuThues" />

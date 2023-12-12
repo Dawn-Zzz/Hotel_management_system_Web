@@ -19,6 +19,7 @@ namespace HotelManagement
         {
             this.HoaDons = new HashSet<HoaDon>();
             this.PhieuThues = new HashSet<PhieuThue>();
+            this.TaiKhoanNVs = new HashSet<TaiKhoanNV>();
         }
     
         public int MaNhanVien { get; set; }
@@ -27,12 +28,12 @@ namespace HotelManagement
         public string TenNhanVien { get; set; }
         public Nullable<System.DateTime> NgaySinh { get; set; }
         public string ChucDanh { get; set; }
-        public string TenTaiKhoan { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
-        public virtual TaiKhoanNV TaiKhoanNV { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuThue> PhieuThues { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TaiKhoanNV> TaiKhoanNVs { get; set; }
     }
 }

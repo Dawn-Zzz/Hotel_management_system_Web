@@ -14,16 +14,10 @@ namespace HotelManagement
     
     public partial class TaiKhoanKH
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TaiKhoanKH()
-        {
-            this.KhachHangs = new HashSet<KhachHang>();
-        }
-    
         public string TenTaiKhoan { get; set; }
         public string MatKhau { get; set; }
+        public Nullable<int> MaKhachHang { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<KhachHang> KhachHangs { get; set; }
+        public virtual KhachHang KhachHang { get; set; }
     }
 }
