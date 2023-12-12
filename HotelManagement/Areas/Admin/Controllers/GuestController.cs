@@ -39,7 +39,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/Guest/Create
         public ActionResult Create()
         {
-            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau");
+            //ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai,TenTaiKhoan")] KhachHang khachHang)
+        public ActionResult Create([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai/*,TenTaiKhoan*/")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau", khachHang.TenTaiKhoan);
+            //ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau", khachHang.TenTaiKhoan);
             return View(khachHang);
         }
 
@@ -73,6 +73,10 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+<<<<<<< HEAD
+=======
+            //ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau", khachHang.TenTaiKhoan);
+>>>>>>> 8638f475f2b304e652a7af9e2c187e4ab74a7635
             return View(khachHang);
         }
 
@@ -81,7 +85,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai,TenTaiKhoan")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai/*,TenTaiKhoan*/")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +93,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau", khachHang.TenTaiKhoan);
+            //ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau", khachHang.TenTaiKhoan);
             return View(khachHang);
         }
 
