@@ -50,11 +50,16 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh")] NhanVien nhanVien)
+        public ActionResult Create([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh")] NhanVien nhanVien, [Bind(Include = "TenTaiKhoan,MatKhau")] TaiKhoanNV taiKhoannv)
         {
             if (ModelState.IsValid)
             {
                 db.NhanViens.Add(nhanVien);
+                
+
+                taiKhoannv.MaNhanVien = nhanVien.MaNhanVien;
+
+                db.TaiKhoanNVs.Add(taiKhoannv);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -85,11 +90,12 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh")] NhanVien nhanVien)
+        public ActionResult Edit([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh")] NhanVien nhanVien, [Bind(Include = "TenTaiKhoan,MatKhau,MaNhanVien")] TaiKhoanNV taiKhoannv)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(nhanVien).State = EntityState.Modified;
+                db.Entry(taiKhoannv).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
