@@ -12,11 +12,35 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.MaHoaDon)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaHoaDon)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.NgayLapHoaDon)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.NgayLapHoaDon)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhachHang.TenKhachHang)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KhachHang.SoDienThoai)
         </dd>
 
         <dt>
@@ -36,27 +60,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.NhanVien.CCCD)
+            Tổng tiền
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NhanVien.CCCD)
+
+            @{
+                var tongTien = Model.TienPhong + Model.TienDichVu;
+            }
+            @tongTien
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.KhachHang.CCCD)
+            @Html.DisplayNameFor(model => model.NhanVien.TenNhanVien)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.KhachHang.CCCD)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhieuThue.HienTrang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhieuThue.HienTrang)
+            @Html.DisplayFor(model => model.NhanVien.TenNhanVien)
         </dd>
 
     </dl>
