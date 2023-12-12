@@ -247,6 +247,12 @@
     <Content Include="Assets\admin\css\sb-admin-2.css" />
     <Content Include="Assets\admin\css\sb-admin-2.min.css" />
     <Content Include="Assets\admin\css\Style.css" />
+    <Content Include="Assets\admin\img\deluxe.jpg" />
+    <Content Include="Assets\admin\img\family-suite.jpg" />
+    <Content Include="Assets\admin\img\family.jpg" />
+    <Content Include="Assets\admin\img\standard.jpg" />
+    <Content Include="Assets\admin\img\suite.jpg" />
+    <Content Include="Assets\admin\img\superior.jpg" />
     <Content Include="Assets\admin\img\undraw_posting_photo.svg" />
     <Content Include="Assets\admin\img\undraw_profile.svg" />
     <Content Include="Assets\admin\img\undraw_profile_1.svg" />

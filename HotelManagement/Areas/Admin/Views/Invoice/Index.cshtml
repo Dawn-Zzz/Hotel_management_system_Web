@@ -12,12 +12,11 @@
     <div class="input-group">
         <div class="form-outline">
 
-            <label class="form-label" for="form1">Search</label>
-            @Html.TextBox("ngayDau", null, new { @class = "form-control", type = "date" })
-            @Html.TextBox("ngayCuoi", null, new { @class = "form-control", type = "date" })
+            @Html.TextBox("ngayDau", null, new { @class = "form-control bg-light border-0 small", type = "date" })
+            @Html.TextBox("ngayCuoi", null, new { @class = "form-control bg-light border-0 small", type = "date" })
         </div>
 
-        <input type="submit" value=" Tìm " date="date" />
+        <input type="submit" value=" Tìm " date="date" class="btn btn-primary" />
     </div>
 }
 
@@ -57,6 +56,14 @@
 
                 @{
                     var tongTien = item.TienPhong + item.TienDichVu;
+                    if(item.TienDichVu == null)
+                    {
+                        tongTien = item.TienPhong;
+                    }
+                    else
+                    {
+                        tongTien = item.TienDichVu + item.TienPhong;
+                    }
                 }
                 @tongTien
             </td>

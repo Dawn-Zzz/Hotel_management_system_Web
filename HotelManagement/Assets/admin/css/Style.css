@@ -49,3 +49,8 @@
 .table tbody th:first-child, td:first-child{
     padding-left: 40px
 }
+
+
+.form-control {
+    border: 1px solid #999 !important;
+}

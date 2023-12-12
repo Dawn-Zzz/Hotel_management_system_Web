@@ -56,7 +56,14 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TienDichVu)
+            @{ 
+                var tienDV = Model.TienDichVu;
+                if(Model.TienDichVu == null)
+                {
+                    tienDV = 0;
+                }
+            }
+            @tienDV
         </dd>
 
         <dt>
