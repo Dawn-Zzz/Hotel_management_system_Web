@@ -73,10 +73,8 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
-<<<<<<< HEAD
-=======
             //ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau", khachHang.TenTaiKhoan);
->>>>>>> 8638f475f2b304e652a7af9e2c187e4ab74a7635
+
             return View(khachHang);
         }
 
