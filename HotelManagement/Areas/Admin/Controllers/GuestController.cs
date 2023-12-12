@@ -39,7 +39,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/Guest/Create
         public ActionResult Create()
         {
-            //ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau");
+            ViewBag.LoaiKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "LoaiKhachHang");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanKHs, "TenTaiKhoan", "MatKhau", khachHang.TenTaiKhoan);
+            ViewBag.LoaiKhachHang = new SelectList(db.TaiKhoanKHs, "MaKhachHang", "LoaiKhachHang", khachHang.LoaiKhachHang);
             return View(khachHang);
         }
 
