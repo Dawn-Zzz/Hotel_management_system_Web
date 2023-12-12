@@ -39,6 +39,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/Staff/Create
         public ActionResult Create()
         {
+            ViewBag.ChucDanh = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "ChucDanh");
             ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau");
             return View();
         }
@@ -57,7 +58,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau", nhanVien.TenTaiKhoan);
+            ViewBag.ChucDanh = new List<string> { "Nhân viên lễ tân", "Nhân viên phục vụ", "Nhân viên kế toán" };
+            //ViewBag.TenTaiKhoan = new SelectList(db.TaiKhoanNVs, "TenTaiKhoan", "MatKhau", nhanVien.TenTaiKhoan);
             return View(nhanVien);
         }
 
