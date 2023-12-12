@@ -39,8 +39,6 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/RegistrationForm/Create
         public ActionResult Create()
         {
-            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD");
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "CCCD");
             return View();
         }
 
@@ -57,9 +55,6 @@ namespace HotelManagement.Areas.Admin.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "CCCD", phieuThue.MaNhanVien);
             return View(phieuThue);
         }
 

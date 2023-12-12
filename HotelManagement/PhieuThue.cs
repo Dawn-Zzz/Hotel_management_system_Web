@@ -11,7 +11,8 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PhieuThue
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,8 +24,15 @@ namespace HotelManagement
     
         public int MaPhieu { get; set; }
         public Nullable<System.DateTime> NgayLap { get; set; }
-        public System.DateTime ThoiGianNhanPhong { get; set; }
-        public System.DateTime ThoiGianTraPhong { get; set; }
+
+
+        [DataType(DataType.Date, ErrorMessage = "Date only")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public System.DateTime? ThoiGianNhanPhong { get; set; }
+
+        [DataType(DataType.Date, ErrorMessage = "Date only")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public System.DateTime? ThoiGianTraPhong { get; set; }
         public string HienTrang { get; set; }
         public int MaKhachHang { get; set; }
         public int MaNhanVien { get; set; }
