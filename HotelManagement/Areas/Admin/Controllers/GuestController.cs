@@ -83,7 +83,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai/*")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,NgaySinh,SoDienThoai")] KhachHang khachHang)
         {
             if (ModelState.IsValid)
             {
