@@ -28,7 +28,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            NhanVien nhanVien = db.NhanViens.Find(id);
+            NhanVien nhanVien = db.NhanViens.Include(nv => nv.TaiKhoanNV).Where(nv => nv.MaNhanVien == id).FirstOrDefault();
             if (nhanVien == null)
             {
                 return HttpNotFound();
