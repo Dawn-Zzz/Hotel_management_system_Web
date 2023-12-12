@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HotelManagement;
@@ -128,6 +129,14 @@ namespace HotelManagement.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [Route("Search")]
+        public async Task<ActionResult> Search(string name)
+        {
+            var ketqua = await db.KhachHangs.Where(kh => kh.TenKhachHang.ToLower().Contains(name.ToLower())).ToListAsync();
+
+            return View("Index", ketqua);
         }
     }
 }

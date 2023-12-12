@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HotelManagement;
@@ -135,6 +136,14 @@ namespace HotelManagement.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [Route("Search")]
+        public async Task<ActionResult> Search(DateTime ngayDau, DateTime ngayCuoi)
+        {
+            var ketqua = await db.HoaDons.Where(hd => hd.NgayLapHoaDon >= ngayDau && hd.NgayLapHoaDon <= ngayCuoi).ToListAsync();
+
+            return View("Index", ketqua);
         }
     }
 }
