@@ -11,8 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class KhachHang
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,13 +23,10 @@ namespace HotelManagement
         }
     
         public int MaKhachHang { get; set; }
-        [Required]
         public string CCCD { get; set; }
         public string TenKhachHang { get; set; }
         public string LoaiKhachHang { get; set; }
-        [DataType(DataType.Date, ErrorMessage = "Date only")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public System.DateTime? NgaySinh { get; set; }
+        public Nullable<System.DateTime> NgaySinh { get; set; }
         public string SoDienThoai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

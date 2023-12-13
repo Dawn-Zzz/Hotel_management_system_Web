@@ -70,7 +70,6 @@
     <Property Name="ThoiGianTraPhong" Type="datetime" Nullable="false" />
     <Property Name="HienTrang" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MaKhachHang" Type="int" Nullable="false" />
-    <Property Name="MaNhanVien" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="PhieuThuePhong">
     <Key>
@@ -202,18 +201,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PhieuThue02">
-    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
-    <End Role="PhieuThue" Type="Self.PhieuThue" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="NhanVien">
-        <PropertyRef Name="MaNhanVien" />
-      </Principal>
-      <Dependent Role="PhieuThue">
-        <PropertyRef Name="MaNhanVien" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Phong">
     <End Role="LoaiPhong" Type="Self.LoaiPhong" Multiplicity="1" />
     <End Role="Phong" Type="Self.Phong" Multiplicity="*" />
@@ -292,10 +279,6 @@
     </AssociationSet>
     <AssociationSet Name="FK_PhieuThue01" Association="Self.FK_PhieuThue01">
       <End Role="KhachHang" EntitySet="KhachHang" />
-      <End Role="PhieuThue" EntitySet="PhieuThue" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PhieuThue02" Association="Self.FK_PhieuThue02">
-      <End Role="NhanVien" EntitySet="NhanVien" />
       <End Role="PhieuThue" EntitySet="PhieuThue" />
     </AssociationSet>
     <AssociationSet Name="FK_Phong" Association="Self.FK_Phong">

@@ -31,19 +31,19 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CCCD)
-        </th>
-        <th>
-            Tên
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LoaiKhachHang)
+            Họ và Tên
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NgaySinh)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.SoDienThoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CCCD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LoaiKhachHang)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TaiKhoanKHs.First().TenTaiKhoan)
@@ -55,19 +55,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.CCCD)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.TenKhachHang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LoaiKhachHang)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NgaySinh)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.SoDienThoai)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CCCD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiKhachHang)
             </td>
             <td>
                 @if (item.TaiKhoanKHs.Any())
