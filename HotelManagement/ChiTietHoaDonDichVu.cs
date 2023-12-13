@@ -11,11 +11,17 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class ChiTietHoaDonDichVu
     {
+        [DisplayName("Number Of Services")]
         public byte SoLuong { get; set; }
+
+        [DisplayName("Invoice Code")]
         public string MaHoaDon { get; set; }
+
+        [DisplayName("Service Code")]
         public string MaDichVu { get; set; }
     
         public virtual HoaDon HoaDon { get; set; }

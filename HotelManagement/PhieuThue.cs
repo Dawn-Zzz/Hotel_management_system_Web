@@ -11,6 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class PhieuThue
@@ -26,15 +27,21 @@ namespace HotelManagement
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Ngày lập chưa được chọn.")]
+
         public System.DateTime? NgayLap { get; set; }
+
+        [DisplayName("Check-In Date")]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Thời gian nhận phòng chưa được chọn.")]
         public System.DateTime? ThoiGianNhanPhong { get; set; }
+
+        [DisplayName("Check-In Date")]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Thời gian trả phòng chưa được chọn.")]
         public System.DateTime? ThoiGianTraPhong { get; set; }
+
         public string HienTrang { get; set; }
         public int MaKhachHang { get; set; }
     
