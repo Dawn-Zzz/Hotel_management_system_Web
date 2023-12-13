@@ -24,21 +24,28 @@ namespace HotelManagement
             this.TaiKhoanKHs = new HashSet<TaiKhoanKH>();
         }
 
+        [DisplayName("Guest ID")]
         public int MaKhachHang { get; set; }
-        [DisplayName("Số CCCD")]
+
+        [DisplayName("ID Number")]
         [Required(ErrorMessage = "Số CCCD khách hàng không được để trống.")]
         [RegularExpression(@"^\d{12}$", ErrorMessage = "Số CCCD phải là 12 chữ số.")]
         public string CCCD { get; set; }
+
+        [DisplayName("Guest Name")]
         [Required(ErrorMessage = "Họ tên khách hàng không được để trống.")]
         public string TenKhachHang { get; set; }
+
+        [DisplayName("Guest Categories")]
         public string LoaiKhachHang { get; set; }
 
-        
+        [DisplayName("Date Of Birth")]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Ngày sinh khách hàng chưa được chọn.")]
         public System.DateTime? NgaySinh { get; set; }
 
+        [DisplayName("Phone Number")]
         [Required(ErrorMessage = "Số điện thoại không được để trống.")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Số điện thoại phải là 10 chữ số.")]
         public string SoDienThoai { get; set; }

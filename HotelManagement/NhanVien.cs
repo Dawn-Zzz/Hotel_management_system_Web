@@ -11,6 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
     public partial class NhanVien
@@ -21,15 +22,26 @@ namespace HotelManagement
             this.HoaDons = new HashSet<HoaDon>();
             this.TaiKhoanNVs = new HashSet<TaiKhoanNV>();
         }
-    
+
+        [DisplayName("Staff ID")]
         public int MaNhanVien { get; set; }
+
+        [DisplayName("ID Number")]
         public string CCCD { get; set; }
+
+        [DisplayName("Phone Number")]
         public string SoDienThoai { get; set; }
+
+        [DisplayName("Staff Name")]
         public string TenNhanVien { get; set; }
+
+        [DisplayName("Date Of Birth")]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Ngày sinh khách hàng chưa được chọn.")]
         public System.DateTime? NgaySinh { get; set; }
+
+        [DisplayName("Job Title")]
         public string ChucDanh { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,11 +11,17 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class TaiKhoanKH
     {
+        [DisplayName("Account")]
         public string TenTaiKhoan { get; set; }
+
+        [DisplayName("Password")]
         public string MatKhau { get; set; }
+
+        [DisplayName("Guest ID")]
         public Nullable<int> MaKhachHang { get; set; }
     
         public virtual KhachHang KhachHang { get; set; }
