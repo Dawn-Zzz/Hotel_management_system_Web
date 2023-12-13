@@ -52,5 +52,20 @@
 
 
 .form-control {
-    border: 1px solid #999 !important;
+    border-radius: 0 !important;
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+}
+
+.render-body-section .search-form {
+    position: fixed;
+    top: 16px;
+    margin-left: 32px;
+    z-index: 99;
+}
+
+.btn-primary {
+    border-radius: 0 !important;
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
 }
