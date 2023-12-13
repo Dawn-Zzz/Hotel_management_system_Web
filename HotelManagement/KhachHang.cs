@@ -35,7 +35,7 @@ namespace HotelManagement
 
         
         [DataType(DataType.Date, ErrorMessage = "Date only")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Ngày sinh khách hàng chưa được chọn.")]
         public System.DateTime? NgaySinh { get; set; }
 

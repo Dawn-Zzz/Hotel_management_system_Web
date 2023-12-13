@@ -24,15 +24,15 @@ namespace HotelManagement
     
         public int MaPhieu { get; set; }
         [DataType(DataType.Date, ErrorMessage = "Date only")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Ngày lập chưa được chọn.")]
         public System.DateTime? NgayLap { get; set; }
         [DataType(DataType.Date, ErrorMessage = "Date only")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Thời gian nhận phòng chưa được chọn.")]
         public System.DateTime? ThoiGianNhanPhong { get; set; }
         [DataType(DataType.Date, ErrorMessage = "Date only")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Thời gian trả phòng chưa được chọn.")]
         public System.DateTime? ThoiGianTraPhong { get; set; }
         public string HienTrang { get; set; }
