@@ -179,9 +179,7 @@
     <Compile Include="Areas\Admin\Controllers\RoomTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\ServiceController.cs" />
     <Compile Include="Areas\Admin\Controllers\StaffController.cs" />
-    <Compile Include="Areas\Registration\Controllers\HomeController.cs" />
-    <Compile Include="Areas\Registration\Controllers\LoginController.cs" />
-    <Compile Include="Areas\Registration\RegistrationAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="ChiTietHoaDonDichVu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -2031,7 +2029,7 @@
     <Content Include="Areas\Admin\Views\Service\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Service\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Service\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Dashboard.cshtml" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.bundle.js.map" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.bundle.min.js.map" />
     <Content Include="Assets\admin\vendor\bootstrap\js\bootstrap.js.map" />
@@ -2197,10 +2195,6 @@
     <Content Include="Areas\Admin\Views\Invoice\Details.cshtml" />
     <Content Include="Areas\Admin\Views\Invoice\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\Invoice\Index.cshtml" />
-    <Content Include="Areas\Registration\Views\Home\Index.cshtml" />
-    <Content Include="Areas\Registration\Views\Login\Login.cshtml" />
-    <Content Include="Areas\Registration\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\Registration\Views\web.config" />
     <Content Include="Areas\Admin\Views\Guest\Create.cshtml" />
     <Content Include="Areas\Admin\Views\Guest\Delete.cshtml" />
     <Content Include="Areas\Admin\Views\Guest\Details.cshtml" />
@@ -2223,6 +2217,7 @@
     <Content Include="Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2282,7 +2277,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="Areas\Registration\Data\" />
+    <Folder Include="Areas\Admin\Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

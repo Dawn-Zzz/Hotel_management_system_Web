@@ -40,6 +40,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/RegistrationForm/Create
         public ActionResult Create()
         {
+            ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
             return View();
         }
 
