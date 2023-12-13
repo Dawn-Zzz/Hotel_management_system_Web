@@ -30,7 +30,7 @@
             @Html.DisplayNameFor(model => model.MaHoaDon)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NgayLapHoaDon)
+            Tên Khách hàng
         </th>
         <th>
             Tổng tiền
@@ -39,7 +39,7 @@
             Tên Nhân Viên
         </th>
         <th>
-            Tên Khách hàng
+            @Html.DisplayNameFor(model => model.NgayLapHoaDon)
         </th>
         <th></th>
     </tr>
@@ -50,13 +50,13 @@
                 @Html.DisplayFor(modelItem => item.MaHoaDon)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NgayLapHoaDon)
+                @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
             </td>
             <td>
 
                 @{
                     var tongTien = item.TienPhong + item.TienDichVu;
-                    if(item.TienDichVu == null)
+                    if (item.TienDichVu == null)
                     {
                         tongTien = item.TienPhong;
                     }
@@ -71,7 +71,7 @@
                 @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
+                @Html.DisplayFor(modelItem => item.NgayLapHoaDon)
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.MaHoaDon.Trim() })

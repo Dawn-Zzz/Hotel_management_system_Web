@@ -18,7 +18,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/RegistrationForm
         public ActionResult Index()
         {
-            var phieuThues = db.PhieuThues.Include(p => p.KhachHang).Include(p => p.NhanVien);
+            var phieuThues = db.PhieuThues.Include(p => p.KhachHang);
             return View(phieuThues.ToList());
         }
 
@@ -72,7 +72,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "CCCD", phieuThue.MaNhanVien);
+            
             return View(phieuThue);
         }
 
@@ -90,7 +90,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
-            ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "CCCD", phieuThue.MaNhanVien);
+            
             return View(phieuThue);
         }
 

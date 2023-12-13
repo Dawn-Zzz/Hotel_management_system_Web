@@ -75,7 +75,6 @@
           <ScalarProperty Name="ThoiGianTraPhong" ColumnName="ThoiGianTraPhong" />
           <ScalarProperty Name="HienTrang" ColumnName="HienTrang" />
           <ScalarProperty Name="MaKhachHang" ColumnName="MaKhachHang" />
-          <ScalarProperty Name="MaNhanVien" ColumnName="MaNhanVien" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

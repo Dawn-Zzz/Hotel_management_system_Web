@@ -25,7 +25,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.NgayLap)
+            @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ThoiGianNhanPhong)
@@ -34,16 +37,10 @@
             @Html.DisplayNameFor(model => model.ThoiGianTraPhong)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.NgayLap)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.HienTrang)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KhachHang.CCCD)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NhanVien.CCCD)
         </th>
         <th></th>
     </tr>
@@ -52,7 +49,10 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.NgayLap)
+                @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KhachHang.SoDienThoai)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ThoiGianNhanPhong)
@@ -61,16 +61,10 @@
                 @Html.DisplayFor(modelItem => item.ThoiGianTraPhong)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.NgayLap)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.HienTrang)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KhachHang.CCCD)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KhachHang.SoDienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NhanVien.CCCD)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MaPhieu }) |
