@@ -4,16 +4,13 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace WebApplication5.Areas.Registration.Controllers
+namespace HotelManagement.Areas.Admin.Controllers
 {
-    [RouteArea("Registration")]
-    [Route("Login")]
     public class LoginController : Controller
     {
-        // GET: Registration/Login
         [HttpGet]
         [Route("Login")]
-        public ActionResult Login()
+        public ActionResult Index()
         {
             return View();
         }

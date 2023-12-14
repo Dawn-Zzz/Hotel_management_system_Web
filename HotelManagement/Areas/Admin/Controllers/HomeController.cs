@@ -41,7 +41,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             return View();
         }
-        public ActionResult Dashboard()
+        public ActionResult Login()
         {
             return View();
         }

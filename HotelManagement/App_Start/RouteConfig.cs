@@ -41,12 +41,12 @@ namespace HotelManagement
                 namespaces: new[] { "MyApplication.Areas.MyArea.Controllers" }
             );
 
-            routes.MapRoute(
-                name: "Registration",
-                url: "Registration/{controller}/{action}/{id}",
-                defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new[] { "MyApplication.Areas.MyArea.Controllers" }
-            );
+            //routes.MapRoute(
+            //    name: "Registration",
+            //    url: "Registration/{controller}/{action}/{id}",
+            //    defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
+            //    namespaces: new[] { "MyApplication.Areas.MyArea.Controllers" }
+            //);
         }
     }
 }
