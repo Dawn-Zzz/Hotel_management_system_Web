@@ -42,6 +42,9 @@
     </div>
 
     <label class="control-label col-md-2">Rooms</label>
+    <div class="room-chosen">
+
+    </div>
     <p class="add-btn" id="add-room-btn">Add room</p>
     <div class="add-room-form">
         <div class="room-container">
@@ -51,26 +54,29 @@
                     <h2>Add room</h2>
                     <div class="form-group">
                         <label class="control-label">Room Type</label>
-                        @Html.DropDownList("MaLoaiPhong", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("MaLoaiPhong", null, htmlAttributes: new { @class = "form-control room-id" })
                         <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Room</label>
-                        @Html.DropDownList("DSPhong", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("DSPhong", null, htmlAttributes: new { @class = "form-control room-number" })
                         <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Client Quantity</label>
-                        <input class="form-control" type="number" min="1" max="4" />
+                        <input class="form-control clien-quantity" type="number" min="1" max="4" />
                         <span class="form-message"></span>
                     </div>
-                    <p class="submit-form-btn">Submit</p>
+                    <p class="submit-form-btn submit-room">Submit</p>
                 </form>
             </div>
         </div>
     </div>
 
     <label class="control-label col-md-2">Services</label>
+    <div class="service-chosen">
+
+    </div>
     <p class="add-btn" id="add-service-btn">Add service</p>
     <div class="add-service-form">
         <div class="service-container">
@@ -80,15 +86,15 @@
                     <h2>Add Service</h2>
                     <div class="form-group">
                         <label class="control-label">Room Type</label>
-                        @Html.DropDownList("DichVu", null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("DichVu", null, htmlAttributes: new { @class = "form-control service-name" })
                         <span class="form-message"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Client Quantity</label>
-                        <input class="form-control" type="number" min="1" max="4" />
+                        <input class="form-control service-quantity" type="number" min="1" max="4" />
                         <span class="form-message"></span>
                     </div>
-                    <p class="submit-form-btn">Submit</p>
+                    <p class="submit-form-btn submit-service">Submit</p>
                 </form>
             </div>
         </div>

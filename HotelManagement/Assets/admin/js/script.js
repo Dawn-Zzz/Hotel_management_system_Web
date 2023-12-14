@@ -10,10 +10,14 @@ const addRoomBtn = $('#add-room-btn');
 const addServiceBtn = $('#add-service-btn');
 const addRoomForm = $('.add-room-form');
 const addServiceForm = $('.add-service-form');
-const submitBtn = $('.submit-form-btn');
+const submitBtn = $('.submit-form-btn'); 
+const submitRoom = $('.submit-room');
+const submitService = $('.submit-service');
 const closeEvents = $$('.close-btn, .room-form');
 const roomContainer = $('.room-container');
 const serviceContainer = $('.service-container');
+const roomChosen = $('.room-chosen');
+const serviceChosen = $('.service-chosen');
 
 if (guestTable) {
     const guestApp = {
@@ -375,6 +379,7 @@ function hideForm() {
 }
 
 if (addRoomForm) {
+    const roomInfor = [];
     addRoomBtn.onclick = () => {
         console.log(addRoomForm);
         addRoomForm.style.display = "flex";
@@ -384,9 +389,9 @@ if (addRoomForm) {
         //const typeOfRoom = roomNode.querySelector('.room-type');
         //const imgPath = roomNode.querySelector('.img-fluid');
 
-        //const formTitle = addRoomForm.querySelector('h2')
-        //const formImage = addRoomForm.querySelector('.room-thumb');
-        //const clientName = addRoomForm.querySelector('.client-name');
+        const roomID = addRoomForm.querySelector('.room-id')
+        const roomNumber = addRoomForm.querySelector('.room-number');
+        const clienQuantity = addRoomForm.querySelector('.clien-quantity');
         //const clientPhoneNumber = addRoomForm.querySelector('.client-phone-number');
         //const clientEmail = addRoomForm.querySelector('.client-email');
         //const clientCheckIn = addRoomForm.querySelector('#checkin_booking');
@@ -394,9 +399,9 @@ if (addRoomForm) {
         //const clientAdults = addRoomForm.querySelector('.adults-number');
         //const clientChildren = addRoomForm.querySelector('.children-number');
 
-        //clientName.value = null;
-        //clientPhoneNumber.value = null;
-        //clientEmail.value = null;
+        roomID.value = null;
+        roomNumber.value = null;
+        clienQuantity.value = 0 ;
         //clientCheckIn.value = null;
         //clientCheckOut.value = null;
         //clientAdults.value = null;
@@ -404,40 +409,47 @@ if (addRoomForm) {
 
         //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
 
-        submitBtn.onclick = () => {
+        submitRoom.onclick = () => {
 
-            while (clientInfo.length > 0) {
-                clientInfo.pop();
+            while (roomInfor.length > 0) {
+                roomInfor.pop();
             }
-            //clientInfo.push(
-            //    clientName.value,
-            //    clientPhoneNumber.value,
-            //    clientEmail.value,
+            roomInfor.push(
+                roomID.value,
+                roomNumber.value,
+                clienQuantity.value,
             //    clientCheckIn.value,
             //    clientCheckOut.value,
             //    clientAdults.value,
             //    clientChildren.value
-            //);
-            var isNull = clientInfo.every((clientValue, index) => {
+            );
+            var isNull = roomInfor.every((clientValue, index) => {
                 return clientValue != "";
             });
             if (isNull) {
+                roomChosen.innerHTML += `
+                    <p>${roomID.value}</p>
+                    <p>${roomNumber.value}</p>
+                    <p>${clienQuantity.value}</p>
+                    <p class="add-btn delete-btn">Delete</p>
+                `
                 hideForm();
+                console.log(roomInfor);
             }
         }
 
         //formTitle.textContent = typeOfRoom.textContent;
         closeEvents.forEach(closeEvent => {
             closeEvent.addEventListener('click', () => {
-                //clientInfo.push(
-                //    clientName.value,
-                //    clientPhoneNumber.value,
-                //    clientEmail.value,
+                roomInfor.push(
+                    roomID.value,
+                    roomNumber.value,
+                    clienQuantity.value,
                 //    clientCheckIn.value,
                 //    clientCheckOut.value,
                 //    clientAdults.value,
                 //    clientChildren.value
-                //);
+                );
                 //while (clientInfo.length > 0) {
                 //    clientInfo.pop();
                 //}
@@ -463,6 +475,7 @@ if (addRoomForm) {
 }
 
 if (addServiceForm) {
+    const serviceInfor = [];
     addServiceBtn.onclick = () => {
         console.log(addServiceForm);
         addServiceForm.style.display = "flex";
@@ -472,8 +485,8 @@ if (addServiceForm) {
         //const typeOfRoom = roomNode.querySelector('.room-type');
         //const imgPath = roomNode.querySelector('.img-fluid');
 
-        //const formTitle = addServiceForm.querySelector('h2')
-        //const formImage = addServiceForm.querySelector('.room-thumb');
+        const serviceName = addServiceForm.querySelector('.service-name')
+        const serviceQuantity = addServiceForm.querySelector('.service-quantity');
         //const clientName = addServiceForm.querySelector('.client-name');
         //const clientPhoneNumber = addServiceForm.querySelector('.client-phone-number');
         //const clientEmail = addServiceForm.querySelector('.client-email');
@@ -482,8 +495,8 @@ if (addServiceForm) {
         //const clientAdults = addServiceForm.querySelector('.adults-number');
         //const clientChildren = addServiceForm.querySelector('.children-number');
 
-        //clientName.value = null;
-        //clientPhoneNumber.value = null;
+        serviceName.value = null;
+        serviceQuantity.value = null;
         //clientEmail.value = null;
         //clientCheckIn.value = null;
         //clientCheckOut.value = null;
@@ -492,10 +505,10 @@ if (addServiceForm) {
 
         //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
 
-        submitBtn.onclick = () => {
+        submitService.onclick = () => {
 
-            while (clientInfo.length > 0) {
-                clientInfo.pop();
+            while (serviceInfor.length > 0) {
+                serviceInfor.pop();
             }
             //clientInfo.push(
             //    clientName.value,
@@ -506,26 +519,34 @@ if (addServiceForm) {
             //    clientAdults.value,
             //    clientChildren.value
             //);
-            var isNull = clientInfo.every((clientValue, index) => {
+            var isNull = serviceInfor.every((clientValue, index) => {
                 return clientValue != "";
             });
             if (isNull) {
+                serviceChosen.innerHTML += `
+                    <p>${serviceName.value}</p>
+                    <p>${serviceQuantity.value}</p>
+                    <p class="add-btn delete-btn">Delete</p>
+                `
                 hideForm();
+            }
+            else {
+                console.log("error");
             }
         }
 
         //formTitle.textContent = typeOfRoom.textContent;
         closeEvents.forEach(closeEvent => {
             closeEvent.addEventListener('click', () => {
-                //clientInfo.push(
-                //    clientName.value,
-                //    clientPhoneNumber.value,
+                serviceInfor.push(
+                    serviceName.value,
+                    serviceQuantity.value,
                 //    clientEmail.value,
                 //    clientCheckIn.value,
                 //    clientCheckOut.value,
                 //    clientAdults.value,
                 //    clientChildren.value
-                //);
+                );
                 //while (clientInfo.length > 0) {
                 //    clientInfo.pop();
                 //}
