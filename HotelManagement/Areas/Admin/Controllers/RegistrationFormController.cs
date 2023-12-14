@@ -40,9 +40,9 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/RegistrationForm/Create
         public ActionResult Create()
         {
-            ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
-            ViewBag.DSPhong = new SelectList(db.Phongs, "MaLoaiPhong", "MaPhong");
-            ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
+            ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "TenLoaiPhong", "TenLoaiPhong");
+            ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
+            ViewBag.DichVu = new SelectList(db.DichVus, "TenDichVu", "TenDichVu");
             return View();
         }
 
