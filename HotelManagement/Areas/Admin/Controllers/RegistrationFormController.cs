@@ -41,6 +41,8 @@ namespace HotelManagement.Areas.Admin.Controllers
         public ActionResult Create()
         {
             ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
+            ViewBag.DSPhong = new SelectList(db.Phongs, "MaLoaiPhong", "MaPhong");
+            ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
             return View();
         }
 

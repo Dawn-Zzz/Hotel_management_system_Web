@@ -41,20 +41,57 @@
         </div>
     </div>
 
+    <label class="control-label col-md-2">Rooms</label>
+    <p class="add-btn" id="add-room-btn">Add room</p>
+    <div class="add-room-form">
+        <div class="room-container">
+            <div class="booking-room col-12 col-lg-12">
+                <i class="fa-solid fa-x close-btn"></i>
+                <form id="booking-form">
+                    <h2>Add room</h2>
+                    <div class="form-group">
+                        <label class="control-label">Room Type</label>
+                        @Html.DropDownList("MaLoaiPhong", null, htmlAttributes: new { @class = "form-control" })
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Room</label>
+                        @Html.DropDownList("DSPhong", null, htmlAttributes: new { @class = "form-control" })
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Client Quantity</label>
+                        <input class="form-control" type="number" min="1" max="4" />
+                        <span class="form-message"></span>
+                    </div>
+                    <p class="submit-form-btn">Submit</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <label class="control-label col-md-2">Services</label>
-    <div class="form-group row">
-        @*<div class="col-md-3">
-            @Html.DropDownList("MaLoaiPhong", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.PhieuThuePhongs., "", new { @class = "text-danger" })
+    <p class="add-btn" id="add-service-btn">Add service</p>
+    <div class="add-service-form">
+        <div class="service-container">
+            <div class="booking-service col-12 col-lg-12">
+                <i class="fa-solid fa-x close-btn"></i>
+                <form id="booking-form">
+                    <h2>Add Service</h2>
+                    <div class="form-group">
+                        <label class="control-label">Room Type</label>
+                        @Html.DropDownList("DichVu", null, htmlAttributes: new { @class = "form-control" })
+                        <span class="form-message"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Client Quantity</label>
+                        <input class="form-control" type="number" min="1" max="4" />
+                        <span class="form-message"></span>
+                    </div>
+                    <p class="submit-form-btn">Submit</p>
+                </form>
+            </div>
         </div>
-        <div class="col-md-3">
-            @Html.EditorFor(model => model.KhachHang.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.KhachHang.SoDienThoai, "", new { @class = "text-danger" })
-        </div>
-        <div class="col-md-3">
-            @Html.EditorFor(model => model.KhachHang.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.KhachHang.SoDienThoai, "", new { @class = "text-danger" })
-        </div>*@
     </div>
 
     <div class="form-group">

@@ -6,6 +6,14 @@ const $$ = document.querySelectorAll.bind(document);
 
 const guestTable = $('.guest-table');
 const staffTable = $('.staff-table');
+const addRoomBtn = $('#add-room-btn');
+const addServiceBtn = $('#add-service-btn');
+const addRoomForm = $('.add-room-form');
+const addServiceForm = $('.add-service-form');
+const submitBtn = $('.submit-form-btn');
+const closeEvents = $$('.close-btn, .room-form');
+const roomContainer = $('.room-container');
+const serviceContainer = $('.service-container');
 
 if (guestTable) {
     const guestApp = {
@@ -359,4 +367,185 @@ if (familyRoomList) {
             </div>
         </div>
     `
+}
+
+function hideForm() {
+    addRoomForm.style.display = "none";
+    addServiceForm.style.display = "none";
+}
+
+if (addRoomForm) {
+    addRoomBtn.onclick = () => {
+        console.log(addRoomForm);
+        addRoomForm.style.display = "flex";
+        //const roomNode = e.target.closest('.room');
+        //if (roomNode) {
+
+        //const typeOfRoom = roomNode.querySelector('.room-type');
+        //const imgPath = roomNode.querySelector('.img-fluid');
+
+        //const formTitle = addRoomForm.querySelector('h2')
+        //const formImage = addRoomForm.querySelector('.room-thumb');
+        //const clientName = addRoomForm.querySelector('.client-name');
+        //const clientPhoneNumber = addRoomForm.querySelector('.client-phone-number');
+        //const clientEmail = addRoomForm.querySelector('.client-email');
+        //const clientCheckIn = addRoomForm.querySelector('#checkin_booking');
+        //const clientCheckOut = addRoomForm.querySelector('#checkout_booking');
+        //const clientAdults = addRoomForm.querySelector('.adults-number');
+        //const clientChildren = addRoomForm.querySelector('.children-number');
+
+        //clientName.value = null;
+        //clientPhoneNumber.value = null;
+        //clientEmail.value = null;
+        //clientCheckIn.value = null;
+        //clientCheckOut.value = null;
+        //clientAdults.value = null;
+        //clientChildren.value = null;
+
+        //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
+
+        submitBtn.onclick = () => {
+
+            while (clientInfo.length > 0) {
+                clientInfo.pop();
+            }
+            //clientInfo.push(
+            //    clientName.value,
+            //    clientPhoneNumber.value,
+            //    clientEmail.value,
+            //    clientCheckIn.value,
+            //    clientCheckOut.value,
+            //    clientAdults.value,
+            //    clientChildren.value
+            //);
+            var isNull = clientInfo.every((clientValue, index) => {
+                return clientValue != "";
+            });
+            if (isNull) {
+                hideForm();
+            }
+        }
+
+        //formTitle.textContent = typeOfRoom.textContent;
+        closeEvents.forEach(closeEvent => {
+            closeEvent.addEventListener('click', () => {
+                //clientInfo.push(
+                //    clientName.value,
+                //    clientPhoneNumber.value,
+                //    clientEmail.value,
+                //    clientCheckIn.value,
+                //    clientCheckOut.value,
+                //    clientAdults.value,
+                //    clientChildren.value
+                //);
+                //while (clientInfo.length > 0) {
+                //    clientInfo.pop();
+                //}
+                hideForm();
+                //const formGroups = bookingForm.querySelectorAll(".form-group");
+                //const formMessages = bookingForm.querySelectorAll(".form-message");
+
+                //if (formGroups.length > 0) {
+                //    formGroups.forEach(formGroup => {
+                //        formGroup.classList.remove('invalid');
+                //    })
+                //    formMessages.forEach(formMessage => {
+                //        formMessage.innerText = "";
+                //    })
+                //}
+            })
+        })
+        roomContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        //}
+    }
+}
+
+if (addServiceForm) {
+    addServiceBtn.onclick = () => {
+        console.log(addServiceForm);
+        addServiceForm.style.display = "flex";
+        //const roomNode = e.target.closest('.room');
+        //if (roomNode) {
+
+        //const typeOfRoom = roomNode.querySelector('.room-type');
+        //const imgPath = roomNode.querySelector('.img-fluid');
+
+        //const formTitle = addServiceForm.querySelector('h2')
+        //const formImage = addServiceForm.querySelector('.room-thumb');
+        //const clientName = addServiceForm.querySelector('.client-name');
+        //const clientPhoneNumber = addServiceForm.querySelector('.client-phone-number');
+        //const clientEmail = addServiceForm.querySelector('.client-email');
+        //const clientCheckIn = addServiceForm.querySelector('#checkin_booking');
+        //const clientCheckOut = addServiceForm.querySelector('#checkout_booking');
+        //const clientAdults = addServiceForm.querySelector('.adults-number');
+        //const clientChildren = addServiceForm.querySelector('.children-number');
+
+        //clientName.value = null;
+        //clientPhoneNumber.value = null;
+        //clientEmail.value = null;
+        //clientCheckIn.value = null;
+        //clientCheckOut.value = null;
+        //clientAdults.value = null;
+        //clientChildren.value = null;
+
+        //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
+
+        submitBtn.onclick = () => {
+
+            while (clientInfo.length > 0) {
+                clientInfo.pop();
+            }
+            //clientInfo.push(
+            //    clientName.value,
+            //    clientPhoneNumber.value,
+            //    clientEmail.value,
+            //    clientCheckIn.value,
+            //    clientCheckOut.value,
+            //    clientAdults.value,
+            //    clientChildren.value
+            //);
+            var isNull = clientInfo.every((clientValue, index) => {
+                return clientValue != "";
+            });
+            if (isNull) {
+                hideForm();
+            }
+        }
+
+        //formTitle.textContent = typeOfRoom.textContent;
+        closeEvents.forEach(closeEvent => {
+            closeEvent.addEventListener('click', () => {
+                //clientInfo.push(
+                //    clientName.value,
+                //    clientPhoneNumber.value,
+                //    clientEmail.value,
+                //    clientCheckIn.value,
+                //    clientCheckOut.value,
+                //    clientAdults.value,
+                //    clientChildren.value
+                //);
+                //while (clientInfo.length > 0) {
+                //    clientInfo.pop();
+                //}
+                hideForm();
+                //const formGroups = bookingForm.querySelectorAll(".form-group");
+                //const formMessages = bookingForm.querySelectorAll(".form-message");
+
+                //if (formGroups.length > 0) {
+                //    formGroups.forEach(formGroup => {
+                //        formGroup.classList.remove('invalid');
+                //    })
+                //    formMessages.forEach(formMessage => {
+                //        formMessage.innerText = "";
+                //    })
+                //}
+            })
+        })
+        serviceContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+        //}
+    }
 }
