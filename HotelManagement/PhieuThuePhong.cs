@@ -22,7 +22,7 @@ namespace HotelManagement
         public string MaPhong { get; set; }
 
         [DisplayName("Number Of Guests")]
-        public Nullable<byte> SoNguoiO { get; set; }
+        public Nullable<byte> SoNguoiO { get; set; } 
     
         public virtual PhieuThue PhieuThue { get; set; }
         public virtual Phong Phong { get; set; }

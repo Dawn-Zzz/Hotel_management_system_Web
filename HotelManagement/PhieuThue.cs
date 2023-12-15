@@ -24,10 +24,10 @@ namespace HotelManagement
         }
     
         public int MaPhieu { get; set; }
+
+
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Required(ErrorMessage = "Ngày lập chưa được chọn.")]
-
         public System.DateTime? NgayLap { get; set; }
 
         [DisplayName("Check-In Date")]
@@ -36,7 +36,7 @@ namespace HotelManagement
         [Required(ErrorMessage = "Thời gian nhận phòng chưa được chọn.")]
         public System.DateTime? ThoiGianNhanPhong { get; set; }
 
-        [DisplayName("Check-In Date")]
+        [DisplayName("Check-Out Date")]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Thời gian trả phòng chưa được chọn.")]

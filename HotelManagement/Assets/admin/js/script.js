@@ -1,23 +1,21 @@
-﻿
-'use strict';
+﻿'use strict';
 
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
+const guestTable = document.querySelector('.guest-table');
+const staffTable = document.querySelector('.staff-table');
+const addRoomBtn = document.querySelector('#add-room-btn');
+const addServiceBtn = document.querySelector('#add-service-btn');
+const addRoomForm = document.querySelector('.add-room-form');
+const addServiceForm = document.querySelector('.add-service-form');
+const submitBtn = document.querySelector('.submit-form-btn');
+const submitRoom = document.querySelector('.submit-room');
+const submitService = document.querySelector('.submit-service');
+const closeEvents = document.querySelectorAll('.close-btn, .room-form');
+const roomContainer = document.querySelector('.room-container');
+const serviceContainer = document.querySelector('.service-container');
+const roomChosen = document.querySelector('.room-chosen');
+const serviceChosen = document.querySelector('.service-chosen');
 
-const guestTable = $('.guest-table');
-const staffTable = $('.staff-table');
-const addRoomBtn = $('#add-room-btn');
-const addServiceBtn = $('#add-service-btn');
-const addRoomForm = $('.add-room-form');
-const addServiceForm = $('.add-service-form');
-const submitBtn = $('.submit-form-btn'); 
-const submitRoom = $('.submit-room');
-const submitService = $('.submit-service');
-const closeEvents = $$('.close-btn, .room-form');
-const roomContainer = $('.room-container');
-const serviceContainer = $('.service-container');
-const roomChosen = $('.room-chosen');
-const serviceChosen = $('.service-chosen');
+console.log(addRoomBtn);
 
 if (guestTable) {
     const guestApp = {
@@ -131,7 +129,7 @@ if (guestTable) {
             const guestslist = this.guests.map((guest, index) => {
                 return `
                     <tr>
-                        <td>${index+1}</td>
+                        <td>${index + 1}</td>
                         <td>${guest.name}</td>
                         <td>${guest.room}</td>
                         <td>${guest.phoneNumber}</td>
@@ -215,7 +213,7 @@ if (staffTable) {
             const staffslist = this.staffs.map((staff, index) => {
                 return `
                     <tr>
-                        <td>${index+1}</td>
+                        <td>${index + 1}</td>
                         <td>${staff.name}</td>
                         <td>${staff.indentification}</td>
                         <td>${staff.phoneNumber}</td>
@@ -234,7 +232,7 @@ if (staffTable) {
     staffApp.start();
 }
 
-const familyRoomList = $('.family-room-list');
+const familyRoomList = document.querySelector('.family-room-list');
 if (familyRoomList) {
     //const roomApp = {
     //    rooms: [
@@ -401,7 +399,7 @@ if (addRoomForm) {
 
         roomID.value = null;
         roomNumber.value = null;
-        clienQuantity.value = 0 ;
+        clienQuantity.value = 0;
         //clientCheckIn.value = null;
         //clientCheckOut.value = null;
         //clientAdults.value = null;
@@ -418,15 +416,24 @@ if (addRoomForm) {
                 roomID.value,
                 roomNumber.value,
                 clienQuantity.value,
-            //    clientCheckIn.value,
-            //    clientCheckOut.value,
-            //    clientAdults.value,
-            //    clientChildren.value
+                //    clientCheckIn.value,
+                //    clientCheckOut.value,
+                //    clientAdults.value,
+                //    clientChildren.value
             );
             var isNull = roomInfor.every((clientValue, index) => {
                 return clientValue != "";
             });
             if (isNull) {
+                $.ajax({
+                    url: 'AddBookRoom',
+                    type: 'POST',
+                    data: {
+                        maPhong: roomNumber.value,
+                        soNguoiO: clienQuantity.value
+                    },
+                });
+
                 roomChosen.innerHTML += `
                     <p>${roomID.value}</p>
                     <p>${roomNumber.value}</p>
@@ -445,10 +452,10 @@ if (addRoomForm) {
                     roomID.value,
                     roomNumber.value,
                     clienQuantity.value,
-                //    clientCheckIn.value,
-                //    clientCheckOut.value,
-                //    clientAdults.value,
-                //    clientChildren.value
+                    //    clientCheckIn.value,
+                    //    clientCheckOut.value,
+                    //    clientAdults.value,
+                    //    clientChildren.value
                 );
                 //while (clientInfo.length > 0) {
                 //    clientInfo.pop();
@@ -541,11 +548,11 @@ if (addServiceForm) {
                 serviceInfor.push(
                     serviceName.value,
                     serviceQuantity.value,
-                //    clientEmail.value,
-                //    clientCheckIn.value,
-                //    clientCheckOut.value,
-                //    clientAdults.value,
-                //    clientChildren.value
+                    //    clientEmail.value,
+                    //    clientCheckIn.value,
+                    //    clientCheckOut.value,
+                    //    clientAdults.value,
+                    //    clientChildren.value
                 );
                 //while (clientInfo.length > 0) {
                 //    clientInfo.pop();

@@ -55,7 +55,6 @@ namespace HotelManagement.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 db.NhanViens.Add(nhanVien);
-                
 
                 taiKhoannv.MaNhanVien = nhanVien.MaNhanVien;
 

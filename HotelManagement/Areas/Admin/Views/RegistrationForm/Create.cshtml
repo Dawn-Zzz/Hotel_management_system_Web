@@ -7,108 +7,127 @@
 
 <h2>Create</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>PhieuThue</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-horizontal">
+        <h4>PhieuThue</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ThoiGianNhanPhong, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ThoiGianNhanPhong, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ThoiGianNhanPhong, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThoiGianNhanPhong, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ThoiGianNhanPhong, new { htmlAttributes = new { @class = "form-control", id = "checkIn" } })
+                @Html.ValidationMessageFor(model => model.ThoiGianNhanPhong, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ThoiGianTraPhong, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ThoiGianTraPhong, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ThoiGianTraPhong, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.ThoiGianTraPhong, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ThoiGianTraPhong, new { htmlAttributes = new { @class = "form-control", id = "checkOut" } })
+                @Html.ValidationMessageFor(model => model.ThoiGianTraPhong, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.KhachHang.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.KhachHang.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.KhachHang.SoDienThoai, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.KhachHang.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.KhachHang.SoDienThoai, new { htmlAttributes = new { @class = "form-control" }})
+                @Html.ValidationMessageFor(model => model.KhachHang.SoDienThoai, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <label class="control-label col-md-2">Rooms</label>
-    <div class="room-chosen">
+        <label class="control-label col-md-2">Rooms</label>
+        <div class="room-chosen">
 
-    </div>
-    <p class="add-btn" id="add-room-btn">Add room</p>
-    <div class="add-room-form">
-        <div class="room-container">
-            <div class="booking-room col-12 col-lg-12">
-                <i class="fa-solid fa-x close-btn"></i>
-                <form id="booking-form">
-                    <h2>Add room</h2>
-                    <div class="form-group">
-                        <label class="control-label">Room Type</label>
-                        @Html.DropDownList("MaLoaiPhong", null, htmlAttributes: new { @class = "form-control room-id" })
-                        <span class="form-message"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Room</label>
-                        @Html.DropDownList("DSPhong", null, htmlAttributes: new { @class = "form-control room-number" })
-                        <span class="form-message"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Client Quantity</label>
-                        <input class="form-control clien-quantity" type="number" min="1" max="4" />
-                        <span class="form-message"></span>
-                    </div>
-                    <p class="submit-form-btn submit-room">Submit</p>
-                </form>
+        </div>
+        <p class="add-btn" id="add-room-btn">Add room</p>
+        <div class="add-room-form">
+            <div class="room-container">
+                <div class="booking-room col-12 col-lg-12">
+                    <i class="fa-solid fa-x close-btn"></i>
+                    @*<form id="booking-form">
+                            <h2>Add room</h2>
+                            <div class="form-group">
+                                <label class="control-label">Room Type</label>
+                              @Html.DropDownList("MaLoaiPhong", null , htmlAttributes: new { @class = "form-control room-id", @onchange = "getVal()", id = "roomType"})
+                                <span class="form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Room</label>
+                                @Html.DropDownList("DSPhong", null, htmlAttributes: new { @class = "form-control room-number", id = "roomNumber" })
+                                <span class="form-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Client Quantity</label>
+                                <input class="form-control clien-quantity" type="number" min="1" max="4" />
+                                <span class="form-message"></span>
+                            </div>
+                            <p class="submit-form-btn submit-room">Submit</p>
+                        </form>*@
+                </div>
+            </div>
+        </div>
+
+        <label class="control-label col-md-2">Services</label>
+        <div class="service-chosen">
+
+        </div>
+        <p class="add-btn" id="add-service-btn">Add service</p>
+        <div class="add-service-form">
+            <div class="service-container">
+                <div class="booking-service col-12 col-lg-12">
+                    <i class="fa-solid fa-x close-btn"></i>
+                    @*<form id="booking-form">
+                        <h2>Add Service</h2>
+                        <div class="form-group">
+                            <label class="control-label">Room Type</label>
+                            @Html.DropDownList("DichVu", null, htmlAttributes: new { @class = "form-control service-name" })
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Client Quantity</label>
+                            <input class="form-control service-quantity" type="number" min="1" max="4" />
+                            <span class="form-message"></span>
+                        </div>
+                        <p class="submit-form-btn submit-service">Submit</p>
+                    </form>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
     </div>
-
-    <label class="control-label col-md-2">Services</label>
-    <div class="service-chosen">
-
-    </div>
-    <p class="add-btn" id="add-service-btn">Add service</p>
-    <div class="add-service-form">
-        <div class="service-container">
-            <div class="booking-service col-12 col-lg-12">
-                <i class="fa-solid fa-x close-btn"></i>
-                <form id="booking-form">
-                    <h2>Add Service</h2>
-                    <div class="form-group">
-                        <label class="control-label">Room Type</label>
-                        @Html.DropDownList("DichVu", null, htmlAttributes: new { @class = "form-control service-name" })
-                        <span class="form-message"></span>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">Client Quantity</label>
-                        <input class="form-control service-quantity" type="number" min="1" max="4" />
-                        <span class="form-message"></span>
-                    </div>
-                    <p class="submit-form-btn submit-service">Submit</p>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 
 
     <div>
         @Html.ActionLink("Back to List", "Index")
     </div>
 }
+<script>
+    // Sự kiện khi giá trị của combobox "Room Type" thay đổi
+    function getVal() {
+        // Lấy giá trị đã chọn từ combobox "Room Type"
+        $.ajax({
+            url: '/RegistrationForm/GetRoomsByRoomTypeID',
+            type: 'GET',
+            data: { maLoaiPhong: $("#roomType").val(), checkIn: $("#checkIn").val(), checkOut: $("#checkOut").val() },
+            success: function (data) {
+
+                $("#roomNumber").empty();
+
+                // Thêm danh sách phòng mới vào combobox "Room"
+                for (var i = 0; i < data.length; i++) {
+                    $("#roomNumber").append('<option value="' + data[i] + '">' + data[i] + '</option>');
+                }
+            }
+        });
+    }
+</script>
