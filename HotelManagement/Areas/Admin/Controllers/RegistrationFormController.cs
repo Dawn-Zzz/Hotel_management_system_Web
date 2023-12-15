@@ -52,13 +52,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaPhieu,NgayLap,ThoiGianNhanPhong,ThoiGianTraPhong,HienTrang,MaKhachHang")] PhieuThue phieuThue)
+        public ActionResult Create([Bind(Include = "MaPhieu,NgayLap,ThoiGianNhanPhong,ThoiGianTraPhong,HienTrang,MaKhachHang")] PhieuThue phieuThue, string phoneNumber)
         {
             if (ModelState.IsValid)
             {
-                phieuThue.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phieuThue.KhachHang.SoDienThoai).Select(kh => kh.MaKhachHang).FirstOrDefault();
+                phieuThue.NgayLap = DateTime.Now.Date;
+                phieuThue.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).Select(kh => kh.MaKhachHang).FirstOrDefault();
                 phieuThue.HienTrang = "Chưa nhận phòng";
-                phieuThue.NgayLap = DateTime.Today;
+                
                 db.PhieuThues.Add(phieuThue);
                 db.SaveChanges();
                 return RedirectToAction("Index");
