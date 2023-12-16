@@ -39,6 +39,7 @@ namespace HotelManagement
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Ngày sinh khách hàng chưa được chọn.")]
+        [CustomValidation(typeof(NhanVien), "ValidateDateOfBirth")]
         public System.DateTime? NgaySinh { get; set; }
 
         [DisplayName("Job Title")]
@@ -48,5 +49,30 @@ namespace HotelManagement
         public virtual ICollection<HoaDon> HoaDons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TaiKhoanNV> TaiKhoanNVs { get; set; }
+
+        public static ValidationResult ValidateDateOfBirth(DateTime? ngaySinh, ValidationContext context)
+        {
+            if (ngaySinh.HasValue)
+            {
+                DateTime currentDate = DateTime.Now;
+
+                // Tính toán số tuổi
+                int age = currentDate.Year - ngaySinh.Value.Year;
+
+                // Kiểm tra nếu ngày sinh sau ngày hiện tại thì giảm tuổi đi 1
+                if (ngaySinh.Value.Date > currentDate.Date)
+                {
+                    age--;
+                }
+
+                // Kiểm tra nếu tuổi nhỏ hơn 18
+                if (age < 18)
+                {
+                    return new ValidationResult("Nhân viên phải đủ 18 tuổi trở lên.");
+                }
+            }
+
+            return ValidationResult.Success;
+        }
     }
 }
