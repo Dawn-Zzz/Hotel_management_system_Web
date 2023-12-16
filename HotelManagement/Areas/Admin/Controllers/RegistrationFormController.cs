@@ -93,17 +93,23 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaPhieu,NgayLap,ThoiGianNhanPhong,ThoiGianTraPhong,HienTrang,MaKhachHang")] PhieuThue phieuThue)
+        public ActionResult Edit(int MaPhieu, string HienTrang)
         {
-            if (ModelState.IsValid)
+            PhieuThue phieuThue = db.PhieuThues.Find(MaPhieu);
+
+            if (phieuThue == null)
             {
-                db.Entry(phieuThue).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return HttpNotFound();
             }
-            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
-            
-            return View(phieuThue);
+
+            phieuThue.HienTrang = HienTrang;
+
+            db.PhieuThues.Attach(phieuThue);
+            db.Entry(phieuThue).Property(x => x.HienTrang).IsModified = true;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Admin/RegistrationForm/Delete/5

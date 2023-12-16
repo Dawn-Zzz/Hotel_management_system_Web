@@ -67,11 +67,19 @@
                 @Html.DisplayFor(modelItem => item.HienTrang)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MaPhieu }) |
-                @Html.ActionLink("Details", "Details", new { id = item.MaPhieu }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.MaPhieu })
+                @if (item.HienTrang == "Đã trả phòng" || item.HienTrang == "Đã hủy phòng")
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.MaPhieu })
+                }
+                else
+                {
+                    @: @Html.ActionLink("Edit", "Edit", new { id = item.MaPhieu }) |
+
+                    @: @Html.ActionLink("Details", "Details", new { id = item.MaPhieu }) |
+
+                    @: @Html.ActionLink("Delete", "Delete", new { id = item.MaPhieu })
+                }
             </td>
         </tr>
     }
-
 </table>

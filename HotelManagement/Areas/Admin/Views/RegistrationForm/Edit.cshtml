@@ -20,7 +20,16 @@
         <div class="form-group">
             @Html.LabelFor(model => model.HienTrang, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.HienTrang, new { htmlAttributes = new { @class = "form-control" } })
+                @if (Model.HienTrang == "Chưa nhận phòng")
+                {
+                    var hienTrangOptions = new SelectList(new List<string> { "Đã nhận phòng", "Đã hủy phòng" });
+                    @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control" })
+                }
+                else
+                {
+                    var hienTrangOptions = new SelectList(new List<string> { "Đã trả phòng" });
+                    @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control", @readonly = "readonly" })
+                }
                 @Html.ValidationMessageFor(model => model.HienTrang, "", new { @class = "text-danger" })
             </div>
         </div>

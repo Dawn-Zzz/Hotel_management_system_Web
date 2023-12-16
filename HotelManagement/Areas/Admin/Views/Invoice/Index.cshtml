@@ -45,6 +45,8 @@
     </tr>
     @foreach (var item in Model)
     {
+        if (item.PhieuThue.HienTrang == "Đã trả phòng")
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.MaHoaDon)
@@ -77,6 +79,6 @@
                 @Html.ActionLink("Details", "Details", new { id = item.MaHoaDon.Trim() })
             </td>
         </tr>
+        }
     }
-
 </table>
