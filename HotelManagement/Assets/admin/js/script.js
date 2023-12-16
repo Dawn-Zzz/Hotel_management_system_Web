@@ -433,15 +433,35 @@ if (addRoomForm) {
                         soNguoiO: clienQuantity.value
                     },
                 });
+                var newBlock = document.createElement('div');
 
-                roomChosen.innerHTML += `
-                    <p>${roomID.value}</p>
-                    <p>${roomNumber.value}</p>
-                    <p>${clienQuantity.value}</p>
-                    <p class="add-btn delete-btn">Delete</p>
-                `
+                var roomIDValue = document.createElement('p');
+                var roomNumberValue = document.createElement('p');
+                var clientQuantityValue = document.createElement('p');
+
+                roomIDValue.innerHTML = roomID.value;
+                roomNumberValue.innerHTML = roomNumber.value;
+                clientQuantityValue.innerHTML = clienQuantity.value;
+
+                newBlock.className = 'roomBlock';
+
+                var deleteBtn = document.createElement('p');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.className = 'add-btn';
+                deleteBtn.innerHTML = 'Delete';
+
+                deleteBtn.onclick = () => {
+                    roomChosen.removeChild(newBlock);
+                }
+
+                newBlock.appendChild(roomIDValue);
+                newBlock.appendChild(roomNumberValue);
+                newBlock.appendChild(clientQuantityValue);
+                newBlock.appendChild(deleteBtn);
+
                 hideForm();
-                console.log(roomInfor);
+
+                roomChosen.appendChild(newBlock);
             }
         }
 
@@ -530,12 +550,32 @@ if (addServiceForm) {
                 return clientValue != "";
             });
             if (isNull) {
-                serviceChosen.innerHTML += `
-                    <p>${serviceName.value}</p>
-                    <p>${serviceQuantity.value}</p>
-                    <p class="add-btn delete-btn">Delete</p>
-                `
+                var newBlock = document.createElement('div');
+
+                var serviceNameValue = document.createElement('p');
+                var serviceQuantityValue = document.createElement('p');
+
+                serviceNameValue.innerHTML = serviceName.value;
+                serviceQuantityValue.innerHTML = serviceQuantity.value;
+
+                newBlock.className = 'serviceBlock';
+
+                var deleteBtn = document.createElement('p');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.className = 'add-btn';
+                deleteBtn.innerHTML = 'Delete';
+
+                deleteBtn.onclick = () => {
+                    serviceChosen.removeChild(newBlock);
+                }
+
+                newBlock.appendChild(serviceNameValue);
+                newBlock.appendChild(serviceQuantityValue);
+                newBlock.appendChild(deleteBtn);
+
                 hideForm();
+
+                serviceChosen.appendChild(newBlock);
             }
             else {
                 console.log("error");
