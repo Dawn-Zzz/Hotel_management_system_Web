@@ -61,6 +61,19 @@ namespace HotelManagement.Areas.Admin.Controllers
                 phieuThue.HienTrang = "Chưa nhận phòng";
                 
                 db.PhieuThues.Add(phieuThue);
+                var listPhong = Session["listPhong"] as List<PhieuThuePhong>;
+                foreach (var phong in listPhong)
+                {
+                    var newPhieuThuePhong = new PhieuThuePhong
+                    {
+                        MaPhieu = phieuThue.MaPhieu,
+                        MaPhong = phong.MaPhong,
+                        SoNguoiO = phong.SoNguoiO
+                    };
+
+                    db.PhieuThuePhongs.Add(newPhieuThuePhong);
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
