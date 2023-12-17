@@ -43,7 +43,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
             ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
-            ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
+            
             return View();
         }
 
@@ -79,7 +79,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             }
             ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
             ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
-            ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
+            
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
             return View(phieuThue);
         }
@@ -97,7 +97,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
-            
+            ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
             return View(phieuThue);
         }
 
@@ -121,8 +121,9 @@ namespace HotelManagement.Areas.Admin.Controllers
             db.Entry(phieuThue).Property(x => x.HienTrang).IsModified = true;
 
             db.SaveChanges();
-
+            ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
             return RedirectToAction("Index");
+            
         }
 
         // GET: Admin/RegistrationForm/Delete/5

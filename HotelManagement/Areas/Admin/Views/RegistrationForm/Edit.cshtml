@@ -12,34 +12,65 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>PhieuThue</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.MaPhieu)
-        <div class="form-group">
-            @Html.LabelFor(model => model.HienTrang, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @if (Model.HienTrang == "Chưa nhận phòng")
-                {
-                    var hienTrangOptions = new SelectList(new List<string> { "Đã nhận phòng", "Đã hủy phòng" });
-                    @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control" })
-                }
-                else
-                {
-                    var hienTrangOptions = new SelectList(new List<string> { "Đã trả phòng" });
-                    @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control", @readonly = "readonly" })
-                }
-                @Html.ValidationMessageFor(model => model.HienTrang, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+<div class="form-horizontal">
+    <h4>PhieuThue</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaPhieu)
+    <div class="form-group">
+        @Html.LabelFor(model => model.HienTrang, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @if (Model.HienTrang == "Chưa nhận phòng")
+            {
+                var hienTrangOptions = new SelectList(new List<string> { "Đã nhận phòng", "Đã hủy phòng" });
+                @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control" })
+            }
+            else
+            {
+                var hienTrangOptions = new SelectList(new List<string> { "Đã trả phòng" });
+                @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control", @readonly = "readonly" })
+            }
+            @Html.ValidationMessageFor(model => model.HienTrang, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    @if (Model.HienTrang == "Đã nhận phòng")
+    {
+        <label class="control-label col-md-2">Services</label>
+        <div class="service-chosen">
+
+        </div>
+        <p class="add-btn" id="add-service-btn">Add service</p>
+        <div class="add-service-form">
+            <div class="service-container">
+                <div class="booking-service col-12 col-lg-12">
+                    <i class="fa-solid fa-x close-btn"></i>
+                    <form id="booking-form">
+                        <h2>Add Service</h2>
+                        <div class="form-group">
+                            <label class="control-label">Room Type</label>
+                            @Html.DropDownList("DichVu", null, htmlAttributes: new { @class = "form-control service-name" })
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Client Quantity</label>
+                            <input class="form-control service-quantity" type="number" min="1" max="4" />
+                            <span class="form-message"></span>
+                        </div>
+                        <p class="submit-form-btn submit-service">Submit</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
