@@ -5,7 +5,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+
+
+<h2 class="card-title title ml-32">Guests List</h2>
 
 @using (Html.BeginForm("Search", "Guest", FormMethod.Get, new { @class = "search-form" }))
 {
@@ -25,8 +27,8 @@
     <input type="submit" value=" Tìm " name="name" />
 } -->
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="ml-32 mt-32 mb-24">
+    @Html.ActionLink("Add New Guest", "Create", "Guest", null, new { @class = "create-btn" })
 </p>
 <table class="table">
     <tr>

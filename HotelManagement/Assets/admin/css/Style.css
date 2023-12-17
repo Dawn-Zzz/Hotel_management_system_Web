@@ -1,4 +1,45 @@
-﻿.navbar {
+﻿.ml-0 {
+    margin-left: 0 !important;
+}
+
+.ml-16 {
+    margin-left: 16px;
+}
+
+.ml-32 {
+    margin-left: 32px;
+}
+
+.mt-32 {
+    margin-top: 32px;
+}
+
+.mb-24 {
+    margin-bottom: 24px;
+}
+
+.pl-12 {
+    padding-left: 12px;
+}
+
+.title {
+    font-weight: 700;
+}
+
+.create-btn {
+    padding: 8px 16px;
+    color: #fff;
+    background-color: #4e73df;
+    border-radius: 6px;
+}
+
+    .create-btn:hover {
+        color: #fff;
+        text-decoration: none;
+        opacity: .8;
+    }
+
+.navbar {
     position: fixed;
     top: 0;
     right: 0;
@@ -12,7 +53,6 @@
 }
 
 .sticky-footer {
-    
 }
 
 .render-body-section {
@@ -41,12 +81,12 @@
     text-decoration: none;
 }
 
-.acction-link:hover {
-    color: #ccc;
-    text-decoration: none;
-}
+    .acction-link:hover {
+        color: #ccc;
+        text-decoration: none;
+    }
 
-.table tbody th:first-child, td:first-child{
+.table tbody th:first-child, td:first-child {
     padding-left: 40px
 }
 
@@ -214,6 +254,10 @@
 .form-group.invalid .form-message {
     color: #f33a58;
     font-size: .75rem;
+}
+
+.form-group {
+    margin-left: 32px;
 }
 
 @keyframes modalFaceIn {

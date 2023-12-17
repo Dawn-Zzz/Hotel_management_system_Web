@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="card-title title ml-32">Invoices List</h2>
 
 @using (Html.BeginForm("Search", "Invoice", FormMethod.Get, new { @class = "search-form" }))
 {
@@ -20,10 +20,9 @@
     </div>
 }
 
-
 @*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
 <table class="table">
     <tr>
         <th>
@@ -47,38 +46,38 @@
     {
         if (item.PhieuThue.HienTrang == "Đã trả phòng")
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaHoaDon)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
-            </td>
-            <td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaHoaDon)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
+                </td>
+                <td>
 
-                @{
-                    var tongTien = item.TienPhong + item.TienDichVu;
-                    if (item.TienDichVu == null)
-                    {
-                        tongTien = item.TienPhong;
+                    @{
+                        var tongTien = item.TienPhong + item.TienDichVu;
+                        if (item.TienDichVu == null)
+                        {
+                            tongTien = item.TienPhong;
+                        }
+                        else
+                        {
+                            tongTien = item.TienDichVu + item.TienPhong;
+                        }
                     }
-                    else
-                    {
-                        tongTien = item.TienDichVu + item.TienPhong;
-                    }
-                }
-                @tongTien
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgayLapHoaDon)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.MaHoaDon.Trim() })
-            </td>
-        </tr>
+                    @tongTien
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayLapHoaDon)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.MaHoaDon.Trim() })
+                </td>
+            </tr>
         }
     }
 </table>

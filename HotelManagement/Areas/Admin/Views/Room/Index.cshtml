@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="title title ml-32">Room List</h2>
 
 @using (Html.BeginForm("Search", "Room", FormMethod.Get, new { @class = "search-form" }))
 {
@@ -20,8 +20,8 @@
 }
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="ml-32 mt-32 mb-24">
+    @Html.ActionLink("Add New Room", "Create", "Room", null, new { @class = "create-btn" })
 </p>
 <div class="row family-room-list">
     @foreach (var item in Model)
@@ -50,9 +50,11 @@
                                     @Html.DisplayFor(modelItem => item.LoaiPhong.TenLoaiPhong)
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">@Html.DisplayFor(modelItem => item.MaPhong)</div>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.MaPhong.Trim() }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.MaPhong.Trim() }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.MaPhong.Trim() })
+                                <div>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.MaPhong.Trim() }) 
+                                    @Html.ActionLink("Details", "Details", new { id = item.MaPhong.Trim() }) 
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.MaPhong.Trim() })
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fa-solid fa-circle-minus fa-2x text-gray-300"></i>
@@ -73,9 +75,11 @@
                                     @Html.DisplayFor(modelItem => item.LoaiPhong.TenLoaiPhong)
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">@Html.DisplayFor(modelItem => item.MaPhong)</div>
-                                @Html.ActionLink("Edit", "Edit", new { id = item.MaPhong.Trim() }) |
-                                @Html.ActionLink("Details", "Details", new { id = item.MaPhong.Trim() }) |
-                                @Html.ActionLink("Delete", "Delete", new { id = item.MaPhong.Trim() })
+                                <div>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.MaPhong.Trim() })
+                                    @Html.ActionLink("Details", "Details", new { id = item.MaPhong.Trim() })
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.MaPhong.Trim() })
+                                </div>
                             </div>
                             <div class="col-auto">
                                 <i class="fa-solid fa-circle-xmark fa-2x text-gray-300"></i>

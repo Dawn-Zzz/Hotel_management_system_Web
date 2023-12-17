@@ -5,18 +5,17 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
+<h2 class="card-title title ml-32">Add New Registration Form</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>PhieuThue</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
+        <div class="form-group ml-0">
             @Html.LabelFor(model => model.ThoiGianNhanPhong, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ThoiGianNhanPhong, new { htmlAttributes = new { @class = "form-control", id = "checkIn" } })
@@ -24,7 +23,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group ml-0">
             @Html.LabelFor(model => model.ThoiGianTraPhong, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.ThoiGianTraPhong, new { htmlAttributes = new { @class = "form-control", id = "checkOut" } })
@@ -32,7 +31,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group ml-0">
             @Html.LabelFor(model => model.KhachHang.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.KhachHang.SoDienThoai, new { htmlAttributes = new { @class = "form-control", Name = "phoneNumber" } })
@@ -51,17 +50,17 @@
                     <i class="fa-solid fa-x close-btn"></i>
                     <form id="booking-form">
                         <h2>Add room</h2>
-                        <div class="form-group">
+                        <div class="form-group ml-0">
                             <label class="control-label">Room Type</label>
                             @Html.DropDownList("MaLoaiPhong", null, htmlAttributes: new { @class = "form-control room-id", @onchange = "getVal()", id = "roomType" })
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group ml-0">
                             <label class="control-label">Room</label>
                             @Html.DropDownList("DSPhong", null, htmlAttributes: new { @class = "form-control room-number", id = "roomNumber" })
                             <span class="form-message"></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group ml-0">
                             <label class="control-label">Client Quantity</label>
                             <input class="form-control clien-quantity" type="number" min="1" max="4" />
                             <span class="form-message"></span>
@@ -74,7 +73,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default create-btn" />
             </div>
         </div>
     </div>

@@ -372,8 +372,10 @@ if (familyRoomList) {
 }
 
 function hideForm() {
-    addRoomForm.style.display = "none";
-    //addServiceForm.style.display = "none";
+    if (addRoomForm)
+        addRoomForm.style.display = "none";
+    if (addServiceForm)
+        addServiceForm.style.display = "none";
 }
 
 if (addRoomForm) {

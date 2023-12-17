@@ -5,9 +5,9 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2 class="card-title title ml-32">Staff List</h2>
 
-@using (Html.BeginForm("Search", "Staff", FormMethod.Get, new {@class = "search-form" }))
+@using (Html.BeginForm("Search", "Staff", FormMethod.Get, new { @class = "search-form" }))
 {
     <div class="input-group">
         <div class="form-outline">
@@ -20,8 +20,8 @@
 }
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="ml-32 mt-32 mb-24">
+    @Html.ActionLink("Create New", "Create", "Staff", null, new { @class = "create-btn" })
 </p>
 <table class="table">
     <tr>

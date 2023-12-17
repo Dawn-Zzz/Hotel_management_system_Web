@@ -4,8 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
+<h2 class="card-title title ml-32">Services List</h2>
 
 @using (Html.BeginForm("Search", "Service", FormMethod.Get, new { @class = "search-form" }))
 {
@@ -15,13 +14,13 @@
             @Html.TextBox("tenDV", null, new { @class = "form-control bg-light border-0 small" })
         </div>
 
-        <input type="submit" value=" Tìm " tenDV="tenDV" class="btn btn-primary"/>
+        <input type="submit" value=" Tìm " tenDV="tenDV" class="btn btn-primary" />
     </div>
 }
 
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<p class="ml-32 mt-32 mb-24">
+    @Html.ActionLink("Create New", "Create", "Service", null, new { @class = "create-btn" })
 </p>
 <table class="table">
     <tr>
