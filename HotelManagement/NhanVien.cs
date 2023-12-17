@@ -13,6 +13,7 @@ namespace HotelManagement
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
 
     public partial class NhanVien
     {
@@ -27,18 +28,23 @@ namespace HotelManagement
         public int MaNhanVien { get; set; }
 
         [DisplayName("ID Number")]
+        [Required(ErrorMessage = "CCCD không được bỏ trống")]
+        [CustomValidation(typeof(NhanVien), "ValidateCCCDAndPhone")]
         public string CCCD { get; set; }
 
         [DisplayName("Phone Number")]
+        [Required(ErrorMessage = "Số điện thoại không được bỏ trống")]
+        [CustomValidation(typeof(NhanVien), "ValidateCCCDAndPhone")]
         public string SoDienThoai { get; set; }
 
         [DisplayName("Staff Name")]
+        [Required(ErrorMessage = "Tên nhân viên không được bỏ trống")]
         public string TenNhanVien { get; set; }
 
         [DisplayName("Date Of Birth")]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-        [Required(ErrorMessage = "Ngày sinh khách hàng chưa được chọn.")]
+        [Required(ErrorMessage = "Ngày sinh nhân viên chưa được chọn.")]
         [CustomValidation(typeof(NhanVien), "ValidateDateOfBirth")]
         public System.DateTime? NgaySinh { get; set; }
 
@@ -69,6 +75,47 @@ namespace HotelManagement
                 if (age < 18)
                 {
                     return new ValidationResult("Nhân viên phải đủ 18 tuổi trở lên.");
+                }
+            }
+
+            return ValidationResult.Success;
+        }
+
+        public static ValidationResult ValidateCCCDAndPhone(string value, ValidationContext context)
+        {
+            string fieldValue = value;
+            string propertyName = context.MemberName;
+            string violationMessage = "";
+
+            if ((propertyName == "CCCD" || propertyName == "SoDienThoai") && !string.IsNullOrEmpty(fieldValue))
+            {
+                NhanVien employee = context.ObjectInstance as NhanVien;
+
+                Hotel_ManagementEntities dbContext = new Hotel_ManagementEntities();
+                var employees = dbContext.NhanViens.ToList();
+
+                if (employees != null)
+                {
+                    NhanVien existingEmployeeCCCD = employees.FirstOrDefault(e =>
+                        propertyName == "CCCD" && e.CCCD == fieldValue && e.MaNhanVien != employee.MaNhanVien);
+
+                    NhanVien existingEmployeePhone = employees.FirstOrDefault(e =>
+                        propertyName == "SoDienThoai" && e.SoDienThoai == fieldValue && e.MaNhanVien != employee.MaNhanVien);
+
+                    if (existingEmployeeCCCD != null)
+                    {
+                        violationMessage += "CCCD đã tồn tại cho nhân viên khác. ";
+                    }
+
+                    if (existingEmployeePhone != null)
+                    {
+                        violationMessage += "Số điện thoại đã tồn tại cho nhân viên khác. ";
+                    }
+
+                    if (!string.IsNullOrEmpty(violationMessage))
+                    {
+                        return new ValidationResult(violationMessage.Trim());
+                    }
                 }
             }
 
