@@ -50,24 +50,24 @@
                 <div class="booking-room col-12 col-lg-12">
                     <i class="fa-solid fa-x close-btn"></i>
                     <form id="booking-form">
-                            <h2>Add room</h2>
-                            <div class="form-group">
-                                <label class="control-label">Room Type</label>
-                              @Html.DropDownList("MaLoaiPhong", null , htmlAttributes: new { @class = "form-control room-id", @onchange = "getVal()", id = "roomType"})
-                                <span class="form-message"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Room</label>
-                                @Html.DropDownList("DSPhong", null, htmlAttributes: new { @class = "form-control room-number", id = "roomNumber" })
-                                <span class="form-message"></span>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">Client Quantity</label>
-                                <input class="form-control clien-quantity" type="number" min="1" max="4" />
-                                <span class="form-message"></span>
-                            </div>
-                            <p class="submit-form-btn submit-room">Submit</p>
-                        </form>
+                        <h2>Add room</h2>
+                        <div class="form-group">
+                            <label class="control-label">Room Type</label>
+                            @Html.DropDownList("MaLoaiPhong", null, htmlAttributes: new { @class = "form-control room-id", @onchange = "getVal()", id = "roomType" })
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Room</label>
+                            @Html.DropDownList("DSPhong", null, htmlAttributes: new { @class = "form-control room-number", id = "roomNumber" })
+                            <span class="form-message"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Client Quantity</label>
+                            <input class="form-control clien-quantity" type="number" min="1" max="4" />
+                            <span class="form-message"></span>
+                        </div>
+                        <p class="submit-form-btn submit-room">Submit</p>
+                    </form>
                 </div>
             </div>
         </div>
@@ -103,4 +103,29 @@
             }
         });
     }
+
+    //===================== Hàm Làm mới danh sách sách mượn =====================
+   function resetListPhong() {
+       $.ajax({
+           url: '@Url.Action("ResetListPhong", "RegistrationForm")',
+           type: 'POST',
+           //success: function (data) {
+           //    if (data.success) {
+           //        // Cập nhật giao diện
+           //        var danhSachSachMuon = document.getElementById("danhSachSachMuon");
+           //        danhSachSachMuon.innerHTML = "";
+
+           //        document.getElementById("MaThe").value = "";
+           //        document.getElementById("Name").value = "";
+           //        document.getElementById("SDT").value = "";
+           //        document.getElementById("HanTra").value = "-- Chọn hạn trả --";
+           //    }
+           //}
+       });
+   }
+
+    //=====================  Xử lý khi load lại trang  =====================
+        document.addEventListener("DOMContentLoaded", function () {
+            resetListPhong();
+        });
 </script>

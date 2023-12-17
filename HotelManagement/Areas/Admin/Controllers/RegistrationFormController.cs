@@ -43,7 +43,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
             ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
-            
+
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 phieuThue.NgayLap = DateTime.Now.Date;
                 phieuThue.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).Select(kh => kh.MaKhachHang).FirstOrDefault();
                 phieuThue.HienTrang = "Chưa nhận phòng";
-                
+
                 db.PhieuThues.Add(phieuThue);
                 var listPhong = Session["listPhong"] as List<PhieuThuePhong>;
                 foreach (var phong in listPhong)
@@ -79,7 +79,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             }
             ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
             ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
-            
+
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
             return View(phieuThue);
         }
@@ -123,7 +123,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             db.SaveChanges();
             ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
             return RedirectToAction("Index");
-            
+
         }
 
         // GET: Admin/RegistrationForm/Delete/5
@@ -173,8 +173,8 @@ namespace HotelManagement.Areas.Admin.Controllers
         public ActionResult AddBookRoom(string maPhong, byte soNguoiO)
         {
             // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
-            List<PhieuThuePhong> listPhong; 
-            
+            List<PhieuThuePhong> listPhong;
+
             if (Session["listPhong"] == null)
             {
                 listPhong = new List<PhieuThuePhong>();
@@ -183,12 +183,12 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 listPhong = (List<PhieuThuePhong>)Session["listPhong"];
             }
-           
+
             // Nếu chưa tồn tại, thêm sách mới vào danh sách
             var phongMoi = new PhieuThuePhong
             {
                 MaPhong = maPhong,
-                SoNguoiO = soNguoiO  
+                SoNguoiO = soNguoiO
             };
 
             listPhong.Add(phongMoi);
@@ -206,10 +206,10 @@ namespace HotelManagement.Areas.Admin.Controllers
             List<PhieuThuePhong> listPhong = Session["listPhong"] as List<PhieuThuePhong> ?? new List<PhieuThuePhong>();
 
             // Tìm và xóa sách khỏi danh sách dựa trên mã sách
-            var sachXoa = listPhong.FirstOrDefault(s => s.MaPhong == maPhong);
-            if (sachXoa != null)
+            var room = listPhong.FirstOrDefault(s => s.MaPhong == maPhong);
+            if (room != null)
             {
-                listPhong.Remove(sachXoa);
+                listPhong.Remove(room);
                 Session["listPhong"] = listPhong;
                 return Json(new { success = true });
             }
@@ -226,8 +226,33 @@ namespace HotelManagement.Areas.Admin.Controllers
                   !(checkIn >= pt.PhieuThue.ThoiGianTraPhong || checkOut <= pt.PhieuThue.ThoiGianNhanPhong))
     .Select(pt => pt.MaPhong)
     .ToList();
-            var availableRoomList = roomList.Except(bookedRoomList).ToList();
+            List<PhieuThuePhong> listPhong = Session["listPhong"] as List<PhieuThuePhong>;
+            var availableRoomList = roomList.Except(bookedRoomList);
+            if (listPhong != null)
+                // Lọc danh sách phòng để chừa những phòng không có trong danh sách đã đặt
+                availableRoomList = availableRoomList.Except(listPhong.Select(p => p.MaPhong)).ToList();
+            else
+                availableRoomList = availableRoomList.ToList();
             return Json(availableRoomList, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetMaPhongByIndex(int index)
+        {
+            List<PhieuThuePhong> listPhong = Session["listPhong"] as List<PhieuThuePhong>;
+
+            if (listPhong != null && index >= 0 && index < listPhong.Count)
+            {
+                return Json(new { maPhong = listPhong[index].MaPhong }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { maPhong = "" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult ResetListPhong()
+        {
+            Session["listPhong"] = null;
+            return Json(new { success = true });
         }
     }
 }

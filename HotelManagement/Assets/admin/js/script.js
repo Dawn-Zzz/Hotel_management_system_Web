@@ -373,7 +373,7 @@ if (familyRoomList) {
 
 function hideForm() {
     addRoomForm.style.display = "none";
-    addServiceForm.style.display = "none";
+    //addServiceForm.style.display = "none";
 }
 
 if (addRoomForm) {
@@ -406,7 +406,7 @@ if (addRoomForm) {
         //clientChildren.value = null;
 
         //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
-
+        var blockIndexes = [];
         submitRoom.onclick = () => {
 
             while (roomInfor.length > 0) {
@@ -439,9 +439,9 @@ if (addRoomForm) {
                 var roomNumberValue = document.createElement('p');
                 var clientQuantityValue = document.createElement('p');
 
-                roomIDValue.innerHTML = roomID.value;
-                roomNumberValue.innerHTML = roomNumber.value;
-                clientQuantityValue.innerHTML = clienQuantity.value;
+                roomIDValue.innerHTML = roomID.value.trim();
+                roomNumberValue.innerHTML = roomNumber.value.trim();
+                clientQuantityValue.innerHTML = clienQuantity.value.trim();
 
                 newBlock.className = 'roomBlock';
 
@@ -451,8 +451,46 @@ if (addRoomForm) {
                 deleteBtn.innerHTML = 'Delete';
 
                 deleteBtn.onclick = () => {
+                    var i = blockIndexes.indexOf(newBlockIndex);
+                    if (i !== -1) {
+                        blockIndexes.splice(i, 1);
+                    }
                     roomChosen.removeChild(newBlock);
+                    printBlockElements();
+                    $.ajax({
+                        url: 'GetMaPhongByIndex',
+                        type: 'GET',
+                        data: { index: i },
+                        success: function (MaPhong) {
+                            if (MaPhong) {
+                                $.ajax({
+                                    url: 'DeleteBookRoom',
+                                    type: 'POST',
+                                    data: { maPhong: MaPhong.maPhong },
+                                    success: function (response) {
+                                        if (response.success) {
+                                            console.log('Phòng đã được xóa thành công.');
+                                        } else {
+                                            console.log('Không thể xóa phòng.');
+                                        }
+                                    },
+                                    error: function () {
+                                        console.log('Lỗi khi gửi yêu cầu xóa phòng.');
+                                    }
+                                });
+                            }
+                            else {
+                                console.log('Mã phòng không hợp lệ.');
+                            }
+                        },
+                        error: function () {
+                            console.log('Lỗi khi gửi yêu cầu lấy mã phòng.');
+                        }
+                    });
                 }
+
+                var newBlockIndex = blockIndexes.length;
+                blockIndexes.push(newBlockIndex);
 
                 newBlock.appendChild(roomIDValue);
                 newBlock.appendChild(roomNumberValue);
@@ -462,6 +500,22 @@ if (addRoomForm) {
                 hideForm();
 
                 roomChosen.appendChild(newBlock);
+
+                printBlockElements();
+            }
+        }
+
+        function printBlockElements() {
+            var blockElements = document.getElementsByClassName('roomBlock');
+            console.clear();
+
+            // Loop qua các phần tử và in ra thông tin cùng index
+            for (var i = 0; i < blockElements.length; i++) {
+                var blockElement = blockElements[i];
+                var index = blockIndexes[i];
+                console.log('Block ' + i + ': ' + blockElement.childNodes[1].textContent);
+                console.log(i);
+                console.log(blockElement.childNodes[1].textContent);
             }
         }
 
