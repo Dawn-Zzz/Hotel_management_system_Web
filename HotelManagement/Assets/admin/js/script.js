@@ -606,6 +606,20 @@ if (addServiceForm) {
                 return clientValue != "";
             });
             if (isNull) {
+                $.ajax({
+                    url: '/RegistrationForm/AddService',
+                    type: 'POST',
+                    data: {
+                        maDichVu: serviceName.value,
+                        soLuong: serviceQuantity.value
+                    },
+                    success: function (data) {
+                        if (data) {
+                            console.log("list service: ", data)
+                        }
+                    }
+                });
+
                 var newBlock = document.createElement('div');
 
                 var serviceNameValue = document.createElement('p');

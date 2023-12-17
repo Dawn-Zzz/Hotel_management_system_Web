@@ -115,8 +115,23 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return HttpNotFound();
             }
 
-            phieuThue.HienTrang = HienTrang;
+            var listService = Session["listService"] as List<ChiTietHoaDonDichVu>;
+            if (listService != null)
+            {
+                foreach (var service in listService)
+                {
+                    var newService = new ChiTietHoaDonDichVu
+                    {
+                        MaHoaDon = phieuThue.HoaDons.FirstOrDefault().MaHoaDon,
+                        MaDichVu = service.MaDichVu,
+                        SoLuong = service.SoLuong
+                    };
+                    db.ChiTietHoaDonDichVus.Add(newService);
+                    db.SaveChanges();
+                }
+            }
 
+            phieuThue.HienTrang = HienTrang;
             db.PhieuThues.Attach(phieuThue);
             db.Entry(phieuThue).Property(x => x.HienTrang).IsModified = true;
 
@@ -252,6 +267,74 @@ namespace HotelManagement.Areas.Admin.Controllers
         public ActionResult ResetListPhong()
         {
             Session["listPhong"] = null;
+            return Json(new { success = true });
+        }
+
+        [HttpPost]
+        public ActionResult AddService(string maDichVu, byte soLuong)
+        {
+            // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
+            List<ChiTietHoaDonDichVu> listService;
+
+            if (Session["listService"] == null)
+            {
+                listService = new List<ChiTietHoaDonDichVu>();
+            }
+            else
+            {
+                listService = (List<ChiTietHoaDonDichVu>)Session["listService"];
+            }
+
+            // Tìm xem sách có MaSach trong danh sách chưa
+            var existingService = listService.FirstOrDefault(s => s.MaDichVu == maDichVu);
+
+            if (existingService != null)
+            {
+                // Nếu đã tồn tại, tăng số lượng
+                existingService.SoLuong += soLuong;
+            }
+            else
+            {
+                // Nếu chưa tồn tại, thêm sách mới vào danh sách
+                var newService = new ChiTietHoaDonDichVu
+                {
+                    MaDichVu = maDichVu,
+                    SoLuong = soLuong
+                };
+
+                listService.Add(newService);
+            }
+
+            // Lưu danh sách đã cập nhật vào Session
+            Session["listService"] = listService;
+
+            // Trả về một JsonResult chứa danh sách sách đã cập nhật
+            return Json(listService);
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteService(string maDichVu)
+        {
+            // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
+            List<ChiTietHoaDonDichVu> listService = Session["listService"] as List<ChiTietHoaDonDichVu> ?? new List<ChiTietHoaDonDichVu>();
+
+            // Tìm và xóa sách khỏi danh sách dựa trên mã sách
+            var service = listService.FirstOrDefault(s => s.MaDichVu == maDichVu);
+            if (service != null)
+            {
+                listService.Remove(service);
+                Session["listService"] = listService;
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult ResetListService()
+        {
+            Session["listService"] = null;
             return Json(new { success = true });
         }
     }

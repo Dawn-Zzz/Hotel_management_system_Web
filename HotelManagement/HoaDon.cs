@@ -33,7 +33,7 @@ namespace HotelManagement
         [DisplayName("Room Charge")]
         public decimal TienPhong { get; set; }
 
-        [DisplayName("Room Charge")]
+        [DisplayName("Service Charge")]
         public Nullable<decimal> TienDichVu { get; set; }
         public int MaKhachHang { get; set; }
         public int MaNhanVien { get; set; }

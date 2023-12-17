@@ -77,3 +77,17 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
+<script>
+    //===================== Hàm Làm mới danh sách sách mượn =====================
+   function resetListService() {
+       $.ajax({
+           url: '@Url.Action("ResetListService", "RegistrationForm")',
+           type: 'POST',
+       });
+   }
+    //=====================  Xử lý khi load lại trang  =====================
+        document.addEventListener("DOMContentLoaded", function () {
+            resetListService();
+        });
+</script>
+
