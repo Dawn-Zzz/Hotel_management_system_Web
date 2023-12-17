@@ -88,5 +88,22 @@ namespace HotelManagement.Areas.Admin.Controllers
                 .ToList();
             return Json(yearlyEarning, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetTypeRoomEarning()
+        {
+            var query = from hd in db.HoaDons
+                        join ptp in db.PhieuThuePhongs on hd.MaPhieu equals ptp.MaPhieu
+                        join p in db.Phongs on ptp.MaPhong equals p.MaPhong
+                        group new { hd, p } by p.MaLoaiPhong into g
+                        select new
+                        {
+                            MaLoaiPhong = g.Key,
+                            TotalEarning = g.Sum(x => x.hd.TienPhong + (x.hd.TienDichVu ?? 0))
+                        };
+
+            var data = query.ToList(); // Chuyển kết quả thành danh sách
+
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
     }
 }

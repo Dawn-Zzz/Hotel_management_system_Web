@@ -210,3 +210,7 @@ function updateChartWithData(data, option) {
         }
     });
 }
+$(document).ready(function () {
+    // Gọi hàm để lấy dữ liệu và cập nhật biểu đồ ngay khi trang được load
+    fetchDataAndUpdateChart('month'); // Thay thế 'month' bằng option mặc định bạn muốn hiển thị khi trang được tải
+});
