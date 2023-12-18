@@ -458,7 +458,6 @@ if (addRoomForm) {
                         blockIndexes.splice(i, 1);
                     }
                     roomChosen.removeChild(newBlock);
-                    printBlockElements();
                     $.ajax({
                         url: 'GetMaPhongByIndex',
                         type: 'GET',
@@ -502,22 +501,6 @@ if (addRoomForm) {
                 hideForm();
 
                 roomChosen.appendChild(newBlock);
-
-                printBlockElements();
-            }
-        }
-
-        function printBlockElements() {
-            var blockElements = document.getElementsByClassName('roomBlock');
-            console.clear();
-
-            // Loop qua các phần tử và in ra thông tin cùng index
-            for (var i = 0; i < blockElements.length; i++) {
-                var blockElement = blockElements[i];
-                var index = blockIndexes[i];
-                console.log('Block ' + i + ': ' + blockElement.childNodes[1].textContent);
-                console.log(i);
-                console.log(blockElement.childNodes[1].textContent);
             }
         }
 
@@ -556,6 +539,139 @@ if (addRoomForm) {
         //}
     }
 }
+function addServiceBlock(serviceInfo) {
+    const newBlock = document.createElement('div');
+    newBlock.className = 'serviceBlock';
+
+    var serviceNameValue = document.createElement('p');
+    var serviceQuantityValue = document.createElement('p');
+
+    serviceNameValue.innerHTML = serviceInfo.value;
+    serviceQuantityValue.innerHTML = serviceInfo.count;
+
+    newBlock.setAttribute('data-index', serviceInfo.index);
+
+    const deleteBtn = document.createElement('p');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.className = 'add-btn';
+    deleteBtn.innerHTML = 'Delete';
+
+    newBlock.appendChild(serviceNameValue);
+    newBlock.appendChild(serviceQuantityValue);
+    newBlock.appendChild(deleteBtn);
+
+    serviceChosen.appendChild(newBlock);
+
+    deleteBtn.onclick = () => {
+        const indexToDelete = parseInt(newBlock.getAttribute('data-index'));
+
+        if (!isNaN(indexToDelete)) {
+            serviceChosen.removeChild(newBlock);
+            serviceInfor.splice(indexToDelete, 1);
+
+            $.ajax({
+                url: '/RegistrationForm/GetMaDichVuByIndex',
+                type: 'GET',
+                data: { index: indexToDelete },
+                success: function (DichVu) {
+                    if (DichVu) {
+                        $.ajax({
+                            url: '/RegistrationForm/DeleteService',
+                            type: 'POST',
+                            data: { maDichVu: DichVu.maDichVu },
+                            success: function (data) {
+                                if (data.success) {
+                                    console.log('Dịch vụ đã được xóa thành công.');
+                                } else {
+                                    console.log('Không thể xóa dịch vụ.');
+                                }
+                            },
+                            error: function () {
+                                console.log('Lỗi khi gửi yêu cầu xóa dịch vụ.');
+                            }
+                        });
+                    }
+                    else {
+                        console.log('Mã dịch vụ không hợp lệ.');
+                    }
+                },
+                error: function () {
+                    console.log('Lỗi khi gửi yêu cầu lấy mã dịch vụ.');
+                }
+            });
+        }
+    };
+}
+
+function resetView(serviceInfor) {
+    serviceChosen.innerHTML = '';
+
+    for (let i = 0; i < serviceInfor.length; i++) {
+        const newBlock = document.createElement('div');
+        newBlock.className = 'serviceBlock';
+
+        var serviceNameValue = document.createElement('p');
+        var serviceQuantityValue = document.createElement('p');
+
+        serviceNameValue.innerHTML = serviceInfor[i].value;
+        serviceQuantityValue.innerHTML = serviceInfor[i].count;
+
+        newBlock.setAttribute('data-index', i);
+
+        const deleteBtn = document.createElement('p');
+        deleteBtn.className = 'delete-btn';
+        deleteBtn.className = 'add-btn';
+        deleteBtn.innerHTML = 'Delete';
+
+        newBlock.appendChild(serviceNameValue);
+        newBlock.appendChild(serviceQuantityValue);
+        newBlock.appendChild(deleteBtn);
+
+        serviceChosen.appendChild(newBlock);
+
+        hideForm();
+
+        deleteBtn.onclick = () => {
+            const indexToDelete = parseInt(newBlock.getAttribute('data-index'));
+
+            if (!isNaN(indexToDelete)) {
+                serviceChosen.removeChild(newBlock);
+                serviceInfor.splice(indexToDelete, 1);
+                $.ajax({
+                    url: '/RegistrationForm/GetMaDichVuByIndex',
+                    type: 'GET',
+                    data: { index: indexToDelete },
+                    success: function (DichVu) {
+                        if (DichVu) {
+                            $.ajax({
+                                url: '/RegistrationForm/DeleteService',
+                                type: 'POST',
+                                data: { maDichVu: DichVu.maDichVu },
+                                success: function (data) {
+                                    if (data.success) {
+                                        console.log('Dịch vụ đã được xóa thành công.');
+                                        resetView(serviceInfor);
+                                    } else {
+                                        console.log('Không thể xóa dịch vụ.');
+                                    }
+                                },
+                                error: function () {
+                                    console.log('Lỗi khi gửi yêu cầu xóa dịch vụ.');
+                                }
+                            });
+                        }
+                        else {
+                            console.log('Mã dịch vụ không hợp lệ.');
+                        }
+                    },
+                    error: function () {
+                        console.log('Lỗi khi gửi yêu cầu lấy mã dịch vụ.');
+                    }
+                });
+            }
+        }
+    }
+}
 
 if (addServiceForm) {
     const serviceInfor = [];
@@ -568,74 +684,36 @@ if (addServiceForm) {
 
         serviceName.value = null;
         serviceQuantity.value = null;
-        var blockIndexes = [];
+
         submitService.onclick = () => {
             //var isNull = serviceInfor.every((service) => service.value != serviceName.value.trim());
 
             //if (isNull) {
-                $.ajax({
-                    url: '/RegistrationForm/AddService',
-                    type: 'POST',
-                    data: {
-                        maDichVu: serviceName.value,
-                        soLuong: serviceQuantity.value
-                    },
-                    success: function (data) {
-                        if (data) {
-                            console.log("list service: ", data);
-                        }
+            $.ajax({
+                url: '/RegistrationForm/AddService',
+                type: 'POST',
+                data: {
+                    maDichVu: serviceName.value,
+                    soLuong: serviceQuantity.value
+                },
+                success: function (data) {
+                    if (data) {
+                        console.log("list service: ", data);
                     }
+                }
+            });
+
+            var existingService = serviceInfor.find((service) => service.value === serviceName.value.trim());
+
+            if (existingService) {
+                existingService.count += parseInt(serviceQuantity.value.trim()) || 0;
+            } else {
+                serviceInfor.push({
+                    value: serviceName.value.trim(),
+                    count: parseInt(serviceQuantity.value.trim()) || 0,
                 });
-
-                var existingService = serviceInfor.find((service) => service.value === serviceName.value.trim());
-
-                if (existingService) {
-                    existingService.count += parseInt(serviceQuantity.value.trim()) || 0;
-                } else {
-                    serviceInfor.push({
-                        value: serviceName.value.trim(),
-                        count: parseInt(serviceQuantity.value.trim()) || 0,
-                    });
-                }
-
-            serviceChosen.innerHTML = '';
-
-            for (let i = 0; i < serviceInfor.length; i++) {
-                const newBlock = document.createElement('div');
-                newBlock.className = 'serviceBlock';
-
-                var serviceNameValue = document.createElement('p');
-                var serviceQuantityValue = document.createElement('p');
-
-                serviceNameValue.innerHTML = serviceInfor[i].value;
-                serviceQuantityValue.innerHTML = serviceInfor[i].count;
-
-                newBlock.setAttribute('data-index', i);
-
-                const deleteBtn = document.createElement('p');
-                deleteBtn.className = 'delete-btn';
-                deleteBtn.className = 'add-btn';
-                deleteBtn.innerHTML = 'Delete';
-
-                deleteBtn.onclick = () => {
-                    const indexToDelete = parseInt(newBlock.getAttribute('data-index'));
-                    if (!isNaN(indexToDelete)) {
-                        serviceChosen.removeChild(newBlock);
-                        serviceInfor.splice(indexToDelete, 1);
-                        printBlockElements();
-                    }
-                }
-
-                var newBlockIndex = blockIndexes.length;
-                blockIndexes.push(newBlockIndex);
-
-                newBlock.appendChild(serviceNameValue);
-                newBlock.appendChild(serviceQuantityValue);
-                newBlock.appendChild(deleteBtn);
-
-                serviceChosen.appendChild(newBlock);
             }
-            hideForm();
+            resetView(serviceInfor);
         };
 
 

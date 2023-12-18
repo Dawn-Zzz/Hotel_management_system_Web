@@ -312,6 +312,17 @@ namespace HotelManagement.Areas.Admin.Controllers
             return Json(listService);
         }
 
+        public ActionResult GetMaDichVuByIndex(int index)
+        {
+            List<ChiTietHoaDonDichVu> listService = Session["listService"] as List<ChiTietHoaDonDichVu>;
+
+            if (listService != null && index >= 0 && index < listService.Count)
+            {
+                return Json(new { maDichVu = listService[index].MaDichVu }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { maDichVu = "" }, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public ActionResult DeleteService(string maDichVu)
@@ -325,7 +336,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 listService.Remove(service);
                 Session["listService"] = listService;
-                return Json(new { success = true });
+                return Json(new { success = true, data = listService });
             }
 
             return Json(new { success = false });
