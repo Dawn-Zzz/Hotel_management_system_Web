@@ -78,17 +78,16 @@ function createChart() {
         success: function (data) {
             // Dữ liệu đã được nhận về từ action
             // Cập nhật dữ liệu cho biểu đồ
-            var maLoaiPhong = [];
+            var tenLoaiPhong = [];
             var totalEarning = [];
 
             // Xử lý dữ liệu nhận được từ action
             data.forEach(function (item) {
-                maLoaiPhong.push(item.MaLoaiPhong);
+                tenLoaiPhong.push(item.TenLoaiPhong);
                 totalEarning.push(item.TotalEarning);
             });
-
             // Cập nhật dữ liệu cho biểu đồ
-            myPieChart.data.labels = maLoaiPhong;
+            myPieChart.data.labels = tenLoaiPhong;
             myPieChart.data.datasets[0].data = totalEarning;
 
             // Cập nhật biểu đồ

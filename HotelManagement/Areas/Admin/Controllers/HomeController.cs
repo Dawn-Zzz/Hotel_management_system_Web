@@ -94,10 +94,11 @@ namespace HotelManagement.Areas.Admin.Controllers
             var query = from hd in db.HoaDons
                         join ptp in db.PhieuThuePhongs on hd.MaPhieu equals ptp.MaPhieu
                         join p in db.Phongs on ptp.MaPhong equals p.MaPhong
-                        group new { hd, p } by p.MaLoaiPhong into g
+                        join lp in db.LoaiPhongs on p.MaLoaiPhong equals lp.MaLoaiPhong
+                        group new { hd, lp } by lp.TenLoaiPhong into g
                         select new
                         {
-                            MaLoaiPhong = g.Key,
+                            TenLoaiPhong = g.Key,
                             TotalEarning = g.Sum(x => x.hd.TienPhong + (x.hd.TienDichVu ?? 0))
                         };
 

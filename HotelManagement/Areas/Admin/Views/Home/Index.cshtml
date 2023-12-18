@@ -125,8 +125,8 @@
                             <div class="dropdown-header">Dropdown Header:</div>
                             <a class="dropdown-item" href="#" id="viewByYear">Year</a>
                             <a class="dropdown-item" href="#" id="viewByMonth">Month</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            @*<div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>*@
                         </div>
                     </div>
                 </div>
@@ -144,8 +144,8 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
-                    <div class="dropdown no-arrow">
+                    <h6 class="m-0 font-weight-bold text-primary">Room-type Revenue</h6>
+                    @*<div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -158,34 +158,55 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
                     <div class="chart-pie pt-4 pb-2">
                         <canvas id="myPieChart"></canvas>
                     </div>
-                    <div class="mt-4 text-center small">
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #4e73df;"></i> LP001
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #1cc88a;"></i> LP002
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #36b9cc;"></i> LP003
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #ffa726;"></i> LP004
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #f44336;"></i> LP005
-                        </span>
-                        <span class="mr-2">
-                            <i class="fas fa-circle" style="color: #8e24aa;"></i> LP006
-                        </span>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mt-4 text-center small d-flex flex-column">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-circle" style="color: #4e73df;"></i>
+                                    <span class="ml-1">Deluxe</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-circle" style="color: #1cc88a;"></i>
+                                    <span class="ml-1">Family</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mt-4 text-center small d-flex flex-column">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-circle" style="color: #36b9cc;"></i>
+                                    <span class="ml-1">FamilySuite</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-circle" style="color: #ffa726;"></i>
+                                    <span class="ml-1">Standard</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mt-4 text-center small d-flex flex-column">
+                                <div class="d-flex align-items-center mb-2">
+                                    <i class="fas fa-circle" style="color: #f44336;"></i>
+                                    <span class="ml-1">Suite</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-circle" style="color: #8e24aa;"></i>
+                                    <span class="ml-1">Superior</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
             </div>
         </div>
     </div>
