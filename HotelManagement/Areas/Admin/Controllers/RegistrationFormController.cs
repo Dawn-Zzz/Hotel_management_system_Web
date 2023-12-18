@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -114,7 +115,27 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return HttpNotFound();
             }
+            if(HienTrang == "Đã nhận phòng")
+            {
+                if(phieuThue.ThoiGianNhanPhong > DateTime.Today)
+                {
+                    ModelState.AddModelError("CustomError", "Không thể nhận phòng vì chưa tới ngày nhận phòng!");
+                    return View(phieuThue); // Trả về view để hiển thị thông báo lỗi
+                }
+            }
+            if (HienTrang == "Đã trả phòng")
+            {
+                HoaDon hoaDon = phieuThue.HoaDons.FirstOrDefault();
 
+                if (hoaDon != null)
+                {
+                    // Thực hiện các thao tác cần thiết với hoaDon
+                    hoaDon.MaNhanVien = Convert.ToInt32(Session["MaNV"]);
+                    db.HoaDons.Attach(hoaDon);
+                    db.Entry(hoaDon).Property(x => x.MaNhanVien).IsModified = true;
+                    db.SaveChanges();
+                }
+            }
             var listService = Session["listService"] as List<ChiTietHoaDonDichVu>;
             if (listService != null)
             {
@@ -138,7 +159,6 @@ namespace HotelManagement.Areas.Admin.Controllers
             db.SaveChanges();
             ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
             return RedirectToAction("Index");
-
         }
 
         // GET: Admin/RegistrationForm/Delete/5

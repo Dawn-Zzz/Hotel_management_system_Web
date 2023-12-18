@@ -17,22 +17,23 @@
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.MaPhieu)
-    <div class="form-group ml-0">
-        @Html.LabelFor(model => model.HienTrang, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @if (Model.HienTrang == "Chưa nhận phòng")
-            {
-                var hienTrangOptions = new SelectList(new List<string> { "Đã nhận phòng", "Đã hủy phòng" });
-                @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control" })
-            }
-            else
-            {
-                var hienTrangOptions = new SelectList(new List<string> { "Đã trả phòng" });
-                @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control", @readonly = "readonly" })
-            }
-            @Html.ValidationMessageFor(model => model.HienTrang, "", new { @class = "text-danger" })
-        </div>
+<div class="form-group ml-0">
+    @Html.LabelFor(model => model.HienTrang, htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @if (Model.HienTrang == "Chưa nhận phòng")
+        {
+            var hienTrangOptions = new SelectList(new List<string> { "Đã nhận phòng", "Đã hủy phòng" });
+            @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control" })
+        }
+        else
+        {
+            var hienTrangOptions = new SelectList(new List<string> { "Đã trả phòng" });
+            @Html.DropDownListFor(model => model.HienTrang, hienTrangOptions, new { @class = "form-control", @readonly = "readonly" })
+        }
+        @Html.ValidationMessageFor(model => model.HienTrang, "", new { @class = "text-danger" })
     </div>
+    @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
+</div>
 
     @if (Model.HienTrang == "Đã nhận phòng")
     {

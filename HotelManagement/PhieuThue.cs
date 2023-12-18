@@ -25,7 +25,7 @@ namespace HotelManagement
     
         public int MaPhieu { get; set; }
 
-
+        [DisplayName("Invoice Date")]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime? NgayLap { get; set; }
@@ -42,6 +42,8 @@ namespace HotelManagement
         [Required(ErrorMessage = "Thời gian trả phòng chưa được chọn.")]
         public System.DateTime? ThoiGianTraPhong { get; set; }
 
+
+        [DisplayName("Room Status")]
         public string HienTrang { get; set; }
         public int MaKhachHang { get; set; }
     
