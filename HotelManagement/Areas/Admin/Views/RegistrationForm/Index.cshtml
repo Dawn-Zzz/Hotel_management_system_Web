@@ -66,16 +66,19 @@
             <td>
                 @Html.DisplayFor(modelItem => item.HienTrang)
             </td>
-            <td>
+            <td style="
+    display: flex;
+    justify-content: center;
+">
                 @if (item.HienTrang == "Đã trả phòng" || item.HienTrang == "Đã hủy phòng")
                 {
                     @Html.ActionLink("Details", "Details", new { id = item.MaPhieu })
                 }
                 else
                 {
-                    @: @Html.ActionLink("Edit", "Edit", new { id = item.MaPhieu }) |
+                    @: @Html.ActionLink("Edit", "Edit", new { id = item.MaPhieu })    
 
-                    @: @Html.ActionLink("Details", "Details", new { id = item.MaPhieu }) |
+                    @: @Html.ActionLink("Details", "Details", new { id = item.MaPhieu }) 
 
                     @: @Html.ActionLink("Delete", "Delete", new { id = item.MaPhieu })
                 }

@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2 class="card-title title ml-32">Edit Registration Form</h2>
 
 
 @using (Html.BeginForm())
@@ -13,7 +13,6 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <h4>PhieuThue</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.MaPhieu)
@@ -32,48 +31,76 @@
             }
             @Html.ValidationMessageFor(model => model.HienTrang, "", new { @class = "text-danger" })
         </div>
+        @Html.ValidationMessage("CustomError", new { @class = "text-danger" })
     </div>
 
     @if (Model.HienTrang == "Đã nhận phòng")
     {
-        <label class="control-label col-md-2">Services</label>
-        <div class="service-chosen">
+        <div class="form-group">
+            <label class="control-label col-md-2">Services</label>
+            <table class="table col-md-10">
+            </table>
+            <table class="service-chosen table col-md-10">
+                <tr>
+                    <th class="col-md-5">
+                        Service Name
+                    </th>
+                    <th class="col-md-5">
+                        Service Quantity
+                    </th>
+                    <th class="col-md-2">
 
-        </div>
-        <p class="add-btn" id="add-service-btn">Add service</p>
-        <div class="add-service-form">
-            <div class="service-container">
-                <div class="booking-service col-12 col-lg-12">
-                    <i class="fa-solid fa-x close-btn"></i>
-                    <form id="booking-form">
-                        <h2>Add Service</h2>
-                        <div class="form-group ml-0">
-                            <label class="control-label">Room Type</label>
-                            @Html.DropDownList("DichVu", null, htmlAttributes: new { @class = "form-control service-name" })
-                            <span class="form-message"></span>
-                        </div>
-                        <div class="form-group ml-0">
-                            <label class="control-label">Client Quantity</label>
-                            <input class="form-control service-quantity" type="number" min="1" max="4" />
-                            <span class="form-message"></span>
-                        </div>
-                        <p class="submit-form-btn submit-service">Submit</p>
-                    </form>
+                    </th>
+                </tr>
+            </table>
+            <p class="btn btn-default add-btn col-md-10" id="add-service-btn">Add service</p>
+            <div class="add-service-form">
+                <div class="service-container">
+                    <div class="booking-service col-12 col-lg-12">
+                        <i class="fa-solid fa-x close-btn"></i>
+                        <form id="booking-form">
+                            <h2 style="
+    margin-left: auto;
+    margin-right: auto;
+">Add Service Form</h2>
+                            <div class="form-group ml-0">
+                                <label class="control-label">Service Name</label>
+                                @Html.DropDownList("DichVu", null, htmlAttributes: new { @class = "form-control service-name" })
+                                <span class="form-message"></span>
+                            </div>
+                            <div class="form-group ml-0">
+                                <label class="control-label">Service Quantity</label>
+                                <select class="form-control service-quantity">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                                <span class="form-message"></span>
+                            </div>
+                            <p class="submit-form-btn submit-service" style="
+    margin-left: auto;
+    margin-right: auto;
+">Submit</p>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     }
 
 
-    <div class="form-group ml-0">
+    <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+            <input type="submit" value="Save" class="btn btn-default create-btn" />
         </div>
     </div>
 </div>
 }
 
-<div>
+<div class="pl-12 ml-16 mt-32 mb-24">
     @Html.ActionLink("Back to List", "Index")
 </div>
 

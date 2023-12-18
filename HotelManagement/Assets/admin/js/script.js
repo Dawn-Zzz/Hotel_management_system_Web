@@ -15,6 +15,10 @@ const serviceContainer = document.querySelector('.service-container');
 const roomChosen = document.querySelector('.room-chosen');
 const serviceChosen = document.querySelector('.service-chosen');
 
+const registrationPhoneNumber = document.getElementById("phone-number");
+var registraionDateCheckIn = document.getElementById("checkIn");
+var registraionDateCheckOut = document.getElementById("checkOut");
+
 console.log(addRoomBtn);
 
 if (guestTable) {
@@ -380,180 +384,211 @@ function hideForm() {
 
 if (addRoomForm) {
     const roomInfor = [];
-    addRoomBtn.onclick = () => {
-        console.log(addRoomForm);
-        addRoomForm.style.display = "flex";
-        //const roomNode = e.target.closest('.room');
-        //if (roomNode) {
-
-        //const typeOfRoom = roomNode.querySelector('.room-type');
-        //const imgPath = roomNode.querySelector('.img-fluid');
-
-        const roomID = addRoomForm.querySelector('.room-id')
-        const roomNumber = addRoomForm.querySelector('.room-number');
-        const clienQuantity = addRoomForm.querySelector('.clien-quantity');
-        //const clientPhoneNumber = addRoomForm.querySelector('.client-phone-number');
-        //const clientEmail = addRoomForm.querySelector('.client-email');
-        //const clientCheckIn = addRoomForm.querySelector('#checkin_booking');
-        //const clientCheckOut = addRoomForm.querySelector('#checkout_booking');
-        //const clientAdults = addRoomForm.querySelector('.adults-number');
-        //const clientChildren = addRoomForm.querySelector('.children-number');
-
-        roomID.value = null;
-        roomNumber.value = null;
-        clienQuantity.value = 0;
-        //clientCheckIn.value = null;
-        //clientCheckOut.value = null;
-        //clientAdults.value = null;
-        //clientChildren.value = null;
-
-        //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
-        var blockIndexes = [];
-        submitRoom.onclick = () => {
-
-            while (roomInfor.length > 0) {
-                roomInfor.pop();
-            }
-            roomInfor.push(
-                roomID.value,
-                roomNumber.value,
-                clienQuantity.value,
-                //    clientCheckIn.value,
-                //    clientCheckOut.value,
-                //    clientAdults.value,
-                //    clientChildren.value
-            );
-            var isNull = roomInfor.every((clientValue, index) => {
-                return clientValue != "";
-            });
-            if (isNull) {
-                $.ajax({
-                    url: 'AddBookRoom',
-                    type: 'POST',
-                    data: {
-                        maPhong: roomNumber.value,
-                        soNguoiO: clienQuantity.value
-                    },
-                });
-                var newBlock = document.createElement('div');
-
-                var roomIDValue = document.createElement('p');
-                var roomNumberValue = document.createElement('p');
-                var clientQuantityValue = document.createElement('p');
-
-                roomIDValue.innerHTML = roomID.value.trim();
-                roomNumberValue.innerHTML = roomNumber.value.trim();
-                clientQuantityValue.innerHTML = clienQuantity.value.trim();
-
-                newBlock.className = 'roomBlock';
-
-                var deleteBtn = document.createElement('p');
-                deleteBtn.className = 'delete-btn';
-                deleteBtn.className = 'add-btn';
-                deleteBtn.innerHTML = 'Delete';
-
-                deleteBtn.onclick = () => {
-                    var i = blockIndexes.indexOf(newBlockIndex);
-                    if (i !== -1) {
-                        blockIndexes.splice(i, 1);
-                    }
-                    roomChosen.removeChild(newBlock);
-                    $.ajax({
-                        url: 'GetMaPhongByIndex',
-                        type: 'GET',
-                        data: { index: i },
-                        success: function (MaPhong) {
-                            if (MaPhong) {
-                                $.ajax({
-                                    url: 'DeleteBookRoom',
-                                    type: 'POST',
-                                    data: { maPhong: MaPhong.maPhong },
-                                    success: function (response) {
-                                        if (response.success) {
-                                            console.log('Phòng đã được xóa thành công.');
-                                        } else {
-                                            console.log('Không thể xóa phòng.');
-                                        }
-                                    },
-                                    error: function () {
-                                        console.log('Lỗi khi gửi yêu cầu xóa phòng.');
-                                    }
-                                });
-                            }
-                            else {
-                                console.log('Mã phòng không hợp lệ.');
-                            }
-                        },
-                        error: function () {
-                            console.log('Lỗi khi gửi yêu cầu lấy mã phòng.');
-                        }
-                    });
-                }
-
-                var newBlockIndex = blockIndexes.length;
-                blockIndexes.push(newBlockIndex);
-
-                newBlock.appendChild(roomIDValue);
-                newBlock.appendChild(roomNumberValue);
-                newBlock.appendChild(clientQuantityValue);
-                newBlock.appendChild(deleteBtn);
-
-                hideForm();
-
-                roomChosen.appendChild(newBlock);
-            }
+    if (!registrationPhoneNumber.value || !registraionDateCheckIn.value) {
+        addRoomBtn.style.opacity = "0.3";
+        addRoomBtn.style.cursor = "default";
+    }
+    registrationPhoneNumber.onchange = () => {
+        if (registrationPhoneNumber.value != "" && registraionDateCheckIn.value != "") {
+            addRoomBtn.style.opacity = "1";
+            addRoomBtn.style.cursor = "pointer";
         }
+        else if (registrationPhoneNumber.value == "") {
+            addRoomBtn.style.opacity = "0.3";
+            addRoomBtn.style.cursor = "default";
+        }
+    }
+    addRoomBtn.onclick = (e) => {
+        if (!registrationPhoneNumber.value || !registraionDateCheckIn.value) {
+            e.preventDefault();
+            console.log("Please enter phone number and check-in date before adding room.");
+        }
+        else {
+            console.log(addRoomForm);
+            addRoomForm.style.display = "flex";
+            //const roomNode = e.target.closest('.room');
+            //if (roomNode) {
 
-        //formTitle.textContent = typeOfRoom.textContent;
-        closeEvents.forEach(closeEvent => {
-            closeEvent.addEventListener('click', () => {
+            //const typeOfRoom = roomNode.querySelector('.room-type');
+            //const imgPath = roomNode.querySelector('.img-fluid');
+
+            const roomID = addRoomForm.querySelector('.room-id')
+            const roomNumber = addRoomForm.querySelector('.room-number');
+            const clienQuantity = addRoomForm.querySelector('.clien-quantity');
+
+            roomID.value = null;
+            roomNumber.value = null;
+            clienQuantity.value = 0;
+
+            //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
+            var blockIndexes = [];
+            submitRoom.onclick = () => {
+
+                while (roomInfor.length > 0) {
+                    roomInfor.pop();
+                }
                 roomInfor.push(
                     roomID.value,
                     roomNumber.value,
-                    clienQuantity.value,
-                    //    clientCheckIn.value,
-                    //    clientCheckOut.value,
-                    //    clientAdults.value,
-                    //    clientChildren.value
+                    clienQuantity.value
                 );
-                //while (clientInfo.length > 0) {
-                //    clientInfo.pop();
-                //}
-                hideForm();
-                //const formGroups = bookingForm.querySelectorAll(".form-group");
-                //const formMessages = bookingForm.querySelectorAll(".form-message");
+                var isNull = roomInfor.every((clientValue, index) => {
+                    return clientValue != "";
+                });
+                if (isNull) {
+                    $.ajax({
+                        url: 'AddBookRoom',
+                        type: 'POST',
+                        data: {
+                            maPhong: roomNumber.value,
+                            soNguoiO: clienQuantity.value
+                        },
+                    });
+                    var newBlock = document.createElement('tr');
 
-                //if (formGroups.length > 0) {
-                //    formGroups.forEach(formGroup => {
-                //        formGroup.classList.remove('invalid');
-                //    })
-                //    formMessages.forEach(formMessage => {
-                //        formMessage.innerText = "";
-                //    })
-                //}
+                    var roomIDValue = document.createElement('td');
+                    var roomNumberValue = document.createElement('td');
+                    var clientQuantityValue = document.createElement('td');
+
+                    roomIDValue.innerHTML = roomID.value.trim();
+                    roomNumberValue.innerHTML = roomNumber.value.trim();
+                    clientQuantityValue.innerHTML = clienQuantity.value.trim();
+
+                    newBlock.className = 'roomBlock';
+
+                    var deleteBtn = document.createElement('td');
+                    deleteBtn.className = 'delete-btn';
+                    deleteBtn.innerHTML = 'Delete';
+
+                    deleteBtn.onclick = () => {
+                        var i = blockIndexes.indexOf(newBlockIndex);
+                        if (i !== -1) {
+                            blockIndexes.splice(i, 1);
+                        }
+                        roomChosen.removeChild(newBlock);
+                        $.ajax({
+                            url: 'GetMaPhongByIndex',
+                            type: 'GET',
+                            data: { index: i },
+                            success: function (MaPhong) {
+                                if (MaPhong) {
+                                    $.ajax({
+                                        url: 'DeleteBookRoom',
+                                        type: 'POST',
+                                        data: { maPhong: MaPhong.maPhong },
+                                        success: function (response) {
+                                            if (response.success) {
+                                                console.log('Phòng đã được xóa thành công.');
+                                            } else {
+                                                console.log('Không thể xóa phòng.');
+                                            }
+                                        },
+                                        error: function () {
+                                            console.log('Lỗi khi gửi yêu cầu xóa phòng.');
+                                        }
+                                    });
+                                }
+                                else {
+                                    console.log('Mã phòng không hợp lệ.');
+                                }
+                            },
+                            error: function () {
+                                console.log('Lỗi khi gửi yêu cầu lấy mã phòng.');
+                            }
+                        });
+                        if (roomBlockQuantity.length <= 0) {
+                            registraionDateCheckIn.style.opacity = "1";
+                            registraionDateCheckOut.style.opacity = "1";
+                        }
+                        registraionDateCheckIn.onclick = (e) => {
+                            if (roomBlockQuantity.length <= 0) {
+                                registraionDateCheckIn.style.opacity = "1";
+                                registraionDateCheckOut.style.opacity = "1";
+                                e.preventDefault = false;
+                            }
+                            else {
+                                registraionDateCheckIn.style.opacity = "1";
+                                registraionDateCheckOut.style.opacity = "1";
+                            }
+                        }
+                    }
+
+                    var newBlockIndex = blockIndexes.length;
+                    blockIndexes.push(newBlockIndex);
+
+                    newBlock.appendChild(roomIDValue);
+                    newBlock.appendChild(roomNumberValue);
+                    newBlock.appendChild(clientQuantityValue);
+                    newBlock.appendChild(deleteBtn);
+
+                    hideForm();
+
+                    roomChosen.appendChild(newBlock);
+                }
+                var roomBlockQuantity = document.querySelectorAll(".roomBlock");
+                if (roomBlockQuantity.length > 0) {
+                    registraionDateCheckIn.style.opacity = "0.3";
+                    registraionDateCheckOut.style.opacity = "0.3";
+                }
+                registraionDateCheckIn.onclick = (e) => {
+                    if (roomBlockQuantity.length > 0) {
+                        registraionDateCheckIn.style.opacity = "0.3";
+                        registraionDateCheckOut.style.opacity = "0.3";
+                        e.preventDefault(); 
+                    }
+                    else {
+                        registraionDateCheckIn.style.opacity = "1";
+                        registraionDateCheckOut.style.opacity = "1";
+                    }
+                }
+            }
+
+            //formTitle.textContent = typeOfRoom.textContent;
+            closeEvents.forEach(closeEvent => {
+                closeEvent.addEventListener('click', () => {
+                    roomInfor.push(
+                        roomID.value,
+                        roomNumber.value,
+                        clienQuantity.value
+                    );
+                    //while (clientInfo.length > 0) {
+                    //    clientInfo.pop();
+                    //}
+                    hideForm();
+                    //const formGroups = bookingForm.querySelectorAll(".form-group");
+                    //const formMessages = bookingForm.querySelectorAll(".form-message");
+
+                    //if (formGroups.length > 0) {
+                    //    formGroups.forEach(formGroup => {
+                    //        formGroup.classList.remove('invalid');
+                    //    })
+                    //    formMessages.forEach(formMessage => {
+                    //        formMessage.innerText = "";
+                    //    })
+                    //}
+                })
             })
-        })
-        roomContainer.addEventListener('click', (e) => {
-            e.stopPropagation();
-        });
+            roomContainer.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        }
         //}
     }
 }
 function addServiceBlock(serviceInfo) {
-    const newBlock = document.createElement('div');
+    const newBlock = document.createElement('tr');
     newBlock.className = 'serviceBlock';
 
-    var serviceNameValue = document.createElement('p');
-    var serviceQuantityValue = document.createElement('p');
+    var serviceNameValue = document.createElement('td');
+    var serviceQuantityValue = document.createElement('td');
 
     serviceNameValue.innerHTML = serviceInfo.value;
     serviceQuantityValue.innerHTML = serviceInfo.count;
 
     newBlock.setAttribute('data-index', serviceInfo.index);
 
-    const deleteBtn = document.createElement('p');
+    const deleteBtn = document.createElement('td');
     deleteBtn.className = 'delete-btn';
-    deleteBtn.className = 'add-btn';
     deleteBtn.innerHTML = 'Delete';
 
     newBlock.appendChild(serviceNameValue);
@@ -604,23 +639,34 @@ function addServiceBlock(serviceInfo) {
 }
 
 function resetView(serviceInfor) {
-    serviceChosen.innerHTML = '';
+    serviceChosen.innerHTML = `
+        <tr>
+                    <th class="col-md-5">
+                        Service Name
+                    </th>
+                    <th class="col-md-5">
+                        Service Quantity
+                    </th>
+                    <th class="col-md-2">
+
+                    </th>
+                </tr>
+    `;
 
     for (let i = 0; i < serviceInfor.length; i++) {
-        const newBlock = document.createElement('div');
+        const newBlock = document.createElement('tr');
         newBlock.className = 'serviceBlock';
 
-        var serviceNameValue = document.createElement('p');
-        var serviceQuantityValue = document.createElement('p');
+        var serviceNameValue = document.createElement('td');
+        var serviceQuantityValue = document.createElement('td');
 
         serviceNameValue.innerHTML = serviceInfor[i].value;
         serviceQuantityValue.innerHTML = serviceInfor[i].count;
 
         newBlock.setAttribute('data-index', i);
 
-        const deleteBtn = document.createElement('p');
+        const deleteBtn = document.createElement('td');
         deleteBtn.className = 'delete-btn';
-        deleteBtn.className = 'add-btn';
         deleteBtn.innerHTML = 'Delete';
 
         newBlock.appendChild(serviceNameValue);

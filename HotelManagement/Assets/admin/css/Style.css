@@ -1,5 +1,17 @@
-﻿.ml-0 {
+﻿td a {
+    padding-right: 8px;
+}
+
+td a:first-child {
+    padding-right: 17px;
+}
+
+.ml-0 {
     margin-left: 0 !important;
+}
+
+.ml-12 {
+    margin-left: 12px;
 }
 
 .ml-16 {
@@ -111,11 +123,22 @@
 }
 
 .add-btn {
-    display: block;
-    width: 125px;
     padding: 8px 16px;
-    border: 1px solid #ccc;
+    color: #4e73df;
+    border-color: #4e73df;
+    border-radius: 6px;
     cursor: pointer;
+}
+
+.delete-btn {
+    color: red;
+    text-align: center;
+    cursor: pointer;
+}
+
+.room-chosen, .service-chosen {
+    border: 1px solid #e3e6f0;
+    padding: .75rem 0 !important;
 }
 
 .add-room-form, .add-service-form {
@@ -152,6 +175,8 @@
 
     .booking-room .form-group, .booking-service .form-group {
         width: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     .booking-room > i, .booking-service > i {

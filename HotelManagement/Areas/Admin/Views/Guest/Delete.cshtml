@@ -10,50 +10,51 @@
 <h3 class="ml-32">Are you sure you want to delete this guest?</h3>
 <div>
     <hr />
-    <dl class="dl-horizontal ml-32">
-        <dt>
-            @Html.DisplayNameFor(model => model.CCCD)
-        </dt>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CCCD)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.CCCD)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKhachHang)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TenKhachHang)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LoaiKhachHang)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.LoaiKhachHang)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.NgaySinh)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SoDienThoai)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.SoDienThoai)
+            </td>
+        </tr>
+    </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.CCCD)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TenKhachHang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenKhachHang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LoaiKhachHang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LoaiKhachHang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgaySinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoDienThoai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoDienThoai)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
