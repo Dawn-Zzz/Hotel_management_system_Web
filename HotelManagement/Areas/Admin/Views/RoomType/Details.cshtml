@@ -9,32 +9,32 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal ml-32">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenLoaiPhong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenLoaiPhong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GiaLoaiPhong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GiaLoaiPhong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HinhAnh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HinhAnh)
-        </dd>
-
-    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenLoaiPhong)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TenLoaiPhong)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaLoaiPhong)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.GiaLoaiPhong)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HinhAnh)
+            </th>
+            <td>
+                <img src="@Url.Content("~/Assets/admin/img/" + Model.HinhAnh)" style="width: 100px;" />
+            </td>
+        </tr>
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaLoaiPhong }) |

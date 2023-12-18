@@ -9,60 +9,61 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal ml-32">
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayLap)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgayLap)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ThoiGianNhanPhong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ThoiGianNhanPhong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ThoiGianTraPhong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ThoiGianTraPhong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HienTrang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HienTrang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.KhachHang.CCCD)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.KhachHang.CCCD)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.KhachHang.SoDienThoai)
-        </dd>
-    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayLap)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.NgayLap)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ThoiGianNhanPhong)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.ThoiGianNhanPhong)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ThoiGianTraPhong)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.ThoiGianTraPhong)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HienTrang)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.HienTrang)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang.CCCD)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.KhachHang.CCCD)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.KhachHang.SoDienThoai)
+            </td>
+        </tr>
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaPhieu })
 </p>
 <p>
     @Html.ActionLink("Back to List", "Index", "RegistrationForm", null, new { @class = "create-btn" })
-
 </p>
+

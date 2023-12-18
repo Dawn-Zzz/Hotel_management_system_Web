@@ -9,24 +9,24 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal ml-32">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenDichVu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenDichVu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GiaDichVu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GiaDichVu)
-        </dd>
-
-    </dl>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenDichVu)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TenDichVu)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaDichVu)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.GiaDichVu)
+            </td>
+        </tr>
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaDichVu }) |

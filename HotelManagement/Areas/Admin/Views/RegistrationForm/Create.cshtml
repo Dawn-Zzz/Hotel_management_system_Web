@@ -123,6 +123,28 @@
        });
    }
 
+    document.addEventListener("DOMContentLoaded", function () {
+        var dateCheckIn = document.getElementById("checkIn");
+        var dateCheckOut = document.getElementById("checkOut");
+
+        dateCheckIn.addEventListener("change", function () {
+            var date = new Date(dateCheckIn.value);
+            date.setDate(date.getDate() + 1);
+            var formatDate = date.toISOString().split('T')[0];
+            dateCheckOut.min = formatDate;
+
+            var checkInValue = dateCheckIn.value;
+
+            if (checkInValue) {
+                var date1 = new Date(checkInValue);
+                date1.setDate(date1.getDate() + 1);
+                var formattedDate = date1.toISOString().split('T')[0];
+                dateCheckOut.value = formattedDate;
+            } else {
+                dateCheckOut.value = '';
+            }
+        });
+    });
     //=====================  Xử lý khi load lại trang  =====================
         document.addEventListener("DOMContentLoaded", function () {
             resetListPhong();

@@ -9,83 +9,78 @@
 
 <div>
     <hr />
-    <dl class="dl-horizontal ml-32">
-        <dt>
-            @Html.DisplayNameFor(model => model.MaHoaDon)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaHoaDon)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NgayLapHoaDon)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NgayLapHoaDon)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.KhachHang.TenKhachHang)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.KhachHang.SoDienThoai)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TienPhong)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TienPhong)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TienDichVu)
-        </dt>
-
-        <dd>
-            @{ 
-                var tienDV = Model.TienDichVu;
-                if(Model.TienDichVu == null)
-                {
-                    tienDV = 0;
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaHoaDon)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.MaHoaDon)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayLapHoaDon)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.NgayLapHoaDon)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.KhachHang.TenKhachHang)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.KhachHang.SoDienThoai)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TienPhong)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.TienPhong)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TienDichVu)
+            </th>
+            <td>
+                @{
+                    var tienDV = Model.TienDichVu ?? 0;
+                    @tienDV
                 }
-            }
-            @tienDV
-        </dd>
-
-        <dt>
-            Total Amount
-        </dt>
-
-        <dd>
-
-            @{
-                var tongTien = Model.TienPhong + Model.TienDichVu;
-            }
-            @tongTien
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.NhanVien.TenNhanVien)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.NhanVien.TenNhanVien)
-        </dd>
-
-    </dl>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Total Amount
+            </th>
+            <td>
+                @{
+                    var tongTien = Model.TienPhong + (Model.TienDichVu ?? 0);
+                    @tongTien
+                }
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NhanVien.TenNhanVien)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.NhanVien.TenNhanVien)
+            </td>
+        </tr>
+    </table>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaHoaDon }) |
