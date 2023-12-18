@@ -559,53 +559,20 @@ if (addRoomForm) {
 
 if (addServiceForm) {
     const serviceInfor = [];
-    addServiceBtn.onclick = () => {
-        console.log(addServiceForm);
-        addServiceForm.style.display = "flex";
-        //const roomNode = e.target.closest('.room');
-        //if (roomNode) {
 
-        //const typeOfRoom = roomNode.querySelector('.room-type');
-        //const imgPath = roomNode.querySelector('.img-fluid');
+    addServiceBtn.onclick = () => {
+        addServiceForm.style.display = "flex";
 
         const serviceName = addServiceForm.querySelector('.service-name')
         const serviceQuantity = addServiceForm.querySelector('.service-quantity');
-        //const clientName = addServiceForm.querySelector('.client-name');
-        //const clientPhoneNumber = addServiceForm.querySelector('.client-phone-number');
-        //const clientEmail = addServiceForm.querySelector('.client-email');
-        //const clientCheckIn = addServiceForm.querySelector('#checkin_booking');
-        //const clientCheckOut = addServiceForm.querySelector('#checkout_booking');
-        //const clientAdults = addServiceForm.querySelector('.adults-number');
-        //const clientChildren = addServiceForm.querySelector('.children-number');
 
         serviceName.value = null;
         serviceQuantity.value = null;
-        //clientEmail.value = null;
-        //clientCheckIn.value = null;
-        //clientCheckOut.value = null;
-        //clientAdults.value = null;
-        //clientChildren.value = null;
-
-        //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
-
+        var blockIndexes = [];
         submitService.onclick = () => {
+            //var isNull = serviceInfor.every((service) => service.value != serviceName.value.trim());
 
-            while (serviceInfor.length > 0) {
-                serviceInfor.pop();
-            }
-            //clientInfo.push(
-            //    clientName.value,
-            //    clientPhoneNumber.value,
-            //    clientEmail.value,
-            //    clientCheckIn.value,
-            //    clientCheckOut.value,
-            //    clientAdults.value,
-            //    clientChildren.value
-            //);
-            var isNull = serviceInfor.every((clientValue, index) => {
-                return clientValue != "";
-            });
-            if (isNull) {
+            //if (isNull) {
                 $.ajax({
                     url: '/RegistrationForm/AddService',
                     type: 'POST',
@@ -615,75 +582,71 @@ if (addServiceForm) {
                     },
                     success: function (data) {
                         if (data) {
-                            console.log("list service: ", data)
+                            console.log("list service: ", data);
                         }
                     }
                 });
 
-                var newBlock = document.createElement('div');
+                var existingService = serviceInfor.find((service) => service.value === serviceName.value.trim());
+
+                if (existingService) {
+                    existingService.count += parseInt(serviceQuantity.value.trim()) || 0;
+                } else {
+                    serviceInfor.push({
+                        value: serviceName.value.trim(),
+                        count: parseInt(serviceQuantity.value.trim()) || 0,
+                    });
+                }
+
+            serviceChosen.innerHTML = '';
+
+            for (let i = 0; i < serviceInfor.length; i++) {
+                const newBlock = document.createElement('div');
+                newBlock.className = 'serviceBlock';
 
                 var serviceNameValue = document.createElement('p');
                 var serviceQuantityValue = document.createElement('p');
 
-                serviceNameValue.innerHTML = serviceName.value;
-                serviceQuantityValue.innerHTML = serviceQuantity.value;
+                serviceNameValue.innerHTML = serviceInfor[i].value;
+                serviceQuantityValue.innerHTML = serviceInfor[i].count;
 
-                newBlock.className = 'serviceBlock';
+                newBlock.setAttribute('data-index', i);
 
-                var deleteBtn = document.createElement('p');
+                const deleteBtn = document.createElement('p');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.className = 'add-btn';
                 deleteBtn.innerHTML = 'Delete';
 
                 deleteBtn.onclick = () => {
-                    serviceChosen.removeChild(newBlock);
+                    const indexToDelete = parseInt(newBlock.getAttribute('data-index'));
+                    if (!isNaN(indexToDelete)) {
+                        serviceChosen.removeChild(newBlock);
+                        serviceInfor.splice(indexToDelete, 1);
+                        printBlockElements();
+                    }
                 }
+
+                var newBlockIndex = blockIndexes.length;
+                blockIndexes.push(newBlockIndex);
 
                 newBlock.appendChild(serviceNameValue);
                 newBlock.appendChild(serviceQuantityValue);
                 newBlock.appendChild(deleteBtn);
 
-                hideForm();
-
                 serviceChosen.appendChild(newBlock);
             }
-            else {
-                console.log("error");
-            }
-        }
+            hideForm();
+        };
 
-        //formTitle.textContent = typeOfRoom.textContent;
+
         closeEvents.forEach(closeEvent => {
             closeEvent.addEventListener('click', () => {
-                serviceInfor.push(
-                    serviceName.value,
-                    serviceQuantity.value,
-                    //    clientEmail.value,
-                    //    clientCheckIn.value,
-                    //    clientCheckOut.value,
-                    //    clientAdults.value,
-                    //    clientChildren.value
-                );
-                //while (clientInfo.length > 0) {
-                //    clientInfo.pop();
-                //}
                 hideForm();
-                //const formGroups = bookingForm.querySelectorAll(".form-group");
-                //const formMessages = bookingForm.querySelectorAll(".form-message");
+            });
+        });
 
-                //if (formGroups.length > 0) {
-                //    formGroups.forEach(formGroup => {
-                //        formGroup.classList.remove('invalid');
-                //    })
-                //    formMessages.forEach(formMessage => {
-                //        formMessage.innerText = "";
-                //    })
-                //}
-            })
-        })
         serviceContainer.addEventListener('click', (e) => {
             e.stopPropagation();
         });
-        //}
     }
 }
