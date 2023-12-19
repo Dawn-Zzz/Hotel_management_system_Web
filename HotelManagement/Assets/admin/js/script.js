@@ -376,12 +376,14 @@ if (familyRoomList) {
 }
 
 function hideForm() {
+    quantityFlag++;
     if (addRoomForm)
         addRoomForm.style.display = "none";
     if (addServiceForm)
         addServiceForm.style.display = "none";
 }
 
+var quantityFlag = 0;
 if (addRoomForm) {
     const roomInfor = [];
     if (!registrationPhoneNumber.value || !registraionDateCheckIn.value) {
@@ -458,10 +460,16 @@ if (addRoomForm) {
                     deleteBtn.className = 'delete-btn';
                     deleteBtn.innerHTML = 'Delete';
 
-                    var roomBlockQuantity = document.querySelectorAll(".roomBlock");
-                    console.log(roomBlockQuantity);
+                    var newBlockIndex = blockIndexes.length;
+                    blockIndexes.push(newBlockIndex);
+
+                    newBlock.appendChild(roomIDValue);
+                    newBlock.appendChild(roomNumberValue);
+                    newBlock.appendChild(clientQuantityValue);
+                    newBlock.appendChild(deleteBtn);
 
                     deleteBtn.onclick = () => {
+                        quantityFlag--;
                         var i = blockIndexes.indexOf(newBlockIndex);
                         if (i !== -1) {
                             blockIndexes.splice(i, 1);
@@ -497,52 +505,65 @@ if (addRoomForm) {
                                 console.log('Lỗi khi gửi yêu cầu lấy mã phòng.');
                             }
                         });
-                        console.log(roomBlockQuantity);
-                        if (roomBlockQuantity.length <= 1) {
+                        console.log(blockIndexes.length + "check" + quantityFlag);
+                        if (quantityFlag == 0) {
                             registraionDateCheckIn.style.opacity = "1";
                             registraionDateCheckOut.style.opacity = "1";
                         }
+                        //else {
+                        //    registraionDateCheckIn.style.opacity = "1";
+                        //    registraionDateCheckOut.style.opacity = "1";
+                        //}
                         registraionDateCheckIn.onclick = (e) => {
-                            if (roomBlockQuantity.length <= 1) {
-                                registraionDateCheckIn.style.opacity = "1";
-                                registraionDateCheckOut.style.opacity = "1";
+                            if (quantityFlag == 0) {
+                                //registraionDateCheckIn.style.opacity = "1";
+                                //registraionDateCheckOut.style.opacity = "1";
                                 e.preventDefault = false;
                             }
                             else {
-                                registraionDateCheckIn.style.opacity = "0.3";
-                                registraionDateCheckOut.style.opacity = "0.3";
+                                e.preventDefault();
                             }
                         }
+                        //if (roomBlockQuantity.length == quantityFlag) {
+                        //    quantityFlag = 0;
+                        //}
                     }
-
-                    var newBlockIndex = blockIndexes.length;
-                    blockIndexes.push(newBlockIndex);
-
-                    newBlock.appendChild(roomIDValue);
-                    newBlock.appendChild(roomNumberValue);
-                    newBlock.appendChild(clientQuantityValue);
-                    newBlock.appendChild(deleteBtn);
 
                     hideForm();
 
                     roomChosen.appendChild(newBlock);
-                }
-                if (roomBlockQuantity.length > 0) {
-                    registraionDateCheckIn.style.opacity = "0.3";
-                    registraionDateCheckOut.style.opacity = "0.3";
-                }
-                registraionDateCheckIn.onclick = (e) => {
-                    if (roomBlockQuantity.length > 0) {
-                        registraionDateCheckIn.style.opacity = "0.3";
-                        registraionDateCheckOut.style.opacity = "0.3";
-                        e.preventDefault(); 
+                    var checkChildBlock = roomChosen.classList.contains("roomBlock");
+                    if (checkChildBlock) {
+                        console.log("Ton tai")
                     }
                     else {
-                        registraionDateCheckIn.style.opacity = "1";
+                        console.log(checkChildBlock)
+                    }
+                }
+                //if (blockIndexes.length > 0) {
+                //    registraionDateCheckIn.style.opacity = "0.3";
+                //    registraionDateCheckOut.style.opacity = "0.3";
+                //}
+                //else {
+                //    registraionDateCheckIn.style.opacity = "1";
+                //    registraionDateCheckOut.style.opacity = "1";
+                //}
+                registraionDateCheckIn.style.opacity = "0.3";
+                registraionDateCheckOut.style.opacity = "0.3";
+                registraionDateCheckIn.onclick = (e) => {
+                        e.preventDefault(); 
+                }
+                registraionDateCheckOut.onclick = (e) => {
+                    if (blockIndexes.length > 0) {
+                        registraionDateCheckOut.style.opacity = "0.3";
+                        e.preventDefault();
+                    }
+                    else {
                         registraionDateCheckOut.style.opacity = "1";
                     }
                 }
             }
+            var roomBlockQuantity = document.querySelectorAll(".roomBlock");
 
             //formTitle.textContent = typeOfRoom.textContent;
             closeEvents.forEach(closeEvent => {

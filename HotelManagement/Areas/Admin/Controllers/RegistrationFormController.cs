@@ -64,24 +64,33 @@ namespace HotelManagement.Areas.Admin.Controllers
 
                 db.PhieuThues.Add(phieuThue);
                 var listPhong = Session["listPhong"] as List<PhieuThuePhong>;
-                foreach (var phong in listPhong)
+                if(listPhong == null)
                 {
-                    var newPhieuThuePhong = new PhieuThuePhong
+                    ModelState.AddModelError("CustomError", "Không thể nhận phòng vì chưa tới ngày nhận phòng!");
+                    ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
+                    ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
+                    return View(phieuThue); 
+                } 
+                else {
+                    foreach (var phong in listPhong)
                     {
-                        MaPhieu = phieuThue.MaPhieu,
-                        MaPhong = phong.MaPhong,
-                        SoNguoiO = phong.SoNguoiO
-                    };
+                        var newPhieuThuePhong = new PhieuThuePhong
+                        {
+                            MaPhieu = phieuThue.MaPhieu,
+                            MaPhong = phong.MaPhong,
+                            SoNguoiO = phong.SoNguoiO
+                        };
 
-                    db.PhieuThuePhongs.Add(newPhieuThuePhong);
+                        db.PhieuThuePhongs.Add(newPhieuThuePhong);
+                    }
+
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
                 }
-
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
             }
             ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
             ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
-
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
             return View(phieuThue);
         }
