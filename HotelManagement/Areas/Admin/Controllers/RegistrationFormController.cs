@@ -20,7 +20,8 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/RegistrationForm
         public ActionResult Index()
         {
-            var phieuThues = db.PhieuThues.Include(p => p.KhachHang);
+            var phieuThues = db.PhieuThues.Include(p => p.KhachHang).OrderByDescending(p => p.HienTrang == "Chưa nhận phòng")
+                    .ThenByDescending(p => p.HienTrang == "Đã nhận phòng");
             return View(phieuThues.ToList());
         }
 

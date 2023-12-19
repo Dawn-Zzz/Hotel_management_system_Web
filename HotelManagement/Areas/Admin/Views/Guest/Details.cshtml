@@ -52,7 +52,9 @@
         </tr>
     </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKhachHang }) |
+<p class="pl-12 ml-16 mt-32 mb-24">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaKhachHang }, new { @class = "create-btn" })
+</p>
+<p class="pl-12 ml-16 mt-32 mb-24">
     @Html.ActionLink("Back to List", "Index")
 </p>
