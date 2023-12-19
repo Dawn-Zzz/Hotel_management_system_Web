@@ -1,9 +1,5 @@
 ﻿td a {
-    padding-right: 8px;
-}
-
-td a:first-child {
-    padding-right: 17px;
+    padding-right: 6px;
 }
 
 .ml-0 {
@@ -32,6 +28,10 @@ td a:first-child {
 
 .pl-12 {
     padding-left: 12px;
+}
+
+.card {
+    margin-right: 16px;
 }
 
 .title {

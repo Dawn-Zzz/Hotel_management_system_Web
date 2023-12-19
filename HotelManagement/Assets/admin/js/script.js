@@ -423,7 +423,6 @@ if (addRoomForm) {
             //formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
             var blockIndexes = [];
             submitRoom.onclick = () => {
-
                 while (roomInfor.length > 0) {
                     roomInfor.pop();
                 }
@@ -455,10 +454,12 @@ if (addRoomForm) {
                     clientQuantityValue.innerHTML = clienQuantity.value.trim();
 
                     newBlock.className = 'roomBlock';
-
                     var deleteBtn = document.createElement('td');
                     deleteBtn.className = 'delete-btn';
                     deleteBtn.innerHTML = 'Delete';
+
+                    var roomBlockQuantity = document.querySelectorAll(".roomBlock");
+                    console.log(roomBlockQuantity);
 
                     deleteBtn.onclick = () => {
                         var i = blockIndexes.indexOf(newBlockIndex);
@@ -496,19 +497,20 @@ if (addRoomForm) {
                                 console.log('Lỗi khi gửi yêu cầu lấy mã phòng.');
                             }
                         });
-                        if (roomBlockQuantity.length <= 0) {
+                        console.log(roomBlockQuantity);
+                        if (roomBlockQuantity.length <= 1) {
                             registraionDateCheckIn.style.opacity = "1";
                             registraionDateCheckOut.style.opacity = "1";
                         }
                         registraionDateCheckIn.onclick = (e) => {
-                            if (roomBlockQuantity.length <= 0) {
+                            if (roomBlockQuantity.length <= 1) {
                                 registraionDateCheckIn.style.opacity = "1";
                                 registraionDateCheckOut.style.opacity = "1";
                                 e.preventDefault = false;
                             }
                             else {
-                                registraionDateCheckIn.style.opacity = "1";
-                                registraionDateCheckOut.style.opacity = "1";
+                                registraionDateCheckIn.style.opacity = "0.3";
+                                registraionDateCheckOut.style.opacity = "0.3";
                             }
                         }
                     }
@@ -525,7 +527,6 @@ if (addRoomForm) {
 
                     roomChosen.appendChild(newBlock);
                 }
-                var roomBlockQuantity = document.querySelectorAll(".roomBlock");
                 if (roomBlockQuantity.length > 0) {
                     registraionDateCheckIn.style.opacity = "0.3";
                     registraionDateCheckOut.style.opacity = "0.3";
