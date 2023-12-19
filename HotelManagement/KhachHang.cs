@@ -31,7 +31,7 @@ namespace HotelManagement
         [DisplayName("ID Number")]
         [Required(ErrorMessage = "Số CCCD khách hàng không được để trống.")]
         [RegularExpression(@"^\d{12}$", ErrorMessage = "Số CCCD phải là 12 chữ số.")]
-        [CustomValidation(typeof(KhachHang), "ValidateCCCDAndPhone")]
+        //[CustomValidation(typeof(KhachHang), "ValidateCCCDAndPhone")]
         public string CCCD { get; set; }
 
         [DisplayName("Guest Name")]
@@ -51,7 +51,7 @@ namespace HotelManagement
         [DisplayName("Phone Number")]
         [Required(ErrorMessage = "Số điện thoại không được để trống.")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Số điện thoại phải là 10 chữ số.")]
-        [CustomValidation(typeof(KhachHang), "ValidateCCCDAndPhone")]
+        //[CustomValidation(typeof(KhachHang), "ValidateCCCDAndPhone")]
         public string SoDienThoai { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -86,45 +86,45 @@ namespace HotelManagement
             return ValidationResult.Success;
         }
 
-        public static ValidationResult ValidateCCCDAndPhone(string value, ValidationContext context)
-        {
-            string fieldValue = value;
-            string propertyName = context.MemberName;
-            string violationMessage = "";
+        //public static ValidationResult ValidateCCCDAndPhone(string value, ValidationContext context)
+        //{
+        //    string fieldValue = value;
+        //    string propertyName = context.MemberName;
+        //    string violationMessage = "";
 
-            if ((propertyName == "CCCD" || propertyName == "SoDienThoai") && !string.IsNullOrEmpty(fieldValue))
-            {
-                KhachHang customer = context.ObjectInstance as KhachHang;
+        //    if ((propertyName == "CCCD" || propertyName == "SoDienThoai") && !string.IsNullOrEmpty(fieldValue))
+        //    {
+        //        KhachHang customer = context.ObjectInstance as KhachHang;
 
-                Hotel_ManagementEntities dbContext = new Hotel_ManagementEntities();
-                var customers = dbContext.KhachHangs.ToList();
+        //        Hotel_ManagementEntities dbContext = new Hotel_ManagementEntities();
+        //        var customers = dbContext.KhachHangs.ToList();
 
-                if (customers != null)
-                {
-                    KhachHang existingCustomerCCCD = customers.FirstOrDefault(e =>
-                        propertyName == "CCCD" && e.CCCD == fieldValue && e.MaKhachHang != customer.MaKhachHang);
+        //        if (customers != null)
+        //        {
+        //            KhachHang existingCustomerCCCD = customers.FirstOrDefault(e =>
+        //                propertyName == "CCCD" && e.CCCD == fieldValue && e.MaKhachHang != customer.MaKhachHang);
 
-                    KhachHang existingCustomerPhone = customers.FirstOrDefault(e =>
-                        propertyName == "SoDienThoai" && e.SoDienThoai == fieldValue && e.MaKhachHang != customer.MaKhachHang);
+        //            KhachHang existingCustomerPhone = customers.FirstOrDefault(e =>
+        //                propertyName == "SoDienThoai" && e.SoDienThoai == fieldValue && e.MaKhachHang != customer.MaKhachHang);
 
-                    if (existingCustomerCCCD != null)
-                    {
-                        violationMessage += "CCCD đã tồn tại cho khách hàng khác. ";
-                    }
+        //            if (existingCustomerCCCD != null)
+        //            {
+        //                violationMessage += "CCCD đã tồn tại cho khách hàng khác. ";
+        //            }
 
-                    if (existingCustomerPhone != null)
-                    {
-                        violationMessage += "Số điện thoại đã tồn tại cho khách hàng khác. ";
-                    }
+        //            if (existingCustomerPhone != null)
+        //            {
+        //                violationMessage += "Số điện thoại đã tồn tại cho khách hàng khác. ";
+        //            }
 
-                    if (!string.IsNullOrEmpty(violationMessage))
-                    {
-                        return new ValidationResult(violationMessage.Trim());
-                    }
-                }
-            }
+        //            if (!string.IsNullOrEmpty(violationMessage))
+        //            {
+        //                return new ValidationResult(violationMessage.Trim());
+        //            }
+        //        }
+        //    }
 
-            return ValidationResult.Success;
-        }
+        //    return ValidationResult.Success;
+        //}
     }
 }

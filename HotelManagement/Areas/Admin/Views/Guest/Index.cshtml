@@ -47,9 +47,9 @@
         <th>
             @Html.DisplayNameFor(model => model.LoaiKhachHang)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.TaiKhoanKHs.First().TenTaiKhoan)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -71,7 +71,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LoaiKhachHang)
             </td>
-            <td>
+            @*<td>
                 @if (item.TaiKhoanKHs.Any())
                 {
                     @Html.DisplayFor(modelItem => item.TaiKhoanKHs.First().TenTaiKhoan)
@@ -80,7 +80,7 @@
                 {
                     @:N/A
                 }
-            </td>
+            </td>*@
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MaKhachHang }) |
                 @Html.ActionLink("Details", "Details", new { id = item.MaKhachHang }) |
