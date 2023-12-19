@@ -93,8 +93,10 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(nhanVien).State = EntityState.Modified;
                 db.Entry(taiKhoannv).State = EntityState.Modified;
+                db.SaveChanges();
+
+                db.Entry(nhanVien).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

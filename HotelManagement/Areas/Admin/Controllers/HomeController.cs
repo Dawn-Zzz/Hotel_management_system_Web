@@ -13,19 +13,24 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            var totalRooms = db.Phongs.Count();
-            var totalEmployees = db.NhanViens.Count();
-            var totalBookings = db.PhieuThuePhongs.Count();
-            var totalRoomBookings = db.Phongs.Count(p => p.HienTrang == true);
-            var totalRevenue = db.HoaDons.Sum(h => h.TienPhong + (h.TienDichVu ?? 0));
-            string formattedNumber = totalRevenue.ToString("#,##0");
+            if (Session["MaNV"] == null)
+                return RedirectToAction("Index", "Login");
+            else
+            {
+                var totalRooms = db.Phongs.Count();
+                var totalEmployees = db.NhanViens.Count();
+                var totalBookings = db.PhieuThuePhongs.Count();
+                var totalRoomBookings = db.Phongs.Count(p => p.HienTrang == true);
+                var totalRevenue = db.HoaDons.Sum(h => h.TienPhong + (h.TienDichVu ?? 0));
+                string formattedNumber = totalRevenue.ToString("#,##0");
 
-            ViewBag.TotalRooms = totalRooms;
-            ViewBag.TotalEmployees = totalEmployees;
-            ViewBag.TotalBookings = totalBookings;
-            ViewBag.TotalRoomBookings = totalRoomBookings;
-            ViewBag.TotalRevenue = formattedNumber;
-            return View();
+                ViewBag.TotalRooms = totalRooms;
+                ViewBag.TotalEmployees = totalEmployees;
+                ViewBag.TotalBookings = totalBookings;
+                ViewBag.TotalRoomBookings = totalRoomBookings;
+                ViewBag.TotalRevenue = formattedNumber;
+                return View();
+            }
         }
         public ActionResult Rooms()
         {
@@ -59,6 +64,12 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public ActionResult PreventAccess()
+        {
+            return View();
+        }
+
         public JsonResult GetMonthlyEarning()
         {
             var monthlyEarning = db.HoaDons

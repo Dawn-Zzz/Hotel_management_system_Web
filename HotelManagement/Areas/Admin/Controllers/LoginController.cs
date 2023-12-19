@@ -26,7 +26,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 //Session["user"] = login.HoTenNV +" ("+ login.ChucVu+")";
                 Session["HoTenNV"] = taiKhoanNV.NhanVien.TenNhanVien;
-                Session["ChucDanh"] = taiKhoanNV.NhanVien.ChucDanh;
+                Session["Quyen"] = taiKhoanNV.Quyen;
                 Session["MaNV"] = taiKhoanNV.MaNhanVien;
 
                 return RedirectToAction("Index", "Home");

@@ -62,16 +62,23 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/RoomType/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (Session["Quyen"].ToString() == "1")
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("PreventAccess", "Home");
             }
-            LoaiPhong loaiPhong = db.LoaiPhongs.Find(id);
-            if (loaiPhong == null)
+            else
             {
-                return HttpNotFound();
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                LoaiPhong loaiPhong = db.LoaiPhongs.Find(id);
+                if (loaiPhong == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(loaiPhong);
             }
-            return View(loaiPhong);
         }
 
         // POST: Admin/RoomType/Edit/5
