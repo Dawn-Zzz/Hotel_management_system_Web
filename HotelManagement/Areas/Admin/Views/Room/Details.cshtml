@@ -15,7 +15,11 @@
                 @Html.DisplayNameFor(model => model.HienTrang)
             </th>
             <td>
-                @Html.DisplayFor(model => model.HienTrang)
+                @*@Html.DisplayFor(model => model.HienTrang)*@
+                @{
+                    string hienTrang = Model.HienTrang ? "Booked Room" : "Available Room";
+                }
+                @hienTrang
             </td>
         </tr>
         <tr>
@@ -28,9 +32,9 @@
         </tr>
     </table>
 </div>
-<p class="pl-12 ml-16 mt-32 mb-24">
-    @Html.ActionLink("Edit", "Edit", new { id = Model.MaPhong })
-</p>
+@*<p class="pl-12 ml-16 mt-32 mb-24">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaPhong }, new { @class = "create-btn"})
+</p>*@
 <p class="pl-12 ml-16 mt-32 mb-24">
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -10,13 +10,14 @@
 @using (Html.BeginForm("Search", "Invoice", FormMethod.Get, new { @class = "search-form" }))
 {
     <div class="input-group">
-        <div class="form-outline">
+        <div class="form-outline df-flex">
 
-            @Html.TextBox("ngayDau", null, new { @class = "form-control bg-light border-0 small", type = "date" })
-            @Html.TextBox("ngayCuoi", null, new { @class = "form-control bg-light border-0 small", type = "date" })
+            @Html.TextBox("ngayDau", null, new { @class = "form-control bg-light border-0 small date-check", type = "date" })
+            
+            @Html.TextBox("ngayCuoi", null, new { @class = "form-control bg-light border-0 small date-check", type = "date" })
         </div>
 
-        <input type="submit" value=" Tìm " date="date" class="btn btn-primary" />
+        <input type="submit" value=" Tìm " date="date" class="btn btn-primary date-check" style="border-radius: 8px !important"/>
     </div>
 }
 

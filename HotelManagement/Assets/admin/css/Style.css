@@ -30,8 +30,69 @@
     padding-left: 12px;
 }
 
+.df-flex {
+    display: flex;
+}
+
+.df-flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.df-flex-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.df-flex-col div {
+    margin: 8px 0 !important;
+}
+
+.df-flex-col div a{
+    display: block;
+    border: 1px solid #ccc;
+    padding: 4px;
+    width: 90px;
+    text-align: center;
+    margin-left: 8px;
+    border-radius: 16px;
+}
+
+.df-flex-col div a:hover {
+    opacity: .7;
+    text-decoration: none;
+    color: #fff;
+}
+
 .card {
     margin-right: 16px;
+}
+
+.button-success {
+    border-color: transparent !important;
+    background-color: #1cc88a;
+    color: #fff;
+}
+
+.button-danger {
+    border-color: transparent !important;
+    background-color: #e74a3b;
+    color: #fff;
+}
+
+.button-danger-outline {
+    border-color: #e74a3b !important;
+    color: #e74a3b;
+}
+
+.button-danger-outline:hover {
+    color: #e74a3b !important;
+}
+
+.date-check {
+    border-radius: 8px !important;
+    margin-right: 8px;
 }
 
 .title {
@@ -84,7 +145,7 @@
 .room-body {
     flex: 1 1 auto;
     min-height: 1px;
-    padding: 3.25rem 0.25rem;
+    padding: 1rem 0.25rem 0rem;
 }
 
 .acction-link {
@@ -99,14 +160,14 @@
     }
 
 .table tbody th:first-child, td:first-child {
-    padding-left: 40px
+    padding-left: 32px
 }
 
 
 .form-control {
-    border-radius: 0 !important;
-    border-top-left-radius: 8px !important;
-    border-bottom-left-radius: 8px !important;
+    /*border-radius: 0 !important;*/
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
 }
 
 .render-body-section .search-form {
