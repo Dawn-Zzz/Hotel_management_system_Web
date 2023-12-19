@@ -54,6 +54,24 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var existingEmployeeCCCD = db.NhanViens.FirstOrDefault(e => e.CCCD == nhanVien.CCCD);
+                var existingEmployeePhone = db.NhanViens.FirstOrDefault(e => e.SoDienThoai == nhanVien.SoDienThoai);
+
+                if (existingEmployeeCCCD != null)
+                {
+                    ModelState.AddModelError("CCCD", "CCCD đã tồn tại.");
+                }
+
+                if (existingEmployeePhone != null)
+                {
+                    ModelState.AddModelError("SoDienThoai", "Số điện thoại đã tồn tại.");
+                }
+
+                if (ModelState.IsValid == false)
+                {
+                    return View(nhanVien);
+                }
+
                 db.NhanViens.Add(nhanVien);
 
                 taiKhoannv.MaNhanVien = nhanVien.MaNhanVien;
