@@ -30,13 +30,13 @@
             @Html.DisplayNameFor(model => model.MaHoaDon)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang);
+            @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
         </th>
         <th>
             Total Amount
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.NhanVien.TenNhanVien);
+            @Html.DisplayNameFor(model => model.NhanVien.TenNhanVien)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NgayLapHoaDon)
@@ -55,7 +55,6 @@
                     @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
                 </td>
                 <td>
-
                     @{
                         var tongTien = item.TienPhong + item.TienDichVu;
                         if (item.TienDichVu == null)
@@ -67,7 +66,7 @@
                             tongTien = item.TienDichVu + item.TienPhong;
                         }
                     }
-                    @tongTien
+                    @String.Format("{0:#,##0}", tongTien).Replace(",", ".") VNĐ
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)

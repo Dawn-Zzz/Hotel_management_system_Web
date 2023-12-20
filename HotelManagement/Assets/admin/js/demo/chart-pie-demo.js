@@ -72,23 +72,23 @@ function createChart() {
 
     // Gọi AJAX để lấy dữ liệu từ controller
     jQuery.ajax({
-        url: 'Home/GetTypeRoomEarning', // Đường dẫn đến action trong controller
+        url: 'Home/GetTypeRoomDensity', // Đường dẫn đến action trong controller
         type: 'GET',
         dataType: 'json',
         success: function (data) {
             // Dữ liệu đã được nhận về từ action
             // Cập nhật dữ liệu cho biểu đồ
             var tenLoaiPhong = [];
-            var totalEarning = [];
+            var totalDensity = [];
 
             // Xử lý dữ liệu nhận được từ action
             data.forEach(function (item) {
                 tenLoaiPhong.push(item.TenLoaiPhong);
-                totalEarning.push(item.TotalEarning);
+                totalDensity.push(item.MatDoThue);
             });
             // Cập nhật dữ liệu cho biểu đồ
             myPieChart.data.labels = tenLoaiPhong;
-            myPieChart.data.datasets[0].data = totalEarning;
+            myPieChart.data.datasets[0].data = totalDensity;
 
             // Cập nhật biểu đồ
             myPieChart.update();

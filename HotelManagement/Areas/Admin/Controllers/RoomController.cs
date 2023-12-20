@@ -29,6 +29,8 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            ViewBag.ID = id;
             Phong phong = db.Phongs.Find(id);
             if (phong == null)
             {

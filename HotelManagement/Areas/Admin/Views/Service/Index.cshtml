@@ -40,7 +40,11 @@
                 @Html.DisplayFor(modelItem => item.TenDichVu)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GiaDichVu)
+                @*@Html.DisplayFor(modelItem => item.GiaDichVu)*@
+                @{
+                    var tienDV = item.GiaDichVu;
+                }
+                @String.Format("{0:#,##0}", tienDV).Replace(",", ".") VNĐ
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.MaDichVu.Trim() })

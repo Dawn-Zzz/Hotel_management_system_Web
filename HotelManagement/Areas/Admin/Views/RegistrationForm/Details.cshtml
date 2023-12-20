@@ -12,6 +12,30 @@
     <table class="table">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.KhachHang.TenKhachHang)
+            </td>
+        </tr>
+        @*<tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang.CCCD)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.KhachHang.CCCD)
+            </td>
+        </tr>*@
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.KhachHang.SoDienThoai)
+            </td>
+        </tr>
+        <tr>
+            <th>
                 @Html.DisplayNameFor(model => model.NgayLap)
             </th>
             <td>
@@ -40,22 +64,6 @@
             </th>
             <td>
                 @Html.DisplayFor(model => model.HienTrang)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.KhachHang.CCCD)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.KhachHang.CCCD)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.KhachHang.SoDienThoai)
             </td>
         </tr>
     </table>

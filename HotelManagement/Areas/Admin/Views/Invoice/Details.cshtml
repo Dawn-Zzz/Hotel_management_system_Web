@@ -12,22 +12,6 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MaHoaDon)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.MaHoaDon)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.NgayLapHoaDon)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.NgayLapHoaDon)
-            </td>
-        </tr>
-        <tr>
-            <th>
                 @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
             </th>
             <td>
@@ -44,10 +28,30 @@
         </tr>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.MaHoaDon)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.MaHoaDon)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayLapHoaDon)
+            </th>
+            <td>
+                @Html.DisplayFor(model => model.NgayLapHoaDon)
+            </td>
+        </tr>
+        <tr>
+            <th>
                 @Html.DisplayNameFor(model => model.TienPhong)
             </th>
             <td>
-                @Html.DisplayFor(model => model.TienPhong)
+                @*@Html.DisplayFor(model => model.TienPhong)*@
+                @{
+                    var tienPhong = Model.TienPhong;
+                }
+                @String.Format("{0:#,##0}", tienPhong).Replace(",", ".") VNĐ
             </td>
         </tr>
         <tr>
@@ -57,8 +61,8 @@
             <td>
                 @{
                     var tienDV = Model.TienDichVu ?? 0;
-                    @tienDV
                 }
+                @String.Format("{0:#,##0}", tienDV).Replace(",", ".") VNĐ
             </td>
         </tr>
         <tr>
@@ -68,8 +72,8 @@
             <td>
                 @{
                     var tongTien = Model.TienPhong + (Model.TienDichVu ?? 0);
-                    @tongTien
                 }
+                @String.Format("{0:#,##0}", tongTien).Replace(",", ".") VNĐ
             </td>
         </tr>
         <tr>
@@ -82,9 +86,9 @@
         </tr>
     </table>
 </div>
-<p class="pl-12 ml-16 mt-32 mb-24">
+@*<p class="pl-12 ml-16 mt-32 mb-24">
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaHoaDon }, new { @class = "create-btn" })
-</p>
+</p>*@
 <p class="pl-12 ml-16 mt-32 mb-24">
     @Html.ActionLink("Back to List", "Index")
 </p>

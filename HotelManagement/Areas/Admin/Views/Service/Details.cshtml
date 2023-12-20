@@ -23,7 +23,11 @@
                 @Html.DisplayNameFor(model => model.GiaDichVu)
             </th>
             <td>
-                @Html.DisplayFor(model => model.GiaDichVu)
+                @*@Html.DisplayFor(model => model.GiaDichVu)*@
+                @{
+                    var tienDV = Model.GiaDichVu;
+                }
+                @String.Format("{0:#,##0}", tienDV).Replace(",", ".") VNĐ
             </td>
         </tr>
     </table>

@@ -20,9 +20,13 @@ namespace HotelManagement.Areas.Admin.Controllers
                 var totalRooms = db.Phongs.Count();
                 var totalEmployees = db.NhanViens.Count();
                 var totalBookings = db.PhieuThuePhongs.Count();
-                var totalRoomBookings = db.Phongs.Count(p => p.HienTrang == true);
+                var totalRoomBookings = (from pt in db.PhieuThues
+                                         join ptp in db.PhieuThuePhongs on pt.MaPhieu equals ptp.MaPhieu
+                                         join p in db.Phongs on ptp.MaPhong equals p.MaPhong
+                                         where pt.HienTrang == "Đã nhận phòng"
+                                         select p).Count();
                 var totalRevenue = db.HoaDons.Sum(h => h.TienPhong + (h.TienDichVu ?? 0));
-                string formattedNumber = totalRevenue.ToString("#,##0");
+                string formattedNumber = totalRevenue.ToString("#,##0").Replace(",",".");
 
                 ViewBag.TotalRooms = totalRooms;
                 ViewBag.TotalEmployees = totalEmployees;
@@ -100,17 +104,18 @@ namespace HotelManagement.Areas.Admin.Controllers
             return Json(yearlyEarning, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetTypeRoomEarning()
+        public JsonResult GetTypeRoomDensity()
         {
-            var query = from hd in db.HoaDons
-                        join ptp in db.PhieuThuePhongs on hd.MaPhieu equals ptp.MaPhieu
+            var query = from pt in db.PhieuThues
+                        join ptp in db.PhieuThuePhongs on pt.MaPhieu equals ptp.MaPhieu
                         join p in db.Phongs on ptp.MaPhong equals p.MaPhong
                         join lp in db.LoaiPhongs on p.MaLoaiPhong equals lp.MaLoaiPhong
-                        group new { hd, lp } by lp.TenLoaiPhong into g
+                        where pt.HienTrang == "Đã nhận phòng" || pt.HienTrang == "Đã trả phòng"
+                        group lp by lp.TenLoaiPhong into g
                         select new
                         {
                             TenLoaiPhong = g.Key,
-                            TotalEarning = g.Sum(x => x.hd.TienPhong + (x.hd.TienDichVu ?? 0))
+                            MatDoThue = g.Count()
                         };
 
             var data = query.ToList(); // Chuyển kết quả thành danh sách
