@@ -5,8 +5,6 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-
-
 <h2 class="card-title title ml-32">Guests List</h2>
 
 @using (Html.BeginForm("Search", "Guest", FormMethod.Get, new { @class = "search-form" }))
@@ -14,7 +12,7 @@
     <div class="input-group">
         <div class="form-outline">
 
-            @Html.TextBox("name", null, new { @class = "form-control bg-light border-0 small" })
+            @Html.TextBox("name", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Search Guest Name" })
         </div>
 
         <input type="submit" value=" Tìm " name="name" class="btn btn-primary" />
@@ -48,9 +46,11 @@
             @Html.DisplayNameFor(model => model.LoaiKhachHang)
         </th>
         @*<th>
-            @Html.DisplayNameFor(model => model.TaiKhoanKHs.First().TenTaiKhoan)
-        </th>*@
-        <th></th>
+                @Html.DisplayNameFor(model => model.TaiKhoanKHs.First().TenTaiKhoan)
+            </th>*@
+        <th>
+            Action
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -72,17 +72,17 @@
                 @Html.DisplayFor(modelItem => item.LoaiKhachHang)
             </td>
             @*<td>
-                @if (item.TaiKhoanKHs.Any())
-                {
-                    @Html.DisplayFor(modelItem => item.TaiKhoanKHs.First().TenTaiKhoan)
-                }
-                else
-                {
-                    @:N/A
-                }
-            </td>*@
+                    @if (item.TaiKhoanKHs.Any())
+                    {
+                        @Html.DisplayFor(modelItem => item.TaiKhoanKHs.First().TenTaiKhoan)
+                    }
+                    else
+                    {
+                        @:N/A
+                    }
+                </td>*@
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MaKhachHang }) 
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaKhachHang })
                 @Html.ActionLink("Details", "Details", new { id = item.MaKhachHang })
             </td>
         </tr>

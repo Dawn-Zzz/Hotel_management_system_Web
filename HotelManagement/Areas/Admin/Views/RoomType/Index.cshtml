@@ -12,19 +12,18 @@
     <div class="input-group">
         <div class="form-outline">
 
-            @Html.TextBox("tenLP", null, new { @class = "form-control bg-light border-0 small" })
+            @Html.TextBox("tenLP", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Search Room Category Name" })
         </div>
 
         <input type="submit" value=" Tìm " tenLP="tenLP" class="btn btn-primary" />
     </div>
 }
 
-
 <p class="ml-32 mt-32 mb-24">
     @Html.ActionLink("Add New Room Type", "Create", "RoomType", null, new { @class = "create-btn" })
 </p>
 
-<table class="table">
+<table class="table room-type-list">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.TenLoaiPhong)
@@ -32,10 +31,12 @@
         <th>
             @Html.DisplayNameFor(model => model.GiaLoaiPhong)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.HinhAnh)
+        </th>*@
+        <th>
+            Action
         </th>
-        <th></th>
     </tr>
 
     @foreach (var item in Model)
@@ -47,12 +48,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.GiaLoaiPhong)
             </td>
-            <td>
+            @*<td>
                 <img src="~/Assets/admin/img/@item.HinhAnh" style="width: 100px;" />
-            </td>
+            </td>*@
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiPhong.Trim() }) 
-                @Html.ActionLink("Details", "Details", new { id = item.MaLoaiPhong.Trim() }) 
+                @Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiPhong.Trim() })
+                @Html.ActionLink("Details", "Details", new { id = item.MaLoaiPhong.Trim() })
             </td>
         </tr>
     }

@@ -12,7 +12,7 @@
     <div class="input-group">
         <div class="form-outline">
 
-            @Html.TextBox("maPhong", null, new { @class = "form-control bg-light border-0 small" })
+            @Html.TextBox("maPhong", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Search Room Number" })
         </div>
 
         <input type="submit" value=" Tìm " maPhong="maPhong" class="btn btn-primary" />
@@ -42,29 +42,6 @@
         if (item.HienTrang == true)
         {
             <div class="col-xl-3 col-md-6 mb-4 ">
-                <div class="card border-left-success shadow h-100 py-2">
-                    <div class="room-body">
-                        <div class="row no-gutters align-items-center" style="margin-right: 0">
-                            <div class="col mr-2 df-flex-col">
-                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 16px">
-                                    @Html.DisplayFor(modelItem => item.LoaiPhong.TenLoaiPhong)
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Html.DisplayFor(modelItem => item.MaPhong)</div>
-                                <div class="df-flex-end">
-                                    @Html.ActionLink("Details", "Details", new { id = item.MaPhong.Trim() }, new {@class = "button-success" }) 
-                                </div>
-                            </div>
-                            @*<div class="col-auto">
-                                <i class="fa-solid fa-circle-minus fa-2x text-gray-300"></i>
-                            </div>*@
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else if (item.HienTrang == false)
-        {
-            <div class="col-xl-3 col-md-6 mb-4 ">
                 <div class="card border-left-danger shadow h-100 py-2">
                     <div class="room-body">
                         <div class="row no-gutters align-items-center" style="margin-right: 0">
@@ -74,13 +51,36 @@
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">@Html.DisplayFor(modelItem => item.MaPhong)</div>
                                 <div class="df-flex-end">
-                                    @Html.ActionLink("Edit", "Edit", new { id = item.MaPhong.Trim() }, new {@class = "button-danger-outline" })
-                                    @Html.ActionLink("Details", "Details", new { id = item.MaPhong.Trim() }, new {@class = "button-danger" })
+                                    @Html.ActionLink("Details", "Details", new { id = item.MaPhong.Trim() }, new { @class = "button-danger" })
                                 </div>
                             </div>
                             @*<div class="col-auto">
-                                <i class="fa-solid fa-circle-xmark fa-2x text-gray-300"></i>
-                            </div>*@
+                                    <i class="fa-solid fa-circle-minus fa-2x text-gray-300"></i>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (item.HienTrang == false)
+        {
+            <div class="col-xl-3 col-md-6 mb-4 ">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="room-body">
+                        <div class="row no-gutters align-items-center" style="margin-right: 0">
+                            <div class="col mr-2 df-flex-col">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="font-size: 16px">
+                                    @Html.DisplayFor(modelItem => item.LoaiPhong.TenLoaiPhong)
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">@Html.DisplayFor(modelItem => item.MaPhong)</div>
+                                <div class="df-flex-end">
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.MaPhong.Trim() }, new { @class = "button-success-outline" })
+                                    @Html.ActionLink("Details", "Details", new { id = item.MaPhong.Trim() }, new { @class = "button-success" })
+                                </div>
+                            </div>
+                            @*<div class="col-auto">
+                                    <i class="fa-solid fa-circle-xmark fa-2x text-gray-300"></i>
+                                </div>*@
                         </div>
                     </div>
                 </div>

@@ -12,7 +12,7 @@
     <div class="input-group">
         <div class="form-outline">
 
-            @Html.TextBox("sdt", null, new { @class = "form-control bg-light border-0 small" })
+            @Html.TextBox("sdt", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Search Phone Number" })
         </div>
 
         <input type="submit" value=" Tìm " name="name" class="btn btn-primary" />
@@ -42,7 +42,9 @@
         <th>
             @Html.DisplayNameFor(model => model.HienTrang)
         </th>
-        <th></th>
+        <th>
+            Action
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -66,16 +68,17 @@
             <td>
                 @Html.DisplayFor(modelItem => item.HienTrang)
             </td>
-            <td style=" display: flex; justify-content: flex-end;">
+            <td>
                 @if (item.HienTrang == "Đã trả phòng" || item.HienTrang == "Đã hủy phòng")
                 {
                     @Html.ActionLink("Details", "Details", new { id = item.MaPhieu })
                 }
                 else
                 {
-                    @: @Html.ActionLink("Edit", "Edit", new { id = item.MaPhieu })    
+                    @: @Html.ActionLink("Edit", "Edit", new { id = item.MaPhieu })
 
-                    @: @Html.ActionLink("Details", "Details", new { id = item.MaPhieu }) 
+
+                    @: @Html.ActionLink("Details", "Details", new { id = item.MaPhieu })
                 }
             </td>
         </tr>

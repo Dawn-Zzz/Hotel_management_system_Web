@@ -137,7 +137,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Search")]
         public async Task<ActionResult> Search(string maPhong)
         {
-            var ketqua = await db.Phongs.Where(p => p.MaPhong.ToLower().Contains(maPhong.ToLower())).ToListAsync();
+            IQueryable<Phong> query = db.Phongs;
+
+            if (!string.IsNullOrEmpty(maPhong))
+            {
+                query = query.Where(p => p.MaPhong.ToLower().Contains(maPhong.ToLower()));
+            }
+
+            var ketqua = await query.ToListAsync();
 
             return View("Index", ketqua);
         }

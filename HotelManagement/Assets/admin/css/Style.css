@@ -1,5 +1,32 @@
-﻿td a {
-    padding-right: 6px;
+﻿td:last-child {
+    display: flex;
+    justify-content: center;
+}
+
+th:last-child {
+    text-align: center;
+}
+
+td a {
+    display: block;
+    width: 70px;
+    height: 28px;
+    padding: 2px;
+    border-radius: 16px;
+    background-color: #EBE7FF;
+    color: #875ADE;
+    margin:0 6px;
+    text-align: center;
+}
+
+    td a:hover {
+        text-decoration: none;
+        color: #875ADE !important;
+        opacity: .8;
+    }
+
+.m-32 {
+    margin: 32px !important;
 }
 
 .ml-0 {
@@ -45,25 +72,25 @@
     justify-content: space-evenly;
 }
 
-.df-flex-col div {
-    margin: 8px 0 !important;
-}
+    .df-flex-col div {
+        margin: 8px 0 !important;
+    }
 
-.df-flex-col div a{
-    display: block;
-    border: 1px solid #ccc;
-    padding: 4px;
-    width: 90px;
-    text-align: center;
-    margin-left: 8px;
-    border-radius: 16px;
-}
+        .df-flex-col div a {
+            display: block;
+            border: 1px solid #ccc;
+            padding: 4px;
+            width: 90px;
+            text-align: center;
+            margin-left: 8px;
+            border-radius: 16px;
+        }
 
-.df-flex-col div a:hover {
-    opacity: .7;
-    text-decoration: none;
-    color: #fff;
-}
+            .df-flex-col div a:hover {
+                opacity: .7;
+                text-decoration: none;
+                color: #fff;
+            }
 
 .card {
     margin-right: 16px;
@@ -73,6 +100,11 @@
     border-color: transparent !important;
     background-color: #1cc88a;
     color: #fff;
+}
+
+.button-success-outline {
+    border-color: #1cc88a !important;
+    color: #1cc88a;
 }
 
 .button-danger {
@@ -86,13 +118,21 @@
     color: #e74a3b;
 }
 
-.button-danger-outline:hover {
-    color: #e74a3b !important;
+    .button-danger-outline:hover {
+        color: #e74a3b !important;
+    }
+
+.button-success-outline:hover {
+    color: #1cc88a !important;
 }
 
 .date-check {
     border-radius: 8px !important;
     margin-right: 8px;
+}
+
+.room-type-list td{
+    /*line-height: 91px;*/
 }
 
 .title {
@@ -165,9 +205,8 @@
 
 
 .form-control {
-    /*border-radius: 0 !important;*/
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-radius: 8px;
+    margin-right: 8px;
 }
 
 .render-body-section .search-form {
@@ -178,9 +217,8 @@
 }
 
 .btn-primary {
-    border-radius: 0 !important;
-    border-top-right-radius: 8px !important;
-    border-bottom-right-radius: 8px !important;
+    border-radius: 8px;
+    margin-left: 8px;
 }
 
 .add-btn {

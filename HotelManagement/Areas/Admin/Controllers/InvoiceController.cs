@@ -139,9 +139,21 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         [Route("Search")]
-        public async Task<ActionResult> Search(DateTime ngayDau, DateTime ngayCuoi)
+        public async Task<ActionResult> Search(DateTime? ngayDau, DateTime? ngayCuoi)
         {
-            var ketqua = await db.HoaDons.Where(hd => hd.NgayLapHoaDon >= ngayDau && hd.NgayLapHoaDon <= ngayCuoi).ToListAsync();
+            IQueryable<HoaDon> query = db.HoaDons;
+
+            if (ngayDau.HasValue)
+            {
+                query = query.Where(hd => hd.NgayLapHoaDon >= ngayDau.Value);
+            }
+
+            if (ngayCuoi.HasValue)
+            {
+                query = query.Where(hd => hd.NgayLapHoaDon <= ngayCuoi.Value);
+            }
+
+            var ketqua = await query.ToListAsync();
 
             return View("Index", ketqua);
         }

@@ -128,7 +128,14 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Search")]
         public async Task<ActionResult> Search(string tenDV)
         {
-            var ketqua = await db.DichVus.Where(dv => dv.TenDichVu.ToLower().Contains(tenDV.ToLower())).ToListAsync();
+            IQueryable<DichVu> query = db.DichVus;
+
+            if (!string.IsNullOrEmpty(tenDV))
+            {
+                query = query.Where(nv => nv.TenDichVu.ToLower().Contains(tenDV.ToLower()));
+            }
+
+            var ketqua = await query.ToListAsync();
 
             return View("Index", ketqua);
         }

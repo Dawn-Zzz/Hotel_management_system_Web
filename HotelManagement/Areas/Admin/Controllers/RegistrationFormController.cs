@@ -209,7 +209,13 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Search")]
         public async Task<ActionResult> Search(string sdt)
         {
-            var ketqua = await db.PhieuThues.Where(pt => pt.KhachHang.SoDienThoai.ToLower().Contains(sdt.ToLower())).ToListAsync();
+            IQueryable<PhieuThue> query = db.PhieuThues;
+            if (!string.IsNullOrEmpty(sdt))
+            {
+                query = query.Where(pt => pt.KhachHang.SoDienThoai.ToLower().Contains(sdt.ToLower()));
+            }
+
+            var ketqua = await query.ToListAsync();
 
             return View("Index", ketqua);
         }

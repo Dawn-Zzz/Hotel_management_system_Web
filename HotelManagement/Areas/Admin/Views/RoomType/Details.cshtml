@@ -9,32 +9,29 @@
 
 <div>
     <hr />
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenLoaiPhong)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.TenLoaiPhong)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.GiaLoaiPhong)
-            </th>
-            <td>
-                @Html.DisplayFor(model => model.GiaLoaiPhong)
-            </td>
-        </tr>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.HinhAnh)
-            </th>
-            <td>
-                <img src="@Url.Content("~/Assets/admin/img/" + Model.HinhAnh)" style="width: 100px;" />
-            </td>
-        </tr>
-    </table>
+    <div class="row m-32">
+        <div class="col-md-4">
+            <img src="@Url.Content("~/Assets/admin/img/" + Model.HinhAnh)" style="width: 100%; border-radius: 12px;" />
+        </div>
+        <table class="table col-md-7">
+            <tr class="row">
+                <th class="col-md-4" style="border-top: none">
+                    @Html.DisplayNameFor(model => model.TenLoaiPhong)
+                </th>
+                <td class="col-md-2" style="border-top: none">
+                    @Html.DisplayFor(model => model.TenLoaiPhong)
+                </td>
+            </tr>
+            <tr class="row">
+                <th class="col-md-4" style="border-top: none">
+                    @Html.DisplayNameFor(model => model.GiaLoaiPhong)
+                </th>
+                <td class="col-md-2" style="border-top: none">
+                    @Html.DisplayFor(model => model.GiaLoaiPhong)
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 <p class="pl-12 ml-16 mt-32 mb-24">
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaLoaiPhong }, new { @class = "create-btn" })

@@ -160,7 +160,15 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Search")]
         public async Task<ActionResult> Search(string name)
         {
-            var ketqua = await db.NhanViens.Where(nv => nv.TenNhanVien.ToLower().Contains(name.ToLower())).ToListAsync();
+            IQueryable<NhanVien> query = db.NhanViens; // Bắt đầu với tất cả các nhân viên
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                // Nếu 'name' không rỗng, thêm điều kiện tìm kiếm vào truy vấn
+                query = query.Where(nv => nv.TenNhanVien.ToLower().Contains(name.ToLower()));
+            }
+
+            var ketqua = await query.ToListAsync(); // Thực hiện truy vấn
 
             return View("Index", ketqua);
         }

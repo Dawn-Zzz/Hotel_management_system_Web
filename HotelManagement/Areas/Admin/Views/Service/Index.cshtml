@@ -11,13 +11,12 @@
     <div class="input-group">
         <div class="form-outline">
 
-            @Html.TextBox("tenDV", null, new { @class = "form-control bg-light border-0 small" })
+            @Html.TextBox("tenDV", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Search Service Name" })
         </div>
 
         <input type="submit" value=" Tìm " tenDV="tenDV" class="btn btn-primary" />
     </div>
 }
-
 
 <p class="ml-32 mt-32 mb-24">
     @Html.ActionLink("Create New", "Create", "Service", null, new { @class = "create-btn" })
@@ -30,7 +29,9 @@
         <th>
             @Html.DisplayNameFor(model => model.GiaDichVu)
         </th>
-        <th></th>
+        <th>
+            Action
+        </th>
     </tr>
 
     @foreach (var item in Model)
