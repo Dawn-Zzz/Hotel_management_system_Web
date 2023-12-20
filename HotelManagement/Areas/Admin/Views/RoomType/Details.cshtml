@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="card-title title ml-32">Room Type Details</h2>
+<h2 class="card-title title ml-32">Room Type Detail</h2>
 
 <div>
     <hr />
@@ -27,7 +27,11 @@
                     @Html.DisplayNameFor(model => model.GiaLoaiPhong)
                 </th>
                 <td class="col-md-2" style="border-top: none">
-                    @Html.DisplayFor(model => model.GiaLoaiPhong)
+                    @*@Html.DisplayFor(model => model.GiaLoaiPhong)*@
+                    @{
+                        var giaLP = Model.GiaLoaiPhong;
+                    }
+                    @String.Format("{0:#,##0}", giaLP).Replace(",", ".") VNĐ
                 </td>
             </tr>
         </table>

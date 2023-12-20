@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h2 class="card-title title ml-32">Rooms Type List</h2>
+<h2 class="card-title title ml-32">Room Type List</h2>
 
 @using (Html.BeginForm("Search", "RoomType", FormMethod.Get, new { @class = "search-form" }))
 {
@@ -46,7 +46,11 @@
                 @Html.DisplayFor(modelItem => item.TenLoaiPhong)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.GiaLoaiPhong)
+                @*@Html.DisplayFor(modelItem => item.GiaLoaiPhong)*@
+                @{
+                    var giaLP = item.GiaLoaiPhong;
+                }
+                @String.Format("{0:#,##0}", giaLP).Replace(",", ".") VNĐ
             </td>
             @*<td>
                 <img src="~/Assets/admin/img/@item.HinhAnh" style="width: 100px;" />

@@ -29,6 +29,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.IDInvoice = id;
             HoaDon hoaDon = db.HoaDons.Find(id);
             if (hoaDon == null)
             {
