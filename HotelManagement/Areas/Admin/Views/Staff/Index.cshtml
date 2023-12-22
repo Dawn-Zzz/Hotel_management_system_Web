@@ -23,51 +23,53 @@
 <p class="ml-32 mt-32 mb-24">
     @Html.ActionLink("Create New", "Create", "Staff", null, new { @class = "create-btn" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenNhanVien)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgaySinh)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.SoDienThoai)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CCCD)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChucDanh)
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="table-section">
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenNhanVien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NgaySinh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SoDienThoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CCCD)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChucDanh)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MaNhanVien })
-                @Html.ActionLink("Details", "Details", new { id = item.MaNhanVien })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.TenNhanVien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgaySinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoDienThoai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CCCD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChucDanh)
+            </th>
+            <th>
+                Action
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenNhanVien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgaySinh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoDienThoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CCCD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChucDanh)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaNhanVien })
+                    @Html.ActionLink("Details", "Details", new { id = item.MaNhanVien })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

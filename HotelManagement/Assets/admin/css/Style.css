@@ -157,19 +157,20 @@ td a {
     top: 0;
     right: 0;
     z-index: 99;
-    width: calc(100% - 14rem);
+    width: 100%;
 }
 
 .sidebar {
     position: fixed;
     left: 0;
+    z-index: 100;
 }
 
 .sticky-footer {
 }
 
 .render-body-section {
-    margin-top: 6rem;
+    margin-top: 5.5rem;
     margin-left: 14rem;
     width: calc(100% - 14rem);
 }
@@ -203,6 +204,9 @@ td a {
     padding-left: 32px
 }
 
+.table-section {
+    overflow: auto;
+}
 
 .form-control {
     border-radius: 8px;
@@ -214,6 +218,10 @@ td a {
     top: 16px;
     margin-left: 32px;
     z-index: 99;
+}
+
+.search-form {
+    animation: moveLeft ease .25s;
 }
 
 .btn-primary {
@@ -382,6 +390,7 @@ td a {
 
 .form-group {
     margin-left: 32px;
+    margin-right: 32px;
 }
 
 @keyframes modalFaceIn {
@@ -390,6 +399,17 @@ td a {
         transform: translateY(-150px);
     }
 
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes moveLeft {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
     to {
         opacity: 1;
         transform: translateY(0);

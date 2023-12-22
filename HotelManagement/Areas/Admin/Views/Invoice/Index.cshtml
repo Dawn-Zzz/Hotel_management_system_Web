@@ -24,62 +24,64 @@
 @*<p>
         @Html.ActionLink("Create New", "Create")
     </p>*@
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.MaHoaDon)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
-        </th>
-        <th>
-            Total Amount
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NhanVien.TenNhanVien)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NgayLapHoaDon)
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        if (item.PhieuThue.HienTrang == "Đã trả phòng")
+<div class="table-section">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaHoaDon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
+            </th>
+            <th>
+                Total Amount
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NhanVien.TenNhanVien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayLapHoaDon)
+            </th>
+            <th>
+                Action
+            </th>
+        </tr>
+        @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MaHoaDon)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
-                </td>
-                <td>
-                    @{
-                        var tongTien = item.TienPhong + item.TienDichVu;
-                        if (item.TienDichVu == null)
-                        {
-                            tongTien = item.TienPhong;
+            if (item.PhieuThue.HienTrang == "Đã trả phòng")
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaHoaDon)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KhachHang.TenKhachHang)
+                    </td>
+                    <td>
+                        @{
+                            var tongTien = item.TienPhong + item.TienDichVu;
+                            if (item.TienDichVu == null)
+                            {
+                                tongTien = item.TienPhong;
+                            }
+                            else
+                            {
+                                tongTien = item.TienDichVu + item.TienPhong;
+                            }
                         }
-                        else
-                        {
-                            tongTien = item.TienDichVu + item.TienPhong;
-                        }
-                    }
-                    @String.Format("{0:#,##0}", tongTien).Replace(",", ".") VNĐ
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NgayLapHoaDon)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new { id = item.MaHoaDon.Trim() })
-                </td>
-            </tr>
+                        @String.Format("{0:#,##0}", tongTien).Replace(",", ".") VNĐ
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NhanVien.TenNhanVien)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayLapHoaDon)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.MaHoaDon.Trim() })
+                    </td>
+                </tr>
+            }
         }
-    }
-</table>
+    </table>
+</div>

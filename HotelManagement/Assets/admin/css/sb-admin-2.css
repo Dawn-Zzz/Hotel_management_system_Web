@@ -3215,7 +3215,7 @@ input[type="button"].btn-block {
 }
 
 .dropdown-menu.show {
-  display: block;
+  display: none;
 }
 
 .dropdown-header {
@@ -4527,7 +4527,7 @@ input[type="button"].btn-block {
 }
 
 .card-title {
-  margin-bottom: 0.75rem;
+  margin-bottom: -0.5rem;
 }
 
 .card-subtitle {
@@ -10318,8 +10318,9 @@ a:focus {
 }
 
 .sidebar {
-  width: 6.5rem;
-  min-height: 100vh;
+    width: 6.5rem;
+    min-height: 100vh;
+    animation: 3s linear .1s colorIt;
 }
 
 .sidebar .nav-item {
@@ -10431,10 +10432,11 @@ a:focus {
   outline: none;
 }
 
-.sidebar.toggled {
-  width: 0 !important;
-  overflow: hidden;
-}
+    .sidebar.toggled {
+        width: 0 !important;
+        overflow: hidden;
+        animation: 3s linear .1s colorIt;
+    }
 
 .sidebar.toggled #sidebarToggle::after {
   content: '\f105';
@@ -10566,10 +10568,11 @@ a:focus {
   .sidebar .sidebar-heading {
     text-align: left;
   }
-  .sidebar.toggled {
-    overflow: visible;
-    width: 6.5rem !important;
-  }
+    .sidebar.toggled {
+        overflow: visible;
+        width: 6.5rem !important;
+        animation: 3s linear .1s colorIt;
+    }
   .sidebar.toggled .nav-item .collapse {
     position: absolute;
     left: calc(6.5rem + 1.5rem / 2);

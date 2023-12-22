@@ -11,15 +11,14 @@
 
     <title>Hotel Management</title>
 
-    <!-- Custom fonts for this template-->
     <link href="~/Assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
     <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.1.2/css/all.css?fbclid=IwAR2TXqBPR1BwetsIfkcLDjYfw2kuhlxqmjkGdzKaCdAd6NkAkWniljGiVB8">
 
-    <!-- Custom styles for this template-->
-    <link href="~/Assets/admin/css/sb-admin-2.css" rel="stylesheet">
-    <link href="~/Assets/admin/css/Style.css" rel="stylesheet">
+    @Styles.Render("~/Assets/admin/css/sb-admin-2.css")
+    @Styles.Render("~/Assets/admin/css/Style.css")
+    @Styles.Render("~/Assets/admin/css/Responsive.css")
 
 </head>
 
@@ -32,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Index">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="Home">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>

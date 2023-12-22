@@ -21,37 +21,39 @@
 <p class="ml-32 mt-32 mb-24">
     @Html.ActionLink("Create New", "Create", "Service", null, new { @class = "create-btn" })
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TenDichVu)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.GiaDichVu)
-        </th>
-        <th>
-            Action
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="table-section">
+    <table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenDichVu)
-            </td>
-            <td>
-                @*@Html.DisplayFor(modelItem => item.GiaDichVu)*@
-                @{
-                    var tienDV = item.GiaDichVu;
-                }
-                @String.Format("{0:#,##0}", tienDV).Replace(",", ".") VNĐ
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.MaDichVu.Trim() })
-                @Html.ActionLink("Details", "Details", new { id = item.MaDichVu.Trim() })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.TenDichVu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaDichVu)
+            </th>
+            <th>
+                Action
+            </th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenDichVu)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.GiaDichVu)*@
+                    @{
+                        var tienDV = item.GiaDichVu;
+                    }
+                    @String.Format("{0:#,##0}", tienDV).Replace(",", ".") VNĐ
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaDichVu.Trim() })
+                    @Html.ActionLink("Details", "Details", new { id = item.MaDichVu.Trim() })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

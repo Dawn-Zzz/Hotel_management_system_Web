@@ -11,10 +11,11 @@ const arrowRightBtn = $('.arrow-right');
 
 //room
 const checkAvailableBtn = $('.avl-btn');
-var dateCheck1 = $("#checkin_date");
-var dateCheck2 = $("#checkout_date");
+var dateCheckIn = $("#checkin_date");
+var dateCheckOut = $("#checkout_date");
 const adultsQuantity = $('#adults');
 const childrenQuantity = $('#children');
+const bookBtn = $('.js-book-btn');
 
 const roomContainer = $('.room-container');
 const roomList = $('.room-list');
@@ -35,6 +36,150 @@ const checkList = {
     adult: 1,
     children: 1,
 };
+var checkinForForm = '';
+var checkoutForForm = '';
+
+if (roomList) {
+
+    var checkIn = 'a';
+    var checkOut = '';
+    var i = 1;
+
+    var roomSelected = {};
+    const roomListItem = roomList.querySelectorAll('.room');
+
+    function toast({ title = "", message = "", type = "info", duration = 3000 }) {
+        const main = document.getElementById("toast");
+        if (main) {
+            const toast = document.createElement("div");
+
+            // Auto remove toast
+            const autoRemoveId = setTimeout(function () {
+                main.removeChild(toast);
+            }, duration + 1000);
+
+            // Remove toast when clicked
+            toast.onclick = function (e) {
+                if (e.target.closest(".toast__close")) {
+                    main.removeChild(toast);
+                    clearTimeout(autoRemoveId);
+                }
+            };
+
+            const icons = {
+                success: "fas fa-check-circle",
+                info: "fas fa-info-circle",
+                warning: "fas fa-exclamation-circle",
+                error: "fas fa-exclamation-circle"
+            };
+            const icon = icons[type];
+            const delay = (duration / 1000).toFixed(2);
+
+            toast.classList.add("toast", `toast--${type}`);
+            toast.style.animation = `slideInLeft ease .3s, fadeOut linear 10s ${delay}s forwards`;
+            toast.style.display = 'flex';
+
+            toast.innerHTML = `
+                <div class="toast__icon">
+                    <i class="${icon}"></i>
+                </div>
+                <div class="toast__body">
+                    <h3 class="toast__title">${title}</h3>
+                    <p class="toast__msg">${message}</p>
+                </div>
+                <div class="toast__close">
+                    <i class="fas fa-times"></i>
+                </div>
+            `;
+            main.appendChild(toast);
+        }
+    }
+
+    var roomQuantities = $$('.room-quantity');
+
+
+    for (const roomQuantity of roomQuantities) {
+        if (roomQuantity.classList.contains("inactive")) {
+            roomQuantity.onclick = (e) => {
+                e.preventDefault();
+            }
+        }
+        roomQuantity.onchange = () => {
+            for (const roomQuan of roomQuantities) {
+                if (roomQuan.value > 0) {
+                    bookBtn.classList.remove("inactive");
+                    break;
+                }
+                else {
+                    bookBtn.classList.add("inactive");
+                }
+            }
+        }
+    }
+
+
+    bookBtn.onclick = (e) => {
+        if (bookBtn.classList.contains("inactive")) {
+            e.preventDefault();
+        }
+        else {
+            console.log(roomQuantities);
+            checkIn = checkinForForm;
+            checkOut = checkoutForForm;
+            var selectedRooms = [];
+
+            // Lặp qua tất cả các cấu trúc để kiểm tra giá trị
+            for (var index = 1; index <= 6; index++) { // Đổi số này tùy thuộc vào số lượng cấu trúc
+                var roomQuantitySelect = document.querySelector('#quan-' + index);
+                var selectedQuantity = parseInt(roomQuantitySelect.value);
+
+                if (selectedQuantity > 0) {
+                    // Lấy thông tin cần lưu vào Local Storage từ các phần tử khác
+                    var roomInfo = {
+                        type: document.querySelector('#room-type-' + index).textContent,
+                        bedInfo: document.querySelector('#bed-' + index).textContent,
+                        bathInfo: document.querySelector('#bath-' + index).textContent,
+                        price: document.querySelector('#price-' + index).textContent,
+                        quantity: selectedQuantity
+                    };
+
+                    // Thêm thông tin phòng vào mảng
+                    selectedRooms.push(roomInfo);
+                }
+            }
+
+            if (selectedRooms.length > 0 && checkIn != "" && checkOut != "") {
+                // Lưu vào Local Storage
+                localStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
+                localStorage.setItem('checkin', JSON.stringify({ data: checkIn }));
+                localStorage.setItem('checkout', JSON.stringify({ data: checkOut }));
+                window.location.href = 'Booking/BookingRoom';
+
+                // Hiển thị thông báo hoặc chuyển hướng tới trang khác nếu cần
+                alert('Rooms booked successfully!');
+            } else if (selectedRooms.length <= 0) {
+                toast({
+                    title: "Error!",
+                    message: "Please choose room quantity.",
+                    type: "error",
+                    duration: 5000
+                });
+            }
+
+            else if (checkIn == "" || checkOut == "") {
+                toast({
+                    title: "Error!",
+                    message: "Please choose your check-in and check-out date.",
+                    type: "error",
+                    duration: 5000
+                });
+            }
+        }
+    }
+}
+
+const blockInactive = $$('.block-inactive');
+
 
 if (arrowLeftBtn) {
     window.onload = () => {
@@ -65,22 +210,65 @@ if (arrowLeftBtn) {
 
 if (checkAvailableBtn) {
 
-    dateCheck1.addEventListener("change", () => {
-        var date1Value = new Date(dateCheck1.value);
-        dateCheck2.min = dateCheck1.value;
-    });
-    dateCheck2.addEventListener("change", () => {
-        var date2Value = new Date(dateCheck2.value);
-        dateCheck1.max = dateCheck2.value;
+    dateCheckIn.addEventListener("change", () => {
+        var date = new Date(dateCheckIn.value);
+        date.setDate(date.getDate() + 1);
+        var formatDate = date.toISOString().split('T')[0];
+        dateCheckOut.min = formatDate;
+
+        var checkInValue = dateCheckIn.value;
+
+        // Nếu date1 có giá trị
+        if (checkInValue) {
+            // Tạo đối tượng Date từ giá trị ngày của date1
+            var date1 = new Date(checkInValue);
+
+            // Tăng ngày lên 1
+            date1.setDate(date1.getDate() + 1);
+
+            // Format ngày thành chuỗi 'YYYY-MM-DD' cho date2
+            var formattedDate = date1.toISOString().split('T')[0];
+
+            // Gán giá trị cho date2
+            dateCheckOut.value = formattedDate;
+        } else {
+            // Nếu date1 không có giá trị, đặt giá trị của date2 thành rỗng
+            dateCheckOut.value = '';
+        }
     });
     checkAvailableBtn.onclick = (e) => {
         e.preventDefault();
-        checkList.checkin = dateCheck1.value;
-        checkList.checkout = dateCheck2.value;
-        checkList.adult = adultsQuantity.value;
-        checkList.children = childrenQuantity.value;
+        checkList.checkin = dateCheckIn.value;
+        checkList.checkout = dateCheckOut.value;
+
+        checkinForForm = dateCheckIn.value;
+        checkoutForForm = dateCheckOut.value;
+        if (checkinForForm != "" && checkoutForForm != "") {
+            //bookBtn.onclick = (e) => {
+            //    e.preventDefault();
+            //}
+            for (const block of blockInactive) {
+                block.style.display = "none";
+            }
+            for (const roomQuantity of roomQuantities) {
+                roomQuantity.style.opacity = "1";
+            }
+        }
+        else if (checkinForForm == "" || checkoutForForm == "") {
+            //bookBtn.onclick = (e) => {
+            //    e.preventDefault();
+            //}
+            for (const block of blockInactive) {
+                block.style.display = "block";
+                if (block.style.display == "block") {
+                    bookBtn.classList.add("inactive");
+                }
+            }
+            for (const roomQuantity of roomQuantities) {
+                roomQuantity.style.opacity = ".3";
+            }
+        }
     }
-    console.log(checkList);
 }
 
 const app = {
@@ -112,324 +300,29 @@ const app = {
 
 app.start();
 
-if (roomList) {
-    const roomApp = {
-        rooms: [
+if (serviceList) {
+    const serviceApp = {
+        services: [
             {
-                type: 'Family Room',
-                price: 750,
-                bedQuantity: 2,
-                bedType: 'Twin',
-                bathQuantity: 1,
-                img: '../Images/family.jpg',
+                title: 'OUR RESTAURANT',
+                name: 'Dining & Drinks',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
+                img: '../Images/service1.png',
+                order: 1
             },
             {
-                type: 'Standard Room',
-                price: 750,
-                bedQuantity: 1,
-                bedType: 'Twin',
-                bathQuantity: 2,
-                img: '../Images/standard.jpg',
+                title: 'OUR POOL',
+                name: 'Swimming Pool',
+                description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud.',
+                img: '../Images/service2.png',
+                order: 2,
             },
-            {
-                type: 'Superior Room',
-                price: 900,
-                bedQuantity: 2,
-                bedType: 'Single',
-                bathQuantity: 2,
-                img: '../Images/superior.jpg',
-            },
-            {
-                type: 'Deluxe Room',
-                price: 900,
-                bedQuantity: 1,
-                bedType: 'Twin',
-                bathQuantity: 1,
-                img: '../Images/deluxe.jpg',
-            },
-            {
-                type: 'Suite Room',
-                price: 1250,
-                bedQuantity: 1,
-                bedType: 'Big-Twin',
-                bathQuantity: 2,
-                img: '../Images/suite.jpg',
-            },
-            {
-                type: 'Family Suite Room',
-                price: 1500,
-                bedQuantity: 2,
-                bedType: 'Twin',
-                bathQuantity: 2,
-                img: '../Images/family-suite.jpg',
-            }
         ],
-        roomRender: function () {
-            const roomslist = this.rooms.map((room, index) => {
+
+        servicesRender: function () {
+            const servicesList = this.services.map((service, index) => {
+                const additionalClass = service.order === 2 ? "container-reverse" : "";
                 return `
-                <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up">
-                    <div class="room">
-                        <figure class="img-wrap">
-                            <img src="${room.img}" alt="Free website template" class="img-fluid mb-3">
-                        </figure>
-                        <div class="p-3 text-center room-info">
-                            <h2 class="room-type">${room.type}</h2>
-                            <div class="interior">
-                                <p class="bed">
-                                    <i class="fa-solid fa-bed"></i>
-                                    ${room.bedQuantity + " " + room.bedType + " Bed" }
-                                </p>
-                                <p class="bath">
-                                    <i class="fa-solid fa-bath"></i>
-                                    ${room.bathQuantity + " Bath"}
-                                </p>
-                                <p class="wifi">
-                                    <i class="fa-solid fa-wifi"></i>
-                                    Wifi
-                                </p>
-                            </div>
-                            <div class="book-room-title">
-                                <span>
-                                    <i class="fa-regular fa-house-user"></i>
-                                    Room quantity
-                                </span>
-                                <select name="" id="room-quantity">
-                                    <option value="1">1 room</option>
-                                    <option value="2">2 rooms</option>
-                                    <option value="3">3 rooms</option>
-                                    <option value="4">4 rooms</option>
-                                    <option value="5">5 rooms</option>
-                                    <option value="6">6 rooms</option>
-                                    <option value="7">7 rooms</option>
-                                    <option value="8">8 rooms</option>
-                                    <option value="9">9 rooms</option>
-                                    <option value="10">10 rooms</option>
-                                    <option value="11">11 rooms</option>
-                                    <option value="12">12 rooms</option>
-                                    <option value="13">13 rooms</option>
-                                    <option value="14">14 rooms</option>
-                                    <option value="15">15 rooms</option>
-                                    <option value="16">16 rooms</option>
-                                    <option value="17">17 rooms</option>
-                                    <option value="18">18 rooms</option>
-                                    <option value="19">19 rooms</option>
-                                    <option value="20">20 rooms</option>
-                                </select>
-                            </div>
-                            <div class="book-room">
-                                <p class="room-price"><span class="price">${room.price}</span>K/Night</p>
-                                <p class="book-btn js-book-btn">Book Now</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `
-            })
-            roomList.innerHTML = roomslist.join("");
-        },
-
-        start: function () {
-            this.roomRender();
-        }
-    }
-    roomApp.start();
-
-    const bookBtns = $$('.js-book-btn');
-
-    for (const bookBtn of bookBtns) {
-        const clientInfo = [];
-        bookBtn.onclick = (e) => {
-            //roomForm.style.display = "flex";
-            //const roomNode = e.target.closest('.room');
-            //if (roomNode) {
-
-            //    const typeOfRoom = roomNode.querySelector('.room-type');
-            //    const imgPath = roomNode.querySelector('.img-fluid');
-
-            //    const formTitle = roomForm.querySelector('h2')
-            //    const formImage = roomForm.querySelector('.room-thumb');
-            //    const clientName = roomForm.querySelector('.client-name');
-            //    const clientPhoneNumber = roomForm.querySelector('.client-phone-number');
-            //    const clientEmail = roomForm.querySelector('.client-email');
-            //    const clientCheckIn = roomForm.querySelector('#checkin_booking');
-            //    const clientCheckOut = roomForm.querySelector('#checkout_booking');
-            //    const clientAdults = roomForm.querySelector('.adults-number');
-            //    const clientChildren = roomForm.querySelector('.children-number');
-
-            //    clientName.value = null;
-            //    clientPhoneNumber.value = null;
-            //    clientEmail.value = null;
-            //    clientCheckIn.value = null;
-            //    clientCheckOut.value = null;
-            //    clientAdults.value = null;
-            //    clientChildren.value = null;
-
-            //    formImage.style.background = `url('${imgPath.src.slice(23)}') top center / cover no-repeat`;
-
-            //    submitBtn.onclick = () => {
-
-            //        while (clientInfo.length > 0) {
-            //            clientInfo.pop();
-            //        }
-            //        clientInfo.push(
-            //            clientName.value,
-            //            clientPhoneNumber.value,
-            //            clientEmail.value,
-            //            clientCheckIn.value,
-            //            clientCheckOut.value,
-            //            clientAdults.value,
-            //            clientChildren.value
-            //        );
-            //        var isNull = clientInfo.every((clientValue, index) => {
-            //            return clientValue != "";
-            //        });
-            //        if (isNull) {
-            //            hideForm();
-            //        }
-            //    }
-
-            //    formTitle.textContent = typeOfRoom.textContent;
-            //    closeEvents.forEach(closeEvent => {
-            //        closeEvent.addEventListener('click', () => {
-            //            clientInfo.push(
-            //                clientName.value,
-            //                clientPhoneNumber.value,
-            //                clientEmail.value,
-            //                clientCheckIn.value,
-            //                clientCheckOut.value,
-            //                clientAdults.value,
-            //                clientChildren.value
-            //            );
-            //            while (clientInfo.length > 0) {
-            //                clientInfo.pop();
-            //            }
-            //            hideForm();
-            //            const formGroups = bookingForm.querySelectorAll(".form-group");
-            //            const formMessages = bookingForm.querySelectorAll(".form-message");
-
-            //            if (formGroups.length > 0) {
-            //                formGroups.forEach(formGroup => {
-            //                    formGroup.classList.remove('invalid');
-            //                })
-            //                formMessages.forEach(formMessage => {
-            //                    formMessage.innerText = "";
-            //                })
-            //            }
-            //        })
-            //    })
-            //    roomContainer.addEventListener('click', (e) => {
-            //        e.stopPropagation();
-            //    });
-            //}
-            const roomNode = e.target.closest('.room');
-            const roomQuantity = roomNode.querySelector('#room-quantity').value;
-            const typeOfRoom = roomNode.querySelector('.room-type').innerText;
-            const roomPrice = roomNode.querySelector('.price').innerText * roomQuantity;
-            const detail = roomNode.querySelector('.bed').innerText;
-            const checkIn = dateCheck1.value;
-            const checkOut = dateCheck2.value;
-
-            localStorage.setItem('type', JSON.stringify({ data: typeOfRoom }));
-            localStorage.setItem('price', JSON.stringify({ data: roomPrice }));
-            localStorage.setItem('detail', JSON.stringify({ data: detail }));
-            localStorage.setItem('checkin', JSON.stringify({ data: checkIn }));
-            localStorage.setItem('checkout', JSON.stringify({ data: checkOut }));
-            localStorage.setItem('quantity', JSON.stringify({ data: roomQuantity }));
-
-
-            function toast({ title = "", message = "", type = "info", duration = 3000 }) {
-                const main = document.getElementById("toast");
-                if (main) {
-                    const toast = document.createElement("div");
-
-                    // Auto remove toast
-                    const autoRemoveId = setTimeout(function () {
-                        main.removeChild(toast);
-                    }, duration + 1000);
-
-                    // Remove toast when clicked
-                    toast.onclick = function (e) {
-                        if (e.target.closest(".toast__close")) {
-                            main.removeChild(toast);
-                            clearTimeout(autoRemoveId);
-                        }
-                    };
-
-                    const icons = {
-                        success: "fas fa-check-circle",
-                        info: "fas fa-info-circle",
-                        warning: "fas fa-exclamation-circle",
-                        error: "fas fa-exclamation-circle"
-                    };
-                    const icon = icons[type];
-                    const delay = (duration / 1000).toFixed(2);
-
-                    toast.classList.add("toast", `toast--${type}`);
-                    toast.style.animation = `slideInLeft ease .3s, fadeOut linear 10s ${delay}s forwards`;
-                    toast.style.display = 'flex';
-
-                    toast.innerHTML = `
-                    <div class="toast__icon">
-                        <i class="${icon}"></i>
-                    </div>
-                    <div class="toast__body">
-                        <h3 class="toast__title">${title}</h3>
-                        <p class="toast__msg">${message}</p>
-                    </div>
-                    <div class="toast__close">
-                        <i class="fas fa-times"></i>
-                    </div>
-                `;
-                    main.appendChild(toast);
-                }
-            }
-
-            if (checkIn == "" || checkOut == "") {
-                toast({
-                    title: "Error!",
-                    message: "Please choose your check-in and check-out date.",
-                    type: "error",
-                    duration: 5000
-                });
-            }
-            else {
-                toast({
-                    title: "Sucess!",
-                    message: "Waiting for reservation form...",
-                    type: "success",
-                    duration: 5000
-                });
-                setTimeout(() => {
-                    window.location.href = 'bookingroom';
-                }, 1500)
-            }
-        }
-    }
-}
-
-const serviceApp = {
-    services: [
-        {
-            title: 'OUR RESTAURANT',
-            name: 'Dining & Drinks',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.',
-            img: '../Images/service1.png',
-            order: 1
-        },
-        {
-            title: 'OUR POOL',
-            name: 'Swimming Pool',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud.',
-            img: '../Images/service2.png',
-            order: 2,
-        },
-    ],
-
-    servicesRender: function () {
-        const serviceContainer = serviceList.querySelector(".container");
-        const servicesList = this.services.map((service, index) => {
-            const additionalClass = service.order === 2 ? "container-reverse" : "";
-            return `
             <div class="container ${additionalClass}">
                 <div class="service-img col-6 col-lg-6" style="background-image: url('${service.img}')"></div>
                 <div class="service-info col-6 col-lg-6">
@@ -442,15 +335,16 @@ const serviceApp = {
                 </div>
             </div>
             `
-        })
-        serviceList.innerHTML = servicesList.join("");
-    },
+            })
+            serviceList.innerHTML = servicesList.join("");
+        },
 
-    start: function () {
-        this.servicesRender();
+        start: function () {
+            this.servicesRender();
+        }
     }
+    serviceApp.start();
 }
-serviceApp.start();
 
 const clientTemp = [];
 
