@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HotelManagement.Models;
+using HotelManagement.Services.Email.Models;
+using HotelManagement.Utils.JWT;
 
 namespace HotelManagement.Controllers
 {
@@ -17,12 +19,16 @@ namespace HotelManagement.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private HotelManagement.Services.Email.EmailService _emailService;
+        private JwtUtil _jwtUtil;
 
         public AccountController()
         {
+            _emailService = new HotelManagement.Services.Email.EmailService();
+            _jwtUtil = new JwtUtil();
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +40,9 @@ namespace HotelManagement.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +126,7 @@ namespace HotelManagement.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,8 +161,8 @@ namespace HotelManagement.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -200,25 +206,45 @@ namespace HotelManagement.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
-                }
+            // validate model
+            if (!ModelState.IsValid)
+                return View();
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
-            }
+            // kiem tra user & ten user
+            //var user = await UserManager.FindByNameAsync(model.Email);
+            //if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+            //{
+            //    // trả về view lỗi (không toonftaij user)
+            //    return View("ForgotPasswordConfirmation");
+            //}
+
+            // tao token
+            string tokenExpired = "5m";
+            var refreshToken = _jwtUtil.GenerateToken(new Claim[] { new Claim("email", model.Email) }, tokenExpired);
+
+
+            // tao emailMessage
+            var emailMessagel = new EmailMessage
+            {
+                To = model.Email,
+                Subject = "Forgot password",
+                TemplateName = "ResetPassword",
+                Model = new ResetPasswordModel
+                {
+                    Firstname = "Nguyen van teo",
+                    SiteUrl = "http://localhost:44303",
+                    Token = refreshToken
+                }
+            };
+
+            // gui email
+            await _emailService.SendEmailAsync(emailMessagel);
+
+
 
             // If we got this far, something failed, redisplay form
             return View(model);
+
         }
 
         //
@@ -232,9 +258,10 @@ namespace HotelManagement.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        public ActionResult ResetPassword(string code)
+        [Route("{token}")]
+        public ActionResult ResetPassword(string token)
         {
-            return code == null ? View("Error") : View();
+            return View();
         }
 
         //
