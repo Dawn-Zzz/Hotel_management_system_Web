@@ -10,6 +10,7 @@
     ViewBag.Description = "Room";
     Html.RenderPartial("~/Views/Shared/_BackgroundIntroPartial.cshtml");
 }
+
 <section class="section pb-4">
     <div class="container">
         <div class="row check-availabilty" id="next">
@@ -45,36 +46,36 @@
     <div class="container">
 
         <div class="row room-list">
-            @{ 
-                var index = 1; 
+            @{
+                var index = 1;
             }
             @foreach (var item in Model)
             {
-                
-                    string bedType = "";
-                    int bedQuantity = 1;
-                    if(item.TenLoaiPhong == "Family" || item.TenLoaiPhong == "Superior" || item.TenLoaiPhong == "Family Suite")
-                    {
-                        bedQuantity = 2;
 
-                    }
-                    else
-                    {
-                        bedQuantity = 1;
-                    }
-                    if(item.TenLoaiPhong == "Family" || item.TenLoaiPhong == "Superior")
-                    {
-                        bedType = "Single Bed";
-                    }
-                    else if(item.TenLoaiPhong == "Suite")
-                    {
-                        bedType = "Big Twin Bed";
-                    }
-                    else
-                    {
-                        bedType = "Twin Bed";
-                    }
-                
+                string bedType = "";
+                int bedQuantity = 1;
+                if (item.TenLoaiPhong == "Family" || item.TenLoaiPhong == "Superior" || item.TenLoaiPhong == "Family Suite")
+                {
+                    bedQuantity = 2;
+
+                }
+                else
+                {
+                    bedQuantity = 1;
+                }
+                if (item.TenLoaiPhong == "Family" || item.TenLoaiPhong == "Superior")
+                {
+                    bedType = "Single Bed";
+                }
+                else if (item.TenLoaiPhong == "Suite")
+                {
+                    bedType = "Big Twin Bed";
+                }
+                else
+                {
+                    bedType = "Twin Bed";
+                }
+
                 <div class="col-md-6 col-lg-4 mb-5" data-aos="fade-up">
                     <div class="room">
                         <figure class="img-wrap">
@@ -105,14 +106,8 @@
                                     Room quantity
                                 </span>
                                 <div style="position: relative; width: 100px; height: 100%;">
-                                    <select name="" id="quan-@index" class="room-quantity inactive">
+                                    <select id="quan-@index" class="room-quantity inactive" name="">
                                         <option value="0">0 room</option>
-                                        <option value="1">1 room</option>
-                                        <option value="2">2 rooms</option>
-                                        <option value="3">3 rooms</option>
-                                        <option value="4">4 rooms</option>
-                                        <option value="5">5 rooms</option>
-                                        <option value="6">6 rooms</option>
                                     </select>
                                     <div class="block-inactive"></div>
                                 </div>
@@ -175,11 +170,36 @@
 
     checkAvailableBtn.onclick = (e) => {
         e.preventDefault();
+        var roomTypes = @Html.Raw(Json.Encode(Model.Select(x => new { x.MaLoaiPhong, x.TenLoaiPhong })));
+
         checkList.checkin = dateCheckIn.value;
         checkList.checkout = dateCheckOut.value;
 
         checkinForForm = dateCheckIn.value;
         checkoutForForm = dateCheckOut.value;
+
+        for (var i = 0; i < roomTypes.length; i++) {
+            (function () {
+                var roomType = roomTypes[i].MaLoaiPhong;
+                var index = i + 1;
+
+                $.ajax({
+                    url: 'GetRoomsByRoomTypeID',
+                    type: 'GET',
+                    data: { maLoaiPhong: roomType, checkIn: dateCheckIn.value, checkOut: dateCheckOut.value },
+                    success: function (data) {
+
+                        $("#quan-" + index).empty();
+                        $("#quan-" + index).append('<option value= 0">0 room</option>');
+                        // Thêm danh sách phòng mới vào combobox "Room"
+                        for (var j = 1; j <= data.length; j++) {
+                                $("#quan-" + index).append('<option value="' + j  + '">' + j + ' rooms' + '</option>');
+                        }
+                    }
+                });
+            })();
+        }
+
         if (checkinForForm != "" && checkoutForForm != "") {
             //bookBtn.onclick = (e) => {
             //    e.preventDefault();

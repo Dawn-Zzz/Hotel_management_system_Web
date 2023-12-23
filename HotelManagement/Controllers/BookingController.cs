@@ -128,5 +128,24 @@ namespace HotelManagement.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult GetRoomsByRoomTypeID(string maLoaiPhong, DateTime? checkIn, DateTime? checkOut)
+        {
+            // Lấy danh sách các phòng thuộc loại phòng maLoaiPhong và không trùng với ngày check-in và check-out
+            var roomList = db.Phongs.Where(p => p.MaLoaiPhong == maLoaiPhong).Select(p => p.MaPhong).ToList();
+            var bookedRoomList = db.PhieuThuePhongs
+    .Where(pt => pt.PhieuThue.ThoiGianNhanPhong.HasValue && pt.PhieuThue.ThoiGianTraPhong.HasValue && (pt.PhieuThue.HienTrang == "Chưa nhận phòng" || pt.PhieuThue.HienTrang == "Đã nhận phòng") &&
+                  !(checkIn >= pt.PhieuThue.ThoiGianTraPhong || checkOut <= pt.PhieuThue.ThoiGianNhanPhong))
+    .Select(pt => pt.MaPhong)
+    .ToList();
+            List<PhieuThuePhong> listPhong = Session["listPhong"] as List<PhieuThuePhong>;
+            var availableRoomList = roomList.Except(bookedRoomList);
+            if (listPhong != null)
+                // Lọc danh sách phòng để chừa những phòng không có trong danh sách đã đặt
+                availableRoomList = availableRoomList.Except(listPhong.Select(p => p.MaPhong)).ToList();
+            else
+                availableRoomList = availableRoomList.ToList();
+            return Json(availableRoomList, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -40,7 +40,7 @@
                         </a>
                     </div>
                 </div>
-                     @Html.Partial("_LoginPartial")
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </header>
@@ -114,5 +114,6 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="@Url.Content("~/Scripts/main.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery-3.4.1.js")"></script>
 </body>
 </html>

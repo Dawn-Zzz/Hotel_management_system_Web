@@ -1,31 +1,27 @@
-﻿
-'use strict';
+﻿'use strict';
 
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
-
-const navHeight = $('.site-header');
-const upBtn = $('#up-btn');
-const arrowLeftBtn = $('.arrow-left');
-const arrowRightBtn = $('.arrow-right');
+const navHeight = document.querySelector('.site-header');
+const upBtn = document.querySelector('#up-btn');
+const arrowLeftBtn = document.querySelector('.arrow-left');
+const arrowRightBtn = document.querySelector('.arrow-right');
 
 //room
-const adultsQuantity = $('#adults');
-const childrenQuantity = $('#children');
-const bookBtn = $('.js-book-btn');
+const adultsQuantity = document.querySelector('#adults');
+const childrenQuantity = document.querySelector('#children');
+const bookBtn = document.querySelector('.js-book-btn');
 
-const roomContainer = $('.room-container');
-const roomList = $('.room-list');
-const roomForm = $('.room-form');
-const closeBtn = $('.close-btn');
-const submitBtn = $('.submit-btn');
-const closeEvents = $$('.close-btn, .room-form');
+const roomContainer = document.querySelector('.room-container');
+const roomList = document.querySelector('.room-list');
+const roomForm = document.querySelector('.room-form');
+const closeBtn = document.querySelector('.close-btn');
+const submitBtn = document.querySelector('.submit-btn');
+const closeEvents = document.querySelectorAll('.close-btn, .room-form');
 
-const serviceList = $(".services-list");
+const serviceList = document.querySelector(".services-list");
 
-const bookingForm = $("#booking-form");
+const bookingForm = document.querySelector("#booking-form");
 
-const bookingRoomForm = $(".booking-room-form");
+const bookingRoomForm = document.querySelector(".booking-room-form");
 var counter = 1;
 var checkinForForm = '';
 var checkoutForForm = '';
@@ -86,7 +82,7 @@ if (roomList) {
         }
     }
 
-    var roomQuantities = $$('.room-quantity');
+    var roomQuantities = document.querySelectorAll('.room-quantity');
 
 
     for (const roomQuantity of roomQuantities) {
@@ -144,7 +140,7 @@ if (roomList) {
                 localStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
                 localStorage.setItem('checkin', JSON.stringify({ data: checkIn }));
                 localStorage.setItem('checkout', JSON.stringify({ data: checkOut }));
-                window.location.href = 'Booking/BookingRoom';
+                window.location.href = 'BookingRoom';
 
                 // Hiển thị thông báo hoặc chuyển hướng tới trang khác nếu cần
                 alert('Rooms booked successfully!');
@@ -169,7 +165,7 @@ if (roomList) {
     }
 }
 
-const blockInactive = $$('.block-inactive');
+const blockInactive = document.querySelectorAll('.block-inactive');
 
 
 if (arrowLeftBtn) {
