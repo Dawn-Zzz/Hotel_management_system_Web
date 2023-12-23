@@ -10,9 +10,6 @@ const arrowLeftBtn = $('.arrow-left');
 const arrowRightBtn = $('.arrow-right');
 
 //room
-const checkAvailableBtn = $('.avl-btn');
-var dateCheckIn = $("#checkin_date");
-var dateCheckOut = $("#checkout_date");
 const adultsQuantity = $('#adults');
 const childrenQuantity = $('#children');
 const bookBtn = $('.js-book-btn');
@@ -30,12 +27,6 @@ const bookingForm = $("#booking-form");
 
 const bookingRoomForm = $(".booking-room-form");
 var counter = 1;
-const checkList = {
-    checkin: '',
-    checkout: '',
-    adult: 1,
-    children: 1,
-};
 var checkinForForm = '';
 var checkoutForForm = '';
 
@@ -205,69 +196,6 @@ if (arrowLeftBtn) {
                 counter = 1;
             }
         }, 5000);
-    }
-}
-
-if (checkAvailableBtn) {
-
-    dateCheckIn.addEventListener("change", () => {
-        var date = new Date(dateCheckIn.value);
-        date.setDate(date.getDate() + 1);
-        var formatDate = date.toISOString().split('T')[0];
-        dateCheckOut.min = formatDate;
-
-        var checkInValue = dateCheckIn.value;
-
-        // Nếu date1 có giá trị
-        if (checkInValue) {
-            // Tạo đối tượng Date từ giá trị ngày của date1
-            var date1 = new Date(checkInValue);
-
-            // Tăng ngày lên 1
-            date1.setDate(date1.getDate() + 1);
-
-            // Format ngày thành chuỗi 'YYYY-MM-DD' cho date2
-            var formattedDate = date1.toISOString().split('T')[0];
-
-            // Gán giá trị cho date2
-            dateCheckOut.value = formattedDate;
-        } else {
-            // Nếu date1 không có giá trị, đặt giá trị của date2 thành rỗng
-            dateCheckOut.value = '';
-        }
-    });
-    checkAvailableBtn.onclick = (e) => {
-        e.preventDefault();
-        checkList.checkin = dateCheckIn.value;
-        checkList.checkout = dateCheckOut.value;
-
-        checkinForForm = dateCheckIn.value;
-        checkoutForForm = dateCheckOut.value;
-        if (checkinForForm != "" && checkoutForForm != "") {
-            //bookBtn.onclick = (e) => {
-            //    e.preventDefault();
-            //}
-            for (const block of blockInactive) {
-                block.style.display = "none";
-            }
-            for (const roomQuantity of roomQuantities) {
-                roomQuantity.style.opacity = "1";
-            }
-        }
-        else if (checkinForForm == "" || checkoutForForm == "") {
-            //bookBtn.onclick = (e) => {
-            //    e.preventDefault();
-            //}
-            for (const block of blockInactive) {
-                block.style.display = "block";
-                if (block.style.display == "block") {
-                    bookBtn.classList.add("inactive");
-                }
-            }
-            for (const roomQuantity of roomQuantities) {
-                roomQuantity.style.opacity = ".3";
-            }
-        }
     }
 }
 

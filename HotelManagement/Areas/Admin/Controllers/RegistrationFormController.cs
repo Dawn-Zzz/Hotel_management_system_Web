@@ -108,7 +108,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 return HttpNotFound();
             }
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
-            ViewBag.DichVu = new SelectList(db.DichVus, "TenDichVu", "TenDichVu");
+            ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
             return View(phieuThue);
         }
 
