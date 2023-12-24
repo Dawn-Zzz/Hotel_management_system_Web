@@ -184,17 +184,50 @@
                 var index = i + 1;
 
                 $.ajax({
-                    url: 'GetRoomsByRoomTypeID',
+                    url: '/Booking/GetRoomsByRoomTypeID',
                     type: 'GET',
                     data: { maLoaiPhong: roomType, checkIn: dateCheckIn.value, checkOut: dateCheckOut.value },
                     success: function (data) {
+                        // Xóa sự kiện cũ trước khi thêm sự kiện mới
+                        $("#quan-" + index).off("change");
 
+                        // Xóa tất cả các option hiện có trong combobox
                         $("#quan-" + index).empty();
-                        $("#quan-" + index).append('<option value= 0">0 room</option>');
+                        $("#quan-" + index).append('<option value="0">0 room</option>');
+
                         // Thêm danh sách phòng mới vào combobox "Room"
                         for (var j = 1; j <= data.length; j++) {
-                                $("#quan-" + index).append('<option value="' + j  + '">' + j + ' rooms' + '</option>');
+                            $("#quan-" + index).append('<option value="' + j + '">' + j + ' rooms' + '</option>');
                         }
+
+                        // Thêm sự kiện "change" mới cho combobox
+                        $("#quan-" + index).on("change", function () {
+                            var roomList = data;
+
+                            var selectedValue = parseInt($(this).val(), 10);
+
+                            var selectedRoomList = roomList.slice(0, selectedValue);
+                            // Xử lý sự kiện khi combobox thay đổi
+                            $.ajax({
+                                url: '/Booking/DeleteBookRoom',
+                                type: 'POST',
+                                data: {
+                                    maLoaiPhong: roomType,
+                                },
+                            });
+
+                            $.ajax({
+                                url: '/Booking/AddBookRoom',
+                                type: 'POST',
+                                data: {
+                                    maLoaiPhong: roomType,
+                                    phongs: selectedRoomList
+                                },
+                                success: function (data) {
+                                    console.log(data);
+                                },
+                            });
+                        });
                     }
                 });
             })();
@@ -253,4 +286,28 @@
             dateCheckOut.value = '';
         }
     }
+
+     //===================== Hàm Làm mới danh sách sách mượn =====================
+    function resetListPhong() {
+        $.ajax({
+            url: '/Booking/ResetListPhong',
+            type: 'POST',
+            //success: function (data) {
+            //    if (data.success) {
+            //        // Cập nhật giao diện
+            //        var danhSachSachMuon = document.getElementById("danhSachSachMuon");
+            //        danhSachSachMuon.innerHTML = "";
+
+            //        document.getElementById("MaThe").value = "";
+            //        document.getElementById("Name").value = "";
+            //        document.getElementById("SDT").value = "";
+            //        document.getElementById("HanTra").value = "-- Chọn hạn trả --";
+            //    }
+            //}
+        });
+    }
+    //=====================  Xử lý khi load lại trang  =====================
+    document.addEventListener("DOMContentLoaded", function () {
+        resetListPhong();
+    });
 </script>

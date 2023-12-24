@@ -140,7 +140,7 @@ if (roomList) {
                 localStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
                 localStorage.setItem('checkin', JSON.stringify({ data: checkIn }));
                 localStorage.setItem('checkout', JSON.stringify({ data: checkOut }));
-                window.location.href = 'BookingRoom';
+                window.location.href = '/Booking/BookingRoom';
 
                 // Hiển thị thông báo hoặc chuyển hướng tới trang khác nếu cần
                 alert('Rooms booked successfully!');

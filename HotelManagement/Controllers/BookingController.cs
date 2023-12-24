@@ -147,5 +147,63 @@ namespace HotelManagement.Controllers
                 availableRoomList = availableRoomList.ToList();
             return Json(availableRoomList, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public ActionResult AddBookRoom(string maLoaiPhong,List<string> phongs)
+        {
+            // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
+            List<Phong> listPhong;
+
+            if (Session["listPhong"] == null)
+            {
+                listPhong = new List<Phong>();
+            }
+            else
+            {
+                listPhong = (List<Phong>)Session["listPhong"];
+            }
+            if (phongs != null)
+                foreach (var phong in phongs)
+                {
+                    // Tạo một phòng mới để thêm vào danh sách
+                    var phongMoi = new Phong
+                    {
+                        MaLoaiPhong = maLoaiPhong,
+                        MaPhong = phong.ToString()
+                    };
+
+                    // Thêm phòng mới vào danh sách
+                    listPhong.Add(phongMoi);
+                }
+            // Sắp xếp danh sách theo MaLoaiPhong
+            listPhong = listPhong.OrderBy(p => p.MaLoaiPhong).ToList();
+            // Lưu danh sách đã cập nhật vào Session
+            Session["listPhong"] = listPhong;
+
+            // Trả về một JsonResult chứa danh sách sách đã cập nhật
+            return Json(listPhong);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteBookRoom(string maLoaiPhong)
+        {
+            // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
+            List<Phong> listPhong = Session["listPhong"] as List<Phong> ?? new List<Phong>();
+
+            // Xóa tất cả các phần tử của listPhong có MaLoaiPhong bằng maLoaiPhong
+            listPhong.RemoveAll(s => s.MaLoaiPhong == maLoaiPhong);
+
+            // Lưu danh sách đã cập nhật vào Session
+            Session["listPhong"] = listPhong;
+
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public ActionResult ResetListPhong()
+        {
+            Session["listPhong"] = null;
+            return Json(new { success = true });
+        }
     }
 }
