@@ -117,6 +117,8 @@
     <script src="~/Scripts/Validate.js"></script>
     <script>
         var age = 0;
+        var roomIndex = 0;
+        var roomsList = [];
         const birthDayInput = document.getElementById("client-age");
         const submitBookBtn = document.getElementById("submit-book-btn");
         var validateObj = {
@@ -129,7 +131,7 @@
                 Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
             ],
             onSubmit: function (data) {
-                console.log("succes");
+                console.log(data);
             }
         }
         if (birthDayInput.value == '') {
@@ -154,7 +156,10 @@
                     Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
                 ],
                 onSubmit: function (data) {
-                    console.log("succes");
+                    for (var i = 0; i < roomsList.length; ++i)
+                        data[i] = roomsList[i].value;
+                    
+                    console.log(data);
                 }
             })
         }
@@ -178,7 +183,6 @@
             var displayContainer = document.getElementById('displayContainer');
 
             displayContainer.innerHTML = '';
-            var roomIndex = 0;
 
             var totalPrice = 0;
             selectedRooms.forEach(function (room) {
@@ -213,7 +217,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <p>Room ${i + 1}</p>
-                                <select id="room-${roomIndex}" class="form-control">
+                                <select id="room-${roomIndex}" class="rooms-list form-control">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -249,6 +253,7 @@
             } else {
                 document.getElementById('checkout').innerText = 'No user data available for Data 2.';
             }
+            roomsList = document.querySelectorAll(".rooms-list");
         }
     </script>
 </body>
