@@ -18,7 +18,7 @@
 
 .section {
     position: relative;
-    margin-top: 440px;
+    margin-top: 40px;
 }
 
     .section .section-center {
@@ -26,9 +26,6 @@
         top: 50%;
         left: 0;
         right: 0;
-        -webkit-transform: translateY(-50%);
-        transform: translateY(-50%);
-        margin-top: 15vh;
     }
 
 .container {
@@ -167,6 +164,15 @@
         color: #000;
     }
 
+
+.back-btn {
+    width: 100%;
+    color: red;
+    margin-top: 32px;
+    text-align: center;
+    text-decoration: none;
+}
+
 .selected-infor p {
     /*line-height: 76px;*/
     margin: 12px 0;
@@ -181,3 +187,4 @@ textarea {
     height: 160px !important;
     padding: 16px !important;
 }
+
