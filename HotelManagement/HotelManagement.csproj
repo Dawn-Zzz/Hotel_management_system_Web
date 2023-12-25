@@ -2109,6 +2109,7 @@
     <Content Include="Assets\registration\img\bg-01.jpg" />
     <Content Include="Assets\registration\js\script.js" />
     <Content Include="Assets\registration\script.js" />
+    <Content Include="Content\Account.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\aos.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -2449,6 +2450,7 @@
     <Content Include="Views\Booking\Index.cshtml" />
     <Content Include="Views\Booking\BookingRoom.cshtml" />
     <Content Include="Service\Email\Templates\ResetPassword.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

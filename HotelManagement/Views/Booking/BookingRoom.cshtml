@@ -116,23 +116,33 @@
     @*<script src="~/Scripts/main.js"></script>*@
     <script src="~/Scripts/Validate.js"></script>
     <script>
+        var age = 0;
         const birthDayInput = document.getElementById("client-age");
+        const submitBookBtn = document.getElementById("submit-book-btn");
+        var validateObj = {
+            form: '#booking-form',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#client-name', "Please enter your name"),
+                Validator.isPhoneNumber('#client-phone-number', "Please enter your phone number"),
+                Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
+            ],
+            onSubmit: function (data) {
+                console.log("succes");
+            }
+        }
+        if (birthDayInput.value == '') {
+            Validator(validateObj)
+        }
         birthDayInput.onchange = () => {
-            console.log(birthDayInput.value)
             const birthdate = new Date(birthDayInput.value);
-            console.log(birthdate);
 
-            // Lấy năm hiện tại
             const currentYear = new Date().getFullYear();
 
-            console.log(currentYear)
-            // Lấy năm sinh từ đối tượng Date
             const birthYear = birthdate.getFullYear();
-            console.log(birthYear)
 
-            // Tính toán tuổi
-            const age = currentYear - birthYear;
-            console.log(age)
+            age = currentYear - birthYear;
 
             Validator({
                 form: '#booking-form',
@@ -144,7 +154,7 @@
                     Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
                 ],
                 onSubmit: function (data) {
-                    console.log(data);
+                    console.log("succes");
                 }
             })
         }
@@ -155,27 +165,21 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Lấy dữ liệu từ Local Storage
             var storedData = localStorage.getItem('selectedRooms');
 
-            // Kiểm tra xem có dữ liệu hay không
             if (storedData) {
-                // Chuyển đổi chuỗi JSON thành đối tượng JavaScript
                 var selectedRooms = JSON.parse(storedData);
 
-                // Hiển thị dữ liệu trên trang
                 displaySelectedRooms(selectedRooms);
             }
         });
 
         function displaySelectedRooms(selectedRooms) {
-            // Lấy phần tử trong DOM để hiển thị dữ liệu
             var displayContainer = document.getElementById('displayContainer');
 
-            // Xóa nội dung cũ (nếu có)
             displayContainer.innerHTML = '';
+            var roomIndex = 0;
 
-            // Lặp qua danh sách các phòng đã chọn và hiển thị thông tin
             var totalPrice = 0;
             selectedRooms.forEach(function (room) {
                 totalPrice += parseInt(room.price);
@@ -209,7 +213,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <p>Room ${i + 1}</p>
-                                <select id="${roomType}-${i}" class="form-control">
+                                <select id="room-${roomIndex}" class="form-control">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -218,6 +222,7 @@
                             </div>
                         </div>
                     `
+                    roomIndex++;
                 }
                 roomInfoDiv.innerHTML += `
                         <hr/>
@@ -245,42 +250,6 @@
                 document.getElementById('checkout').innerText = 'No user data available for Data 2.';
             }
         }
-
-        //document.addEventListener('DOMContentLoaded', function () {
-        //    const type = localStorage.getItem('selectedRooms');
-        //    const price = localStorage.getItem('selectedRooms');
-        //    const detail = localStorage.getItem('selectedRooms');
-        //    const quantity = localStorage.getItem('selectedRooms');
-
-        //    if (type) {
-        //        const parsedData1 = JSON.parse(type);
-        //        document.getElementById('type').innerText = `${parsedData1.type}`;
-        //    } else {
-        //        document.getElementById('type').innerText = 'No user data available for Data 1.';
-        //    }
-
-
-        //    if (detail) {
-        //        const parsedData4 = JSON.parse(detail);
-        //        document.getElementById('detail').innerText = `${parsedData4.bedInfo}` + `${parsedData4.bathInfo}`;
-        //    } else {
-        //        document.getElementById('detail').innerText = 'No user data available for Data 2.';
-        //    }
-
-        //    if (price) {
-        //        const parsedData5 = JSON.parse(price);
-        //        document.getElementById('price').innerText = `${VND.format(parsedData5.price * 1000)}`;
-        //    } else {
-        //        document.getElementById('price').innerText = 'No user data available for Data 2.';
-        //    }
-
-        //    if (quantity) {
-        //        const parsedData6 = JSON.parse(quantity);
-        //        document.getElementById('quantity').innerText = `${parsedData6.quantity}`;
-        //    } else {
-        //        document.getElementById('quantity').innerText = 'No user data available for Data 2.';
-        //    }
-        //});
     </script>
 </body>
 
