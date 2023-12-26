@@ -117,6 +117,44 @@
     <script src="~/Scripts/Validate.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script>
+        $(document).ready(function () {
+            // Sự kiện khi rời khỏi ô nhập số điện thoại
+            $("#client-phone-number").blur(function () {
+                var phoneNumber = $(this).val();
+                // Gửi yêu cầu kiểm tra số điện thoại đã tồn tại
+                $.ajax({
+                    url: '/Booking/CheckPhoneNumber', // Thay đổi đường dẫn tương ứng với ứng dụng của bạn
+                    type: 'POST',
+                    data: { phoneNumber: phoneNumber },
+                    success: function (data) {
+                        // Xử lý kết quả từ máy chủ
+                        if (data.exists) {
+                            // Số điện thoại đã tồn tại trong db
+                            // Cập nhật tên khách hàng và đóng băng ô nhập số điện thoại
+                            $("#client-name").val(data.customerName);
+                            $("#client-name").prop('disabled', true);
+                            // Cập nhật ngày sinh nếu có
+                            if (data.dateOfBirth) {
+                                $("#client-age").val(data.dateOfBirth);
+                                $("#client-age").prop('disabled', true);
+                            }
+
+                        } else {
+                            // Số điện thoại không tồn tại trong db
+                            $("#client-name").val("");
+                            $("#client-age").val("");
+
+                            $("#client-name").prop('disabled', false);
+                            $("#client-age").prop('disabled', false);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+
         var age = 0;
         var roomIndex = 0;
         var roomsList = [];

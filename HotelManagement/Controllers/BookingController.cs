@@ -236,63 +236,63 @@ namespace HotelManagement.Controllers
         [HttpPost]
         public ActionResult CreateBooking(string phoneNumber, string name, DateTime birth, DateTime checkIn, DateTime checkOut)
         {
-            try
+            // Kiểm tra xem số điện thoại đã tồn tại trong db hay chưa
+            var khachHang = db.KhachHangs.FirstOrDefault(kh => kh.SoDienThoai == phoneNumber);
+
+            if (khachHang == null)
             {
-                // Kiểm tra xem số điện thoại đã tồn tại trong db hay chưa
-                var khachHang = db.KhachHangs.FirstOrDefault(kh => kh.SoDienThoai == phoneNumber);
+                KhachHang kh = new KhachHang();
+                kh.TenKhachHang = name;
+                kh.SoDienThoai = phoneNumber;
+                kh.NgaySinh = birth;
 
-                if (khachHang == null)
-                {
-                    KhachHang kh = new KhachHang();
-                    kh.TenKhachHang = name;
-                    kh.SoDienThoai = phoneNumber;
-                    kh.NgaySinh = birth;
-
-                    db.KhachHangs.Add(kh);
-                    db.SaveChanges();
-                }
-
-                PhieuDangKy phieuThue = new PhieuDangKy();
-
-                phieuThue.ThoiGianNhanPhong = checkIn;
-                phieuThue.ThoiGianTraPhong = checkOut;
-                phieuThue.NgayLap = DateTime.Today.AddDays(-1);
-                phieuThue.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).Select(kh => kh.MaKhachHang).FirstOrDefault();
-                phieuThue.HienTrang = "Chưa nhận phòng";
-
-                db.PhieuDangKies.Add(phieuThue);
-
-                var listPhong = Session["listBookPhong"] as List<ChiTietThue>;
-
-                foreach (var phong in listPhong)
-                {
-                    var newPhieuThuePhong = new ChiTietThue
-                    {
-                        MaPhieu = phieuThue.MaPhieu,
-                        MaPhong = phong.MaPhong,
-                        SoNguoiO = phong.SoNguoiO
-                    };
-
-                    db.ChiTietThues.Add(newPhieuThuePhong);
-                }
-
+                db.KhachHangs.Add(kh);
                 db.SaveChanges();
-                //return RedirectToAction("Index");
-                return Json(new { Success = true, Message = "Lưu dữ liệu thành công!" });
             }
-            catch (DbEntityValidationException ex)
+
+            PhieuDangKy phieuThue = new PhieuDangKy();
+
+            phieuThue.ThoiGianNhanPhong = checkIn;
+            phieuThue.ThoiGianTraPhong = checkOut;
+            phieuThue.NgayLap = DateTime.Today.AddDays(-1);
+            phieuThue.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).Select(kh => kh.MaKhachHang).FirstOrDefault();
+            phieuThue.HienTrang = "Chưa nhận phòng";
+
+            db.PhieuDangKies.Add(phieuThue);
+
+            var listPhong = Session["listBookPhong"] as List<ChiTietThue>;
+
+            foreach (var phong in listPhong)
             {
-                var errors = new List<string>();
-
-                foreach (var validationErrors in ex.EntityValidationErrors)
+                var newPhieuThuePhong = new ChiTietThue
                 {
-                    foreach (var validationError in validationErrors.ValidationErrors)
-                    {
-                        errors.Add($"{validationError.PropertyName}: {validationError.ErrorMessage}");
-                    }
-                }
+                    MaPhieu = phieuThue.MaPhieu,
+                    MaPhong = phong.MaPhong,
+                    SoNguoiO = phong.SoNguoiO
+                };
 
-                return Json(new { Success = false, Message = "Lưu dữ liệu không thành công.", Errors = errors });
+                db.ChiTietThues.Add(newPhieuThuePhong);
+            }
+
+            db.SaveChanges();
+            //return RedirectToAction("Index");
+            return Json(new { Success = true, Message = "Lưu dữ liệu thành công!" });
+        }
+
+        [HttpPost]
+        public ActionResult CheckPhoneNumber(string phoneNumber)
+        {
+            // Thực hiện kiểm tra số điện thoại trong cơ sở dữ liệu
+            var khachHang = db.KhachHangs.FirstOrDefault(kh => kh.SoDienThoai == phoneNumber);
+
+            if (khachHang != null)
+            {
+                // Nếu số điện thoại đã tồn tại, trả về thông tin khách hàng
+                return Json(new { exists = true, customerName = khachHang.TenKhachHang, dateOfBirth = khachHang.NgaySinh?.ToString("yyyy-MM-dd") });
+            }
+            else
+            {
+                return Json(new { exists = false });
             }
         }
     }
