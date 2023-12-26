@@ -11,7 +11,8 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class LoaiPhong
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,10 +20,15 @@ namespace HotelManagement
         {
             this.Phongs = new HashSet<Phong>();
         }
-    
+
+        [DisplayName("Room Category Code")]
         public string MaLoaiPhong { get; set; }
+
+        [DisplayName("Room Category Name")]
         public string TenLoaiPhong { get; set; }
+        [DisplayName("Room Rates")]
         public decimal GiaLoaiPhong { get; set; }
+        [DisplayName("Room Category Images")]
         public string HinhAnh { get; set; }
         public byte SoNguoiToiDa { get; set; }
     

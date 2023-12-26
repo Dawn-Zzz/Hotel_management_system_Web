@@ -11,7 +11,8 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class DichVu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,9 +20,11 @@ namespace HotelManagement
         {
             this.ChiTietHoaDonDichVus = new HashSet<ChiTietHoaDonDichVu>();
         }
-    
+        [DisplayName("Service Code")]
         public string MaDichVu { get; set; }
+        [DisplayName("Service Name")]
         public string TenDichVu { get; set; }
+        [DisplayName("Service Price")]
         public decimal GiaDichVu { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

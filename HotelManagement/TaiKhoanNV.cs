@@ -11,14 +11,21 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TaiKhoanNV
     {
+        [DisplayName("Account")]
+        [Required(ErrorMessage = "Tài kho?n nhân viên không ???c b? tr?ng")]
         public string TenTaiKhoan { get; set; }
+        [DisplayName("Password")]
+        [Required(ErrorMessage = "M?t kh?u không ???c b? tr?ng")]
         public string MatKhau { get; set; }
+        [DisplayName("Privilege")]
         public byte Quyen { get; set; }
-        public int MaNhanVien { get; set; }
-    
+        public Nullable<int> MaNhanVien { get; set; }
+
         public virtual NhanVien NhanVien { get; set; }
     }
 }

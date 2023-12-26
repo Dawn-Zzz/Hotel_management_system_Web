@@ -11,7 +11,8 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class Phong
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,9 +20,12 @@ namespace HotelManagement
         {
             this.ChiTietThues = new HashSet<ChiTietThue>();
         }
-    
+
+        [DisplayName("Room Code")]
         public string MaPhong { get; set; }
+        [DisplayName("Room Status")]
         public bool HienTrang { get; set; }
+        [DisplayName("Room Category Code")]
         public string MaLoaiPhong { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

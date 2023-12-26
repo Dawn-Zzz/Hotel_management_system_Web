@@ -11,11 +11,15 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+
     public partial class ChiTietThue
     {
+        [DisplayName("Receipt Code")]
         public int MaPhieu { get; set; }
+        [DisplayName("Room Code")]
         public string MaPhong { get; set; }
+        [DisplayName("Number Of Guests")]
         public byte SoNguoiO { get; set; }
     
         public virtual PhieuDangKy PhieuDangKy { get; set; }
