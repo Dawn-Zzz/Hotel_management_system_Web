@@ -14,6 +14,12 @@ namespace HotelManagement
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "ResetPassword",
+                url: "{controller}/{action}/{token}",
+                defaults: new { controller = "AccountController", action = "ResetPasswordPost", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
@@ -39,12 +45,6 @@ namespace HotelManagement
                 url: "Admin/{controller}/{action}/{id}",
                 defaults: new { Controller = "Home", action = "Index", id = UrlParameter.Optional },
                 namespaces: new[] { "MyApplication.Areas.MyArea.Controllers" }
-            );
-
-            routes.MapRoute(
-                name: "ResetPassword",
-                url: "{controller}/{action}/{token}",
-                defaults: new { controller = "AccountController", action = "ResetPassword", token = UrlParameter.Optional }
             );
         }
     }

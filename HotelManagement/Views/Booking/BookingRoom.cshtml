@@ -210,7 +210,7 @@
 
             var totalPrice = 0;
             selectedRooms.forEach(function (room) {
-                totalPrice += parseInt(room.price);
+                totalPrice += parseInt(room.price * room.quantity);
                 var roomInfoDiv = document.createElement('div');
                 roomInfoDiv.innerHTML = `
                             <div class="row selected-infor">
@@ -225,7 +225,7 @@
                             </div>
                             <div class="row selected-infor">
                                 <div class="col-md-12">
-                                    <p>Price: <span id="price" style="font-weight: 700">${VND.format(parseInt(room.price))}</span></p>
+                                    <p>Price: <span id="price" style="font-weight: 700">${VND.format(parseInt(room.price * room.quantity))}</span></p>
                                 </div>
                             </div>
                             <div class="row selected-infor guest-number">

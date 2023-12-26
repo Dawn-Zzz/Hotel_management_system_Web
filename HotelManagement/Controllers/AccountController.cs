@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 using HotelManagement.Models;
 using HotelManagement.Services.Email.Models;
 using HotelManagement.Utils.JWT;
+using HotelManagement;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 
 namespace HotelManagement.Controllers
 {
@@ -219,8 +220,10 @@ namespace HotelManagement.Controllers
             //}
 
             // tao token
-            string tokenExpired = "5m";
-            var refreshToken = _jwtUtil.GenerateToken(new Claim[] { new Claim("email", model.Email) }, tokenExpired);
+            string tokenExpired = "50m";
+            var token = _jwtUtil.GenerateToken(new Claim[] { new Claim("email", model.Email) }, tokenExpired);
+            token = token.Replace(".", "@");
+
 
 
             // tao emailMessage
@@ -232,8 +235,8 @@ namespace HotelManagement.Controllers
                 Model = new ResetPasswordModel
                 {
                     Firstname = "Nguyen van teo",
-                    SiteUrl = "http://localhost:44303",
-                    Token = refreshToken
+                    SiteUrl = "https://localhost:44326",
+                    Token = token
                 }
             };
 
@@ -258,10 +261,26 @@ namespace HotelManagement.Controllers
         //
         // GET: /Account/ResetPassword
         [AllowAnonymous]
-        [Route("{token}")]
         public ActionResult ResetPassword(string token)
         {
-            return View();
+            // edit token
+            token = token.Replace("@", ".");
+
+            try
+            {
+                // validate token
+                var claims = _jwtUtil.ValidateToken(token);
+
+                // return view nhu bth
+                return View();
+
+            }
+            catch (Exception e)
+            {
+                // return view lỗi
+                return View();
+
+            }
         }
 
         //
@@ -269,25 +288,51 @@ namespace HotelManagement.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
+        public async Task<ActionResult> ResetPassword(string token, ResetPasswordViewModel model)
         {
-            if (!ModelState.IsValid)
+            // edit token
+            token = token.Replace("@", ".");
+
+            try
             {
-                return View(model);
+
+                // validate token
+                var claims = _jwtUtil.ValidateToken(token);
+                string email = claims?.Find(c => c.Type == "email")?.Value;
+
+
+                if (!ModelState.IsValid)
+                {
+                    return View(model);
+                }
+
+                // tìm user trong db
+                var user = await UserManager.FindByNameAsync(email);
+
+                if (user == null)
+                {
+                    // return view loi
+                    return RedirectToAction("ResetPasswordConfirmation", "Account");
+                }
+
+                // doi pass trong db
+                var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+
+                if (result.Succeeded)
+                {
+                    return RedirectToAction("ResetPasswordConfirmation", "Account");
+                }
+                AddErrors(result);
+
+                return View();
+
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
-            if (user == null)
+            catch (Exception e)
             {
-                // Don't reveal that the user does not exist
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
+                // return view lỗi
+                return View();
+
             }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
-            if (result.Succeeded)
-            {
-                return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            AddErrors(result);
-            return View();
         }
 
         //
