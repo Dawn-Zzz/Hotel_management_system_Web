@@ -41,7 +41,7 @@
       <PropertyRef Name="MaKhachHang" />
     </Key>
     <Property Name="MaKhachHang" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="CCCD" Type="String" MaxLength="12" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="CCCD" Type="String" MaxLength="12" FixedLength="true" Unicode="false" />
     <Property Name="TenKhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="LoaiKhachHang" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="NgaySinh" Type="DateTime" Precision="3" />
@@ -58,6 +58,7 @@
     <Property Name="TenLoaiPhong" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="GiaLoaiPhong" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
     <Property Name="HinhAnh" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="SoNguoiToiDa" Type="Byte" Nullable="false" />
     <NavigationProperty Name="Phongs" Relationship="Self.FK_Phong" FromRole="LoaiPhong" ToRole="Phong" />
   </EntityType>
   <EntityType Name="NhanVien">
@@ -94,7 +95,7 @@
     </Key>
     <Property Name="MaPhieu" Type="Int32" Nullable="false" />
     <Property Name="MaPhong" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-    <Property Name="SoNguoiO" Type="Byte" />
+    <Property Name="SoNguoiO" Type="Byte" Nullable="false" />
     <NavigationProperty Name="PhieuThue" Relationship="Self.FK_PTP01" FromRole="PhieuThuePhong" ToRole="PhieuThue" />
     <NavigationProperty Name="Phong" Relationship="Self.FK_PTP02" FromRole="PhieuThuePhong" ToRole="Phong" />
   </EntityType>
@@ -107,6 +108,16 @@
     <Property Name="MaLoaiPhong" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
     <NavigationProperty Name="LoaiPhong" Relationship="Self.FK_Phong" FromRole="Phong" ToRole="LoaiPhong" />
     <NavigationProperty Name="PhieuThuePhongs" Relationship="Self.FK_PTP02" FromRole="Phong" ToRole="PhieuThuePhong" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
   <EntityType Name="TaiKhoanKH">
     <Key>
@@ -124,7 +135,7 @@
     <Property Name="TenTaiKhoan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="MatKhau" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Quyen" Type="Byte" Nullable="false" />
-    <Property Name="MaNhanVien" Type="Int32" />
+    <Property Name="MaNhanVien" Type="Int32" Nullable="false" />
     <NavigationProperty Name="NhanVien" Relationship="Self.FK_TaiKhoanNV" FromRole="TaiKhoanNV" ToRole="NhanVien" />
   </EntityType>
   <Association Name="FK_CTHDDV01">
@@ -224,7 +235,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TaiKhoanNV">
-    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
     <End Role="TaiKhoanNV" Type="Self.TaiKhoanNV" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NhanVien">
@@ -269,6 +280,7 @@
     <EntitySet Name="PhieuThues" EntityType="Self.PhieuThue" />
     <EntitySet Name="PhieuThuePhongs" EntityType="Self.PhieuThuePhong" />
     <EntitySet Name="Phongs" EntityType="Self.Phong" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="TaiKhoanKHs" EntityType="Self.TaiKhoanKH" />
     <EntitySet Name="TaiKhoanNVs" EntityType="Self.TaiKhoanNV" />
     <AssociationSet Name="FK_CTHDDV01" Association="Self.FK_CTHDDV01">

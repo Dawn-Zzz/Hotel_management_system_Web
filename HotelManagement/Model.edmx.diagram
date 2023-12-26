@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0be1c185ad164b4b911395c20270943b" Name="Diagram1">
+      <Diagram DiagramId="3f94e079288046509b1062452733f47f" Name="Diagram1">
         <EntityTypeShape EntityType="Hotel_ManagementModel.ChiTietHoaDonDichVu" Width="1.5" PointX="7.5" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Hotel_ManagementModel.DichVu" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Hotel_ManagementModel.HoaDon" Width="1.5" PointX="5.25" PointY="7.125" IsExpanded="true" />
@@ -14,6 +14,7 @@
         <EntityTypeShape EntityType="Hotel_ManagementModel.PhieuThue" Width="1.5" PointX="3" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Hotel_ManagementModel.PhieuThuePhong" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
         <EntityTypeShape EntityType="Hotel_ManagementModel.Phong" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="Hotel_ManagementModel.sysdiagram" Width="1.5" PointX="7.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Hotel_ManagementModel.TaiKhoanKH" Width="1.5" PointX="3" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Hotel_ManagementModel.TaiKhoanNV" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="Hotel_ManagementModel.FK_CTHDDV01" ManuallyRouted="false" />

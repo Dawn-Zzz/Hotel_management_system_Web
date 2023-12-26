@@ -66,7 +66,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 var listPhong = Session["listPhong"] as List<PhieuThuePhong>;
                 if(listPhong == null)
                 {
-                    ModelState.AddModelError("CustomError", "Không thể nhận phòng vì chưa tới ngày nhận phòng!");
+                    ModelState.AddModelError("CustomError", "Hãy thêm phòng cần đặt!");
                     ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
                     ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
                     return View(phieuThue); 
@@ -273,7 +273,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             // Lấy danh sách các phòng thuộc loại phòng maLoaiPhong và không trùng với ngày check-in và check-out
             var roomList = db.Phongs.Where(p => p.MaLoaiPhong == maLoaiPhong).Select(p => p.MaPhong).ToList();
             var bookedRoomList = db.PhieuThuePhongs
-    .Where(pt => pt.PhieuThue.ThoiGianNhanPhong.HasValue && pt.PhieuThue.ThoiGianTraPhong.HasValue && (pt.PhieuThue.HienTrang == "Chưa nhận phòng" || pt.PhieuThue.HienTrang == "Đã nhận phòng") &&
+    .Where(pt => pt.PhieuThue.ThoiGianNhanPhong != null && pt.PhieuThue.ThoiGianTraPhong != null && (pt.PhieuThue.HienTrang == "Chưa nhận phòng" || pt.PhieuThue.HienTrang == "Đã nhận phòng") &&
                   !(checkIn >= pt.PhieuThue.ThoiGianTraPhong || checkOut <= pt.PhieuThue.ThoiGianNhanPhong))
     .Select(pt => pt.MaPhong)
     .ToList();

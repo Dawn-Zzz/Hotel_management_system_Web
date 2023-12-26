@@ -34,7 +34,7 @@
       <PropertyRef Name="MaKhachHang" />
     </Key>
     <Property Name="MaKhachHang" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="CCCD" Type="char" MaxLength="12" Nullable="false" />
+    <Property Name="CCCD" Type="char" MaxLength="12" />
     <Property Name="TenKhachHang" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="LoaiKhachHang" Type="nvarchar" MaxLength="50" />
     <Property Name="NgaySinh" Type="datetime" />
@@ -48,6 +48,7 @@
     <Property Name="TenLoaiPhong" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="GiaLoaiPhong" Type="money" Nullable="false" />
     <Property Name="HinhAnh" Type="nvarchar" MaxLength="100" />
+    <Property Name="SoNguoiToiDa" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="NhanVien">
     <Key>
@@ -78,7 +79,7 @@
     </Key>
     <Property Name="MaPhieu" Type="int" Nullable="false" />
     <Property Name="MaPhong" Type="char" MaxLength="10" Nullable="false" />
-    <Property Name="SoNguoiO" Type="tinyint" />
+    <Property Name="SoNguoiO" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="Phong">
     <Key>
@@ -87,6 +88,16 @@
     <Property Name="MaPhong" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="HienTrang" Type="bit" Nullable="false" />
     <Property Name="MaLoaiPhong" Type="char" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="TaiKhoanKH">
     <Key>
@@ -103,7 +114,7 @@
     <Property Name="TenTaiKhoan" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="MatKhau" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Quyen" Type="tinyint" Nullable="false" />
-    <Property Name="MaNhanVien" Type="int" />
+    <Property Name="MaNhanVien" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_CTHDDV01">
     <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
@@ -226,7 +237,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_TaiKhoanNV">
-    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+    <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
     <End Role="TaiKhoanNV" Type="Self.TaiKhoanNV" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="NhanVien">
@@ -247,6 +258,7 @@
     <EntitySet Name="PhieuThue" EntityType="Self.PhieuThue" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PhieuThuePhong" EntityType="Self.PhieuThuePhong" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Phong" EntityType="Self.Phong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaiKhoanKH" EntityType="Self.TaiKhoanKH" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TaiKhoanNV" EntityType="Self.TaiKhoanNV" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_CTHDDV01" Association="Self.FK_CTHDDV01">

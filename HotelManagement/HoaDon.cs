@@ -11,9 +11,7 @@ namespace HotelManagement
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class HoaDon
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,19 +19,10 @@ namespace HotelManagement
         {
             this.ChiTietHoaDonDichVus = new HashSet<ChiTietHoaDonDichVu>();
         }
-
-        [DisplayName("Invoice Code")]
+    
         public string MaHoaDon { get; set; }
-        [DataType(DataType.Date, ErrorMessage = "Date only")]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
-
-        [DisplayName("Invoice Date")]
         public System.DateTime NgayLapHoaDon { get; set; }
-
-        [DisplayName("Room Charge")]
         public decimal TienPhong { get; set; }
-
-        [DisplayName("Service Charge")]
         public Nullable<decimal> TienDichVu { get; set; }
         public int MaKhachHang { get; set; }
         public int MaNhanVien { get; set; }

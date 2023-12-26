@@ -115,6 +115,7 @@
     </div>
     @*<script src="~/Scripts/main.js"></script>*@
     <script src="~/Scripts/Validate.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script>
         var age = 0;
         var roomIndex = 0;
@@ -155,11 +156,34 @@
                     Validator.isPhoneNumber('#client-phone-number', "Please enter your phone number"),
                     Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
                 ],
-                onSubmit: function (data) {
+                //Xử lý nút đặt phòng
+                onSubmit: function (dataNumOfPeople) {
                     for (var i = 0; i < roomsList.length; ++i)
-                        data[i] = roomsList[i].value;
-                    
-                    console.log(data);
+                        dataNumOfPeople[i] = roomsList[i].value;
+                    console.log(dataNumOfPeople);
+
+                    $.ajax({
+                        url: '/Booking/AddBookRoom',
+                        type: 'GET',
+                        data: { listNumOfPeople: dataNumOfPeople },
+                        success: function (data) {
+                            console.log(data);
+                        },
+                    });
+                    $.ajax({
+                        url: '/Booking/CreateBooking',
+                        type: 'POST',
+                        data: {
+                            phoneNumber: document.getElementById("client-phone-number").value,
+                            name: document.getElementById("client-name").value,
+                            birth: document.getElementById("client-age").value,
+                            checkIn: JSON.parse(localStorage.getItem('checkin')).data,
+                            checkOut: JSON.parse(localStorage.getItem('checkout')).data
+                        },
+                        success: function (data) {
+                            console.log(data);
+                        },
+                    });
                 }
             })
         }
@@ -189,24 +213,24 @@
                 totalPrice += parseInt(room.price);
                 var roomInfoDiv = document.createElement('div');
                 roomInfoDiv.innerHTML = `
-                        <div class="row selected-infor">
-                            <div class="col-md-6">
-                                <p>Room type: <span id="type" style="font-weight: 700">${room.type}</span></p>
-                            </div>
-                            <div class="col-md-6">
-                                <p>Room Quantity: <span id="quantity" style="font-weight: 700">${room.quantity}</span></p>
-                            </div>
-                            <p>Room detail: <span id="detail" style="font-weight: 100">${room.bedInfo}, Wifi</span></p>
+                            <div class="row selected-infor">
+                                <div class="col-md-6">
+                                    <p>Room type: <span id="type" style="font-weight: 700">${room.type}</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>Room Quantity: <span id="quantity" style="font-weight: 700">${room.quantity}</span></p>
+                                </div>
+                                <p>Room detail: <span id="detail" style="font-weight: 100">${room.bedInfo}, Wifi</span></p>
 
-                        </div>
-                        <div class="row selected-infor">
-                            <div class="col-md-12">
-                                <p>Price: <span id="price" style="font-weight: 700">${VND.format(parseInt(room.price))}</span></p>
                             </div>
-                        </div>
-                        <div class="row selected-infor guest-number">
-                        </div>
-                    `;
+                            <div class="row selected-infor">
+                                <div class="col-md-12">
+                                    <p>Price: <span id="price" style="font-weight: 700">${VND.format(parseInt(room.price))}</span></p>
+                                </div>
+                            </div>
+                            <div class="row selected-infor guest-number">
+                            </div>
+                        `;
                 const guestNumber = roomInfoDiv.querySelector(".guest-number");
                 for (var i = 0; i < room.quantity; i++) {
                     var roomType = room.type;
@@ -214,29 +238,29 @@
                         roomType = "FamilySuite";
                     }
                     guestNumber.innerHTML += `
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <p>Room ${i + 1}</p>
-                                <select id="room-${roomIndex}" class="rooms-list form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                </select>
-                                <span class="select-arrow"></span>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <p>Room ${i + 1}</p>
+                                    <select id="room-${roomIndex}" class="rooms-list form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                    <span class="select-arrow"></span>
+                                </div>
                             </div>
-                        </div>
-                    `
+                        `
                     roomIndex++;
                 }
                 roomInfoDiv.innerHTML += `
-                        <hr/>
-                    `
+                            <hr/>
+                        `
 
                 displayContainer.appendChild(roomInfoDiv);
             });
             displayContainer.innerHTML += `
-                        <p style="font-weight: 700; margin: 32px 0 24px;">Total price: ${VND.format(totalPrice)}</p>
-                    `
+                            <p style="font-weight: 700; margin: 32px 0 24px;">Total price: ${VND.format(totalPrice)}</p>
+                        `
 
             const checkin = localStorage.getItem('checkin');
             const checkout = localStorage.getItem('checkout');
