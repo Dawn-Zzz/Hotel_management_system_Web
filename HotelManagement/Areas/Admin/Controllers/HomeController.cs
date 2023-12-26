@@ -19,9 +19,9 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 var totalRooms = db.Phongs.Count();
                 var totalEmployees = db.NhanViens.Count();
-                var totalBookings = db.PhieuThuePhongs.Count();
-                var totalRoomBookings = (from pt in db.PhieuThues
-                                         join ptp in db.PhieuThuePhongs on pt.MaPhieu equals ptp.MaPhieu
+                var totalBookings = db.ChiTietThues.Count();
+                var totalRoomBookings = (from pt in db.PhieuDangKies
+                                         join ptp in db.ChiTietThues on pt.MaPhieu equals ptp.MaPhieu
                                          join p in db.Phongs on ptp.MaPhong equals p.MaPhong
                                          where pt.HienTrang == "Đã nhận phòng"
                                          select p).Count();
@@ -106,8 +106,8 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         public JsonResult GetTypeRoomDensity()
         {
-            var query = from pt in db.PhieuThues
-                        join ptp in db.PhieuThuePhongs on pt.MaPhieu equals ptp.MaPhieu
+            var query = from pt in db.PhieuDangKies
+                        join ptp in db.ChiTietThues on pt.MaPhieu equals ptp.MaPhieu
                         join p in db.Phongs on ptp.MaPhong equals p.MaPhong
                         join lp in db.LoaiPhongs on p.MaLoaiPhong equals lp.MaLoaiPhong
                         where pt.HienTrang == "Đã nhận phòng" || pt.HienTrang == "Đã trả phòng"

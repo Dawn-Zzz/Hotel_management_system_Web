@@ -17,15 +17,15 @@ namespace HotelManagement
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Phong()
         {
-            this.PhieuThuePhongs = new HashSet<PhieuThuePhong>();
+            this.ChiTietThues = new HashSet<ChiTietThue>();
         }
     
         public string MaPhong { get; set; }
         public bool HienTrang { get; set; }
         public string MaLoaiPhong { get; set; }
     
-        public virtual LoaiPhong LoaiPhong { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuThuePhong> PhieuThuePhongs { get; set; }
+        public virtual ICollection<ChiTietThue> ChiTietThues { get; set; }
+        public virtual LoaiPhong LoaiPhong { get; set; }
     }
 }

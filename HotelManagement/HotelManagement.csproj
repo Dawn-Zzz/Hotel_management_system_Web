@@ -349,6 +349,9 @@
     <Compile Include="ChiTietHoaDonDichVu.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ChiTietThue.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -389,10 +392,7 @@
     <Compile Include="NhanVien.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="PhieuThue.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PhieuThuePhong.cs">
+    <Compile Include="PhieuDangKy.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Phong.cs">

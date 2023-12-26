@@ -32,6 +32,6 @@ namespace HotelManagement
         public virtual ICollection<ChiTietHoaDonDichVu> ChiTietHoaDonDichVus { get; set; }
         public virtual NhanVien NhanVien { get; set; }
         public virtual KhachHang KhachHang { get; set; }
-        public virtual PhieuThue PhieuThue { get; set; }
+        public virtual PhieuDangKy PhieuDangKy { get; set; }
     }
 }

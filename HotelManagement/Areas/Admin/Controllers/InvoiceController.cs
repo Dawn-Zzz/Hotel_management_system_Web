@@ -18,7 +18,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/Invoice
         public ActionResult Index()
         {
-            var hoaDons = db.HoaDons.Include(h => h.NhanVien).Include(h => h.KhachHang).Include(h => h.PhieuThue);
+            var hoaDons = db.HoaDons.Include(h => h.NhanVien).Include(h => h.KhachHang).Include(h => h.PhieuDangKy);
             return View(hoaDons.ToList());
         }
 
@@ -43,7 +43,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "CCCD");
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD");
-            ViewBag.MaPhieu = new SelectList(db.PhieuThues, "MaPhieu", "HienTrang");
+            ViewBag.MaPhieu = new SelectList(db.PhieuDangKies, "MaPhieu", "HienTrang");
             return View();
         }
 
@@ -63,7 +63,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 
             ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "CCCD", hoaDon.MaNhanVien);
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", hoaDon.MaKhachHang);
-            ViewBag.MaPhieu = new SelectList(db.PhieuThues, "MaPhieu", "HienTrang", hoaDon.MaPhieu);
+            ViewBag.MaPhieu = new SelectList(db.PhieuDangKies, "MaPhieu", "HienTrang", hoaDon.MaPhieu);
             return View(hoaDon);
         }
 
@@ -81,7 +81,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             }
             ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "CCCD", hoaDon.MaNhanVien);
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", hoaDon.MaKhachHang);
-            ViewBag.MaPhieu = new SelectList(db.PhieuThues, "MaPhieu", "HienTrang", hoaDon.MaPhieu);
+            ViewBag.MaPhieu = new SelectList(db.PhieuDangKies, "MaPhieu", "HienTrang", hoaDon.MaPhieu);
             return View(hoaDon);
         }
 
@@ -100,7 +100,7 @@ namespace HotelManagement.Areas.Admin.Controllers
             }
             ViewBag.MaNhanVien = new SelectList(db.NhanViens, "MaNhanVien", "CCCD", hoaDon.MaNhanVien);
             ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", hoaDon.MaKhachHang);
-            ViewBag.MaPhieu = new SelectList(db.PhieuThues, "MaPhieu", "HienTrang", hoaDon.MaPhieu);
+            ViewBag.MaPhieu = new SelectList(db.PhieuDangKies, "MaPhieu", "HienTrang", hoaDon.MaPhieu);
             return View(hoaDon);
         }
 

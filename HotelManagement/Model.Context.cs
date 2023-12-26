@@ -26,13 +26,13 @@ namespace HotelManagement
         }
     
         public virtual DbSet<ChiTietHoaDonDichVu> ChiTietHoaDonDichVus { get; set; }
+        public virtual DbSet<ChiTietThue> ChiTietThues { get; set; }
         public virtual DbSet<DichVu> DichVus { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
         public virtual DbSet<KhachHang> KhachHangs { get; set; }
         public virtual DbSet<LoaiPhong> LoaiPhongs { get; set; }
         public virtual DbSet<NhanVien> NhanViens { get; set; }
-        public virtual DbSet<PhieuThue> PhieuThues { get; set; }
-        public virtual DbSet<PhieuThuePhong> PhieuThuePhongs { get; set; }
+        public virtual DbSet<PhieuDangKy> PhieuDangKies { get; set; }
         public virtual DbSet<Phong> Phongs { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TaiKhoanKH> TaiKhoanKHs { get; set; }

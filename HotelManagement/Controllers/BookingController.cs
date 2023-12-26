@@ -134,12 +134,12 @@ namespace HotelManagement.Controllers
         {
             // Lấy danh sách các phòng thuộc loại phòng maLoaiPhong và không trùng với ngày check-in và check-out
             var roomList = db.Phongs.Where(p => p.MaLoaiPhong == maLoaiPhong).Select(p => p.MaPhong).ToList();
-            var bookedRoomList = db.PhieuThuePhongs
-    .Where(pt => pt.PhieuThue.ThoiGianNhanPhong != null && pt.PhieuThue.ThoiGianTraPhong != null && (pt.PhieuThue.HienTrang == "Chưa nhận phòng" || pt.PhieuThue.HienTrang == "Đã nhận phòng") &&
-                  !(checkIn >= pt.PhieuThue.ThoiGianTraPhong || checkOut <= pt.PhieuThue.ThoiGianNhanPhong))
+            var bookedRoomList = db.ChiTietThues
+    .Where(pt => pt.PhieuDangKy.ThoiGianNhanPhong != null && pt.PhieuDangKy.ThoiGianTraPhong != null && (pt.PhieuDangKy.HienTrang == "Chưa nhận phòng" || pt.PhieuDangKy.HienTrang == "Đã nhận phòng") &&
+                  !(checkIn >= pt.PhieuDangKy.ThoiGianTraPhong || checkOut <= pt.PhieuDangKy.ThoiGianNhanPhong))
     .Select(pt => pt.MaPhong)
     .ToList();
-            List<PhieuThuePhong> listPhong = Session["listPhongClient"] as List<PhieuThuePhong>;
+            List<ChiTietThue> listPhong = Session["listPhongClient"] as List<ChiTietThue>;
             var availableRoomList = roomList.Except(bookedRoomList);
             if (listPhong != null)
                 // Lọc danh sách phòng để chừa những phòng không có trong danh sách đã đặt
@@ -211,7 +211,7 @@ namespace HotelManagement.Controllers
         {
             // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
             List<Phong> listPhong;
-            List<PhieuThuePhong> rooms = new List<PhieuThuePhong>();
+            List<ChiTietThue> rooms = new List<ChiTietThue>();
             if (Session["listPhongClient"] == null)
                 listPhong = new List<Phong>();
             else
@@ -220,7 +220,7 @@ namespace HotelManagement.Controllers
             if (listPhong != null)
                 for (int i = 0; i < listPhong.Count; i++)
                 {
-                    var room = new PhieuThuePhong
+                    var room = new ChiTietThue
                     {
                         MaPhong = listPhong[i].MaPhong.ToString(),
                         SoNguoiO = byte.TryParse(listNumOfPeople[i], out byte parsedValue) ? parsedValue : (byte)0
@@ -252,7 +252,7 @@ namespace HotelManagement.Controllers
                     db.SaveChanges();
                 }
 
-                PhieuThue phieuThue = new PhieuThue();
+                PhieuDangKy phieuThue = new PhieuDangKy();
 
                 phieuThue.ThoiGianNhanPhong = checkIn;
                 phieuThue.ThoiGianTraPhong = checkOut;
@@ -260,20 +260,20 @@ namespace HotelManagement.Controllers
                 phieuThue.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).Select(kh => kh.MaKhachHang).FirstOrDefault();
                 phieuThue.HienTrang = "Chưa nhận phòng";
 
-                db.PhieuThues.Add(phieuThue);
+                db.PhieuDangKies.Add(phieuThue);
 
-                var listPhong = Session["listBookPhong"] as List<PhieuThuePhong>;
+                var listPhong = Session["listBookPhong"] as List<ChiTietThue>;
 
                 foreach (var phong in listPhong)
                 {
-                    var newPhieuThuePhong = new PhieuThuePhong
+                    var newPhieuThuePhong = new ChiTietThue
                     {
                         MaPhieu = phieuThue.MaPhieu,
                         MaPhong = phong.MaPhong,
                         SoNguoiO = phong.SoNguoiO
                     };
 
-                    db.PhieuThuePhongs.Add(newPhieuThuePhong);
+                    db.ChiTietThues.Add(newPhieuThuePhong);
                 }
 
                 db.SaveChanges();

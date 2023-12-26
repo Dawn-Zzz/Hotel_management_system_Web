@@ -18,7 +18,7 @@ namespace HotelManagement
         public KhachHang()
         {
             this.HoaDons = new HashSet<HoaDon>();
-            this.PhieuThues = new HashSet<PhieuThue>();
+            this.PhieuDangKies = new HashSet<PhieuDangKy>();
             this.TaiKhoanKHs = new HashSet<TaiKhoanKH>();
         }
     
@@ -32,7 +32,7 @@ namespace HotelManagement
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<HoaDon> HoaDons { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuThue> PhieuThues { get; set; }
+        public virtual ICollection<PhieuDangKy> PhieuDangKies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TaiKhoanKH> TaiKhoanKHs { get; set; }
     }

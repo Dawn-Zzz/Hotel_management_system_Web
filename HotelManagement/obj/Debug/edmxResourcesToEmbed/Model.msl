@@ -10,6 +10,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="ChiTietThues">
+      <EntityTypeMapping TypeName="Hotel_ManagementModel.ChiTietThue">
+        <MappingFragment StoreEntitySet="ChiTietThue">
+          <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
+          <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+          <ScalarProperty Name="SoNguoiO" ColumnName="SoNguoiO" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="DichVus">
       <EntityTypeMapping TypeName="Hotel_ManagementModel.DichVu">
         <MappingFragment StoreEntitySet="DichVu">
@@ -67,24 +76,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="PhieuThues">
-      <EntityTypeMapping TypeName="Hotel_ManagementModel.PhieuThue">
-        <MappingFragment StoreEntitySet="PhieuThue">
+    <EntitySetMapping Name="PhieuDangKies">
+      <EntityTypeMapping TypeName="Hotel_ManagementModel.PhieuDangKy">
+        <MappingFragment StoreEntitySet="PhieuDangKy">
           <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
           <ScalarProperty Name="NgayLap" ColumnName="NgayLap" />
           <ScalarProperty Name="ThoiGianNhanPhong" ColumnName="ThoiGianNhanPhong" />
           <ScalarProperty Name="ThoiGianTraPhong" ColumnName="ThoiGianTraPhong" />
           <ScalarProperty Name="HienTrang" ColumnName="HienTrang" />
           <ScalarProperty Name="MaKhachHang" ColumnName="MaKhachHang" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PhieuThuePhongs">
-      <EntityTypeMapping TypeName="Hotel_ManagementModel.PhieuThuePhong">
-        <MappingFragment StoreEntitySet="PhieuThuePhong">
-          <ScalarProperty Name="MaPhieu" ColumnName="MaPhieu" />
-          <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
-          <ScalarProperty Name="SoNguoiO" ColumnName="SoNguoiO" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

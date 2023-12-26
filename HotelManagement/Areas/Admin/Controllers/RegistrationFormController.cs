@@ -20,7 +20,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // GET: Admin/RegistrationForm
         public ActionResult Index()
         {
-            var phieuThues = db.PhieuThues.Include(p => p.KhachHang).OrderByDescending(p => p.HienTrang == "Chưa nhận phòng")
+            var phieuThues = db.PhieuDangKies.Include(p => p.KhachHang).OrderByDescending(p => p.HienTrang == "Chưa nhận phòng")
                     .ThenByDescending(p => p.HienTrang == "Đã nhận phòng");
             return View(phieuThues.ToList());
         }
@@ -32,12 +32,12 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PhieuThue phieuThue = db.PhieuThues.Find(id);
-            if (phieuThue == null)
+            PhieuDangKy phieuDangKy = db.PhieuDangKies.Find(id);
+            if (phieuDangKy == null)
             {
                 return HttpNotFound();
             }
-            return View(phieuThue);
+            return View(phieuDangKy);
         }
 
         // GET: Admin/RegistrationForm/Create
@@ -54,34 +54,34 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaPhieu,NgayLap,ThoiGianNhanPhong,ThoiGianTraPhong,HienTrang,MaKhachHang")] PhieuThue phieuThue, string phoneNumber)
+        public ActionResult Create([Bind(Include = "MaPhieu,NgayLap,ThoiGianNhanPhong,ThoiGianTraPhong,HienTrang,MaKhachHang")] PhieuDangKy phieuDangKy, string phoneNumber)
         {
             if (ModelState.IsValid)
             {
-                phieuThue.NgayLap = DateTime.Now.Date;
-                phieuThue.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).Select(kh => kh.MaKhachHang).FirstOrDefault();
-                phieuThue.HienTrang = "Chưa nhận phòng";
+                phieuDangKy.NgayLap = DateTime.Now.Date;
+                phieuDangKy.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).Select(kh => kh.MaKhachHang).FirstOrDefault();
+                phieuDangKy.HienTrang = "Chưa nhận phòng";
 
-                db.PhieuThues.Add(phieuThue);
-                var listPhong = Session["listPhong"] as List<PhieuThuePhong>;
+                db.PhieuDangKies.Add(phieuDangKy);
+                var listPhong = Session["listPhong"] as List<ChiTietThue>;
                 if(listPhong == null)
                 {
                     ModelState.AddModelError("CustomError", "Hãy thêm phòng cần đặt!");
                     ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
                     ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
-                    return View(phieuThue); 
+                    return View(phieuDangKy); 
                 } 
                 else {
                     foreach (var phong in listPhong)
                     {
-                        var newPhieuThuePhong = new PhieuThuePhong
+                        var newChiTietThue = new ChiTietThue
                         {
-                            MaPhieu = phieuThue.MaPhieu,
+                            MaPhieu = phieuDangKy.MaPhieu,
                             MaPhong = phong.MaPhong,
                             SoNguoiO = phong.SoNguoiO
                         };
 
-                        db.PhieuThuePhongs.Add(newPhieuThuePhong);
+                        db.ChiTietThues.Add(newChiTietThue);
                     }
 
                     db.SaveChanges();
@@ -91,8 +91,8 @@ namespace HotelManagement.Areas.Admin.Controllers
             }
             ViewBag.MaLoaiPhong = new SelectList(db.LoaiPhongs, "MaLoaiPhong", "TenLoaiPhong");
             ViewBag.DSPhong = new SelectList(db.Phongs, "MaPhong", "MaPhong");
-            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
-            return View(phieuThue);
+            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuDangKy.MaKhachHang);
+            return View(phieuDangKy);
         }
 
         // GET: Admin/RegistrationForm/Edit/5
@@ -102,14 +102,14 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PhieuThue phieuThue = db.PhieuThues.Find(id);
-            if (phieuThue == null)
+            PhieuDangKy phieuDangKy = db.PhieuDangKies.Find(id);
+            if (phieuDangKy == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuThue.MaKhachHang);
+            ViewBag.MaKhachHang = new SelectList(db.KhachHangs, "MaKhachHang", "CCCD", phieuDangKy.MaKhachHang);
             ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
-            return View(phieuThue);
+            return View(phieuDangKy);
         }
 
         // POST: Admin/RegistrationForm/Edit/5
@@ -119,23 +119,23 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int MaPhieu, string HienTrang)
         {
-            PhieuThue phieuThue = db.PhieuThues.Find(MaPhieu);
+            PhieuDangKy phieuDangKy = db.PhieuDangKies.Find(MaPhieu);
 
-            if (phieuThue == null)
+            if (phieuDangKy == null)
             {
                 return HttpNotFound();
             }
             if (HienTrang == "Đã nhận phòng")
             {
-                if (phieuThue.ThoiGianNhanPhong > DateTime.Today)
+                if (phieuDangKy.ThoiGianNhanPhong > DateTime.Today)
                 {
                     ModelState.AddModelError("CustomError", "Không thể nhận phòng vì chưa tới ngày nhận phòng!");
-                    return View(phieuThue); // Trả về view để hiển thị thông báo lỗi
+                    return View(phieuDangKy); // Trả về view để hiển thị thông báo lỗi
                 }
             }
             if (HienTrang == "Đã trả phòng")
             {
-                HoaDon hoaDon = phieuThue.HoaDons.FirstOrDefault();
+                HoaDon hoaDon = phieuDangKy.HoaDons.FirstOrDefault();
 
                 if (hoaDon != null)
                 {
@@ -153,7 +153,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                 {
                     var newService = new ChiTietHoaDonDichVu
                     {
-                        MaHoaDon = phieuThue.HoaDons.FirstOrDefault().MaHoaDon,
+                        MaHoaDon = phieuDangKy.HoaDons.FirstOrDefault().MaHoaDon,
                         MaDichVu = service.MaDichVu,
                         SoLuong = service.SoLuong
                     };
@@ -162,9 +162,9 @@ namespace HotelManagement.Areas.Admin.Controllers
                 }
             }
 
-            phieuThue.HienTrang = HienTrang;
-            db.PhieuThues.Attach(phieuThue);
-            db.Entry(phieuThue).Property(x => x.HienTrang).IsModified = true;
+            phieuDangKy.HienTrang = HienTrang;
+            db.PhieuDangKies.Attach(phieuDangKy);
+            db.Entry(phieuDangKy).Property(x => x.HienTrang).IsModified = true;
 
             db.SaveChanges();
             ViewBag.DichVu = new SelectList(db.DichVus, "MaDichVu", "TenDichVu");
@@ -178,12 +178,12 @@ namespace HotelManagement.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            PhieuThue phieuThue = db.PhieuThues.Find(id);
-            if (phieuThue == null)
+            PhieuDangKy phieuDangKy = db.PhieuDangKies.Find(id);
+            if (phieuDangKy == null)
             {
                 return HttpNotFound();
             }
-            return View(phieuThue);
+            return View(phieuDangKy);
         }
 
         // POST: Admin/RegistrationForm/Delete/5
@@ -191,8 +191,8 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PhieuThue phieuThue = db.PhieuThues.Find(id);
-            db.PhieuThues.Remove(phieuThue);
+            PhieuDangKy phieuDangKy = db.PhieuDangKies.Find(id);
+            db.PhieuDangKies.Remove(phieuDangKy);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -209,7 +209,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         [Route("Search")]
         public async Task<ActionResult> Search(string sdt)
         {
-            IQueryable<PhieuThue> query = db.PhieuThues;
+            IQueryable<PhieuDangKy> query = db.PhieuDangKies;
             if (!string.IsNullOrEmpty(sdt))
             {
                 query = query.Where(pt => pt.KhachHang.SoDienThoai.ToLower().Contains(sdt.ToLower()));
@@ -224,19 +224,19 @@ namespace HotelManagement.Areas.Admin.Controllers
         public ActionResult AddBookRoom(string maPhong, byte soNguoiO)
         {
             // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
-            List<PhieuThuePhong> listPhong;
+            List<ChiTietThue> listPhong;
 
             if (Session["listPhong"] == null)
             {
-                listPhong = new List<PhieuThuePhong>();
+                listPhong = new List<ChiTietThue>();
             }
             else
             {
-                listPhong = (List<PhieuThuePhong>)Session["listPhong"];
+                listPhong = (List<ChiTietThue>)Session["listPhong"];
             }
 
             // Nếu chưa tồn tại, thêm sách mới vào danh sách
-            var phongMoi = new PhieuThuePhong
+            var phongMoi = new ChiTietThue
             {
                 MaPhong = maPhong,
                 SoNguoiO = soNguoiO
@@ -254,7 +254,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         public ActionResult DeleteBookRoom(string maPhong)
         {
             // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
-            List<PhieuThuePhong> listPhong = Session["listPhong"] as List<PhieuThuePhong> ?? new List<PhieuThuePhong>();
+            List<ChiTietThue> listPhong = Session["listPhong"] as List<ChiTietThue> ?? new List<ChiTietThue>();
 
             // Tìm và xóa sách khỏi danh sách dựa trên mã sách
             var room = listPhong.FirstOrDefault(s => s.MaPhong == maPhong);
@@ -272,12 +272,12 @@ namespace HotelManagement.Areas.Admin.Controllers
         {
             // Lấy danh sách các phòng thuộc loại phòng maLoaiPhong và không trùng với ngày check-in và check-out
             var roomList = db.Phongs.Where(p => p.MaLoaiPhong == maLoaiPhong).Select(p => p.MaPhong).ToList();
-            var bookedRoomList = db.PhieuThuePhongs
-    .Where(pt => pt.PhieuThue.ThoiGianNhanPhong != null && pt.PhieuThue.ThoiGianTraPhong != null && (pt.PhieuThue.HienTrang == "Chưa nhận phòng" || pt.PhieuThue.HienTrang == "Đã nhận phòng") &&
-                  !(checkIn >= pt.PhieuThue.ThoiGianTraPhong || checkOut <= pt.PhieuThue.ThoiGianNhanPhong))
+            var bookedRoomList = db.ChiTietThues
+    .Where(pt => pt.PhieuDangKy.ThoiGianNhanPhong != null && pt.PhieuDangKy.ThoiGianTraPhong != null && (pt.PhieuDangKy.HienTrang == "Chưa nhận phòng" || pt.PhieuDangKy.HienTrang == "Đã nhận phòng") &&
+                  !(checkIn >= pt.PhieuDangKy.ThoiGianTraPhong || checkOut <= pt.PhieuDangKy.ThoiGianNhanPhong))
     .Select(pt => pt.MaPhong)
     .ToList();
-            List<PhieuThuePhong> listPhong = Session["listPhong"] as List<PhieuThuePhong>;
+            List<ChiTietThue> listPhong = Session["listPhong"] as List<ChiTietThue>;
             var availableRoomList = roomList.Except(bookedRoomList);
             if (listPhong != null)
                 // Lọc danh sách phòng để chừa những phòng không có trong danh sách đã đặt
@@ -289,7 +289,7 @@ namespace HotelManagement.Areas.Admin.Controllers
 
         public ActionResult GetMaPhongByIndex(int index)
         {
-            List<PhieuThuePhong> listPhong = Session["listPhong"] as List<PhieuThuePhong>;
+            List<ChiTietThue> listPhong = Session["listPhong"] as List<ChiTietThue>;
 
             if (listPhong != null && index >= 0 && index < listPhong.Count)
             {
