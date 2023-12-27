@@ -105,10 +105,15 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaPhieu,NgayLap,ThoiGianNhanPhong,ThoiGianTraPhong,HienTrang,MaKhachHang")] PhieuDangKy phieuDangKy, string phoneNumber)
         {
+            var existingGuest = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).FirstOrDefault();
+            if (existingGuest == null)
+            {
+                ModelState.AddModelError("phoneNumber", "Không tồn tại khác hàng có số điện thoại này");
+            }
             if (ModelState.IsValid)
             {
-                phieuDangKy.NgayLap = DateTime.Now.Date;
                 phieuDangKy.MaKhachHang = db.KhachHangs.Where(kh => kh.SoDienThoai == phoneNumber).Select(kh => kh.MaKhachHang).FirstOrDefault();
+                phieuDangKy.NgayLap = DateTime.Now.Date;
                 phieuDangKy.HienTrang = "Chưa nhận phòng";
 
                 db.PhieuDangKies.Add(phieuDangKy);

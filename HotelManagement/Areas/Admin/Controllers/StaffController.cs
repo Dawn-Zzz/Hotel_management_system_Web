@@ -59,26 +59,19 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh")] NhanVien nhanVien, [Bind(Include = "TenTaiKhoan,MatKhau")] TaiKhoanNV taiKhoannv)
         {
+            var existingEmployeeCCCD = db.NhanViens.FirstOrDefault(e => e.CCCD == nhanVien.CCCD);
+            var existingEmployeePhone = db.NhanViens.FirstOrDefault(e => e.SoDienThoai == nhanVien.SoDienThoai);
+            if (existingEmployeeCCCD != null)
+            {
+                ModelState.AddModelError("CCCD", "CCCD đã tồn tại.");
+            }
+
+            if (existingEmployeePhone != null)
+            {
+                ModelState.AddModelError("SoDienThoai", "Số điện thoại đã tồn tại.");
+            }
             if (ModelState.IsValid)
             {
-                var existingEmployeeCCCD = db.NhanViens.FirstOrDefault(e => e.CCCD == nhanVien.CCCD);
-                var existingEmployeePhone = db.NhanViens.FirstOrDefault(e => e.SoDienThoai == nhanVien.SoDienThoai);
-
-                if (existingEmployeeCCCD != null)
-                {
-                    ModelState.AddModelError("CCCD", "CCCD đã tồn tại.");
-                }
-
-                if (existingEmployeePhone != null)
-                {
-                    ModelState.AddModelError("SoDienThoai", "Số điện thoại đã tồn tại.");
-                }
-
-                if (ModelState.IsValid == false)
-                {
-                    return View(nhanVien);
-                }
-
                 db.NhanViens.Add(nhanVien);
 
                 taiKhoannv.MaNhanVien = nhanVien.MaNhanVien;

@@ -57,29 +57,20 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaKhachHang,CCCD,TenKhachHang,LoaiKhachHang,SoDienThoai,NgaySinh")] KhachHang khachHang)
         {
+            var existingCustomerCCCD = db.KhachHangs.FirstOrDefault(k => k.CCCD == khachHang.CCCD);
+            var existingCustomerPhone = db.KhachHangs.FirstOrDefault(k => k.SoDienThoai == khachHang.SoDienThoai);
+
+            if (existingCustomerCCCD != null)
+            {
+                ModelState.AddModelError("CCCD", "CCCD đã tồn tại.");
+            }
+
+            if (existingCustomerPhone != null)
+            {
+                ModelState.AddModelError("SoDienThoai", "Số điện thoại đã tồn tại.");
+            }
             if (ModelState.IsValid)
             {
-                var existingCustomerCCCD = db.KhachHangs.FirstOrDefault(k => k.CCCD == khachHang.CCCD);
-                var existingCustomerPhone = db.KhachHangs.FirstOrDefault(k => k.SoDienThoai == khachHang.SoDienThoai);
-
-                if (existingCustomerCCCD != null)
-                {
-                    ModelState.AddModelError("CCCD", "CCCD đã tồn tại.");
-                }
-
-                if (existingCustomerPhone != null)
-                {
-                    ModelState.AddModelError("SoDienThoai", "Số điện thoại đã tồn tại.");
-                }
-
-                // Nếu có lỗi, trả về View với ModelState chứa thông báo lỗi
-                if (ModelState.IsValid == false)
-                {
-                    return View(khachHang);
-                }
-
-
-
                 db.KhachHangs.Add(khachHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
