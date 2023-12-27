@@ -321,7 +321,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                     PdfPCell priceCell = new PdfPCell(new Phrase(dichVu.Gia.ToString("#,##0").Replace(",", ".") + " VNĐ", normalFont)); // Định dạng giá tiền
                     serviceTable.AddCell(priceCell);
 
-                    PdfPCell totalSCell = new PdfPCell(new Phrase(dichVu.Tong.ToString(), normalFont));
+                    PdfPCell totalSCell = new PdfPCell(new Phrase(dichVu.Tong.ToString("#,##0").Replace(",", ".") + " VNĐ", normalFont));
                     serviceTable.AddCell(totalSCell);
                 }
                 PdfPCell emptyCell = new PdfPCell(new Phrase("Total", normalFont));
