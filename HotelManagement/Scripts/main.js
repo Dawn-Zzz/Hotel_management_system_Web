@@ -104,7 +104,6 @@ if (roomList) {
         }
     }
 
-
     bookBtn.onclick = (e) => {
         if (bookBtn.classList.contains("inactive")) {
             e.preventDefault();
@@ -114,6 +113,14 @@ if (roomList) {
             checkIn = checkinForForm;
             checkOut = checkoutForForm;
             var selectedRooms = [];
+
+            var dateCheckIn = document.querySelector("#checkin_date").value;
+            var dateCheckOut = document.querySelector("#checkout_date").value;
+
+            var startDate = new Date(dateCheckIn);
+            var endDate = new Date(dateCheckOut);
+
+            var distanceDate = (endDate.getTime() - startDate.getTime()) / (1000 * 3600 * 24);
 
             // Lặp qua tất cả các cấu trúc để kiểm tra giá trị
             for (var index = 1; index <= 6; index++) { // Đổi số này tùy thuộc vào số lượng cấu trúc
@@ -140,6 +147,7 @@ if (roomList) {
                 localStorage.setItem('selectedRooms', JSON.stringify(selectedRooms));
                 localStorage.setItem('checkin', JSON.stringify({ data: checkIn }));
                 localStorage.setItem('checkout', JSON.stringify({ data: checkOut }));
+                localStorage.setItem('distance', JSON.stringify({ data: distanceDate }));
                 window.location.href = '/Booking/BookingRoom';
 
                 // Hiển thị thông báo hoặc chuyển hướng tới trang khác nếu cần

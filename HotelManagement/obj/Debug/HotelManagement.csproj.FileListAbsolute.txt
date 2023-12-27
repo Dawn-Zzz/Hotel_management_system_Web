@@ -1736,3 +1736,10 @@ C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\Pa
 C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\itextsharp.xml
 C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\PagedList.xml
 C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\PagedList.Mvc.xml
+D:\OneDrive\Uni\3rd\HK1\Web\BTL\Hotel_management_system_Web\HotelManagement\bin\BouncyCastle.Crypto.dll
+D:\OneDrive\Uni\3rd\HK1\Web\BTL\Hotel_management_system_Web\HotelManagement\bin\itextsharp.dll
+D:\OneDrive\Uni\3rd\HK1\Web\BTL\Hotel_management_system_Web\HotelManagement\bin\PagedList.dll
+D:\OneDrive\Uni\3rd\HK1\Web\BTL\Hotel_management_system_Web\HotelManagement\bin\PagedList.Mvc.dll
+D:\OneDrive\Uni\3rd\HK1\Web\BTL\Hotel_management_system_Web\HotelManagement\bin\itextsharp.xml
+D:\OneDrive\Uni\3rd\HK1\Web\BTL\Hotel_management_system_Web\HotelManagement\bin\PagedList.xml
+D:\OneDrive\Uni\3rd\HK1\Web\BTL\Hotel_management_system_Web\HotelManagement\bin\PagedList.Mvc.xml

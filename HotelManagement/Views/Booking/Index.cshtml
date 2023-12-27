@@ -157,6 +157,19 @@
 <script>
     var dateCheckIn = document.querySelector("#checkin_date");
     var dateCheckOut = document.querySelector("#checkout_date");
+
+    var today = new Date();
+    today.setDate(today.getDate() + 1);
+    var formattedToday = today.toISOString().split('T')[0];
+    dateCheckIn.min = formattedToday;
+
+    var tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 2);
+    var formattedTomorow = today.toISOString().split('T')[0];
+    dateCheckOut.min = formattedTomorow;
+
+    var checkInValue = dateCheckIn.value;
+
     const checkAvailableBtn = document.querySelector('.avl-btn');
 
     const checkList = {
@@ -261,6 +274,7 @@
     }
 
     function checkCheckInDate() {
+
         var date = new Date(dateCheckIn.value);
         date.setDate(date.getDate() + 1);
         var formatDate = date.toISOString().split('T')[0];

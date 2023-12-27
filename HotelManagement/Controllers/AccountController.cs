@@ -12,6 +12,8 @@ using HotelManagement;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System.Data.Entity.Infrastructure;
+using System.Reflection;
 
 namespace HotelManagement.Controllers
 {
@@ -62,9 +64,10 @@ namespace HotelManagement.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            //ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
@@ -73,30 +76,30 @@ namespace HotelManagement.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(TaiKhoanKH user)
         {
-            if (!ModelState.IsValid)
+            Hotel_ManagementEntities db = new Hotel_ManagementEntities();
+
+            var tenTaiKhoan = user.TenTaiKhoan;
+            var matKhau = user.MatKhau;
+            var query = db.TaiKhoanKHs.SingleOrDefault(m => m.TenTaiKhoan == user.TenTaiKhoan && m.MatKhau == user.MatKhau);
+            if (query != null)
             {
-                return View(model);
+                // Xác thực thành công
+                //Response.Write("<script>alert('Login Successfully')</script>");
+                Session["User"] = query;
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                // Tài khoản không tồn tại
+                Response.Write("<script>alert('Invalid Credentials')</script>");
+                return View();
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
-            }
+
         }
+
 
         //
         // GET: /Account/VerifyCode
@@ -154,29 +157,55 @@ namespace HotelManagement.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public ActionResult Register(TaiKhoanKH user)
         {
+            //if (ModelState.IsValid)
+            //{
+            //    var user = new ApplicationUser { UserName = model.TenTaiKhoan, Email = model.TenTaiKhoan };
+            //    var result = await UserManager.CreateAsync(user, model.MatKhau);
+            //    if (result.Succeeded)
+            //    {
+            //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+            //        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+            //        // Send an email with this link
+            //        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+            //        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+            //        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+            //        return RedirectToAction("Index", "Home");
+            //    }
+            //    AddErrors(result);
+            //}
+
+            //// If we got this far, something failed, redisplay form
+            //return View(model);
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                // Xử lý khi mô hình hợp lệ
+                using (Hotel_ManagementEntities db = new Hotel_ManagementEntities())
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
+                    if (db.TaiKhoanNVs.Any(x => x.TenTaiKhoan == user.TenTaiKhoan))
+                    {
+                        ViewBag.DuplicateMessage = "Username already exists";
+                        return View("Register", user);
+                    }
+                    else
+                    {
+                        db.TaiKhoanKHs.Add(user);
+                        db.SaveChanges();
+                    }
+                    ModelState.Clear();
+                    ViewBag.SuccessMessage = "Saved Successfully";
+                    return RedirectToAction("Register", new TaiKhoanKH());
                 }
-                AddErrors(result);
+                return RedirectToAction("Success");
             }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
+            else
+            {
+                // Mô hình không hợp lệ, trả về view với các thông báo lỗi
+                return View(user);
+            }
         }
 
         //
@@ -459,13 +488,16 @@ namespace HotelManagement.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            // Xóa thông tin đăng nhập khỏi Session hoặc bất kỳ nơi nào bạn lưu trữ thông tin đăng nhập
+            Session["User"] = null;
+
+            // Chuyển hướng đến trang Index của Home
             return RedirectToAction("Index", "Home");
         }
+
 
         //
         // GET: /Account/ExternalLoginFailure

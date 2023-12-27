@@ -2,6 +2,9 @@
 @{
     Layout = null;
 }
+@{
+    var user = Session["User"] as HotelManagement.TaiKhoanKH;
+}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +24,7 @@
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="~/Content/Reservation.css" />
-    <link rel="stylesheet" href="~/Content/StyleCustom.css"/>
+    <link rel="stylesheet" href="~/Content/StyleCustom.css" />
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,31 +46,63 @@
                             <h1>Hotel Booking</h1>
                         </div>
                         <form id="booking-form">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <span class="form-label">Phone Number <span class="required-icon">*</span></span>
-                                        <input class="form-control client-phone-number" id="client-phone-number" type="text">
-                                        <span class="form-message"></span>
+                            @if (user == null)
+                            {
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <span class="form-label">Phone Number <span class="required-icon">*</span></span>
+                                            <input class="form-control client-phone-number" id="client-phone-number" type="text">
+                                            <span class="form-message"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <span class="form-label">Name <span class="required-icon">*</span></span>
-                                        <input class="form-control client-name" id="client-name" type="text">
-                                        <span class="form-message"></span>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Name <span class="required-icon">*</span></span>
+                                            <input class="form-control client-name" id="client-name" type="text">
+                                            <span class="form-message"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Age <span class="required-icon">*</span></span>
+                                            <input class="form-control client-age" id="client-age" type="date">
+                                            <span class="form-message"></span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <span class="form-label">Age <span class="required-icon">*</span></span>
-                                        <input class="form-control client-age" id="client-age" type="date">
-                                        <span class="form-message"></span>
+                            }
+                            else
+                            {
+                                var guestFullName = @user.KhachHang.TenKhachHang;
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <span class="form-label">Phone Number <span class="required-icon">*</span></span>
+                                            <input class="form-control client-phone-number" id="client-phone-number" type="text" value="@user.KhachHang.SoDienThoai">
+                                            <span class="form-message"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Name <span class="required-icon">*</span></span>
+                                            <input class="form-control client-name" id="client-name" type="text" value="@user.KhachHang.TenKhachHang">
+                                            <span class="form-message"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <span class="form-label">Age <span class="required-icon">*</span></span>
+                                            <input class="form-control client-age" id="client-age" type="date" value="@user.KhachHang.NgaySinh">
+                                            <span class="form-message">@user.KhachHang.NgaySinh</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                             <div id="displayContainer">
                                 <div class="row selected-infor">
                                     <div class="col-md-6">
@@ -247,28 +282,29 @@
             displayContainer.innerHTML = '';
 
             var totalPrice = 0;
+            var distance = JSON.parse(localStorage.getItem('distance')).data;
             selectedRooms.forEach(function (room) {
-                totalPrice += parseInt(room.price * room.quantity);
+                totalPrice += parseInt(room.price * room.quantity * distance);
                 var roomInfoDiv = document.createElement('div');
                 roomInfoDiv.innerHTML = `
-                            <div class="row selected-infor">
-                                <div class="col-md-6">
-                                    <p>Room type: <span id="type" style="font-weight: 700">${room.type}</span></p>
-                                </div>
-                                <div class="col-md-6">
-                                    <p>Room Quantity: <span id="quantity" style="font-weight: 700">${room.quantity}</span></p>
-                                </div>
-                                <p>Room detail: <span id="detail" style="font-weight: 100">${room.bedInfo}, Wifi</span></p>
+                                    <div class="row selected-infor">
+                                        <div class="col-md-6">
+                                            <p>Room type: <span id="type" style="font-weight: 700">${room.type}</span></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p>Room Quantity: <span id="quantity" style="font-weight: 700">${room.quantity}</span></p>
+                                        </div>
+                                        <p>Room detail: <span id="detail" style="font-weight: 100">${room.bedInfo}, Wifi</span></p>
 
-                            </div>
-                            <div class="row selected-infor">
-                                <div class="col-md-12">
-                                    <p>Price: <span id="price" style="font-weight: 700">${VND.format(parseInt(room.price * room.quantity))}</span></p>
-                                </div>
-                            </div>
-                            <div class="row selected-infor guest-number">
-                            </div>
-                        `;
+                                    </div>
+                                    <div class="row selected-infor">
+                                        <div class="col-md-12">
+                                            <p>Price: <span id="price" style="font-weight: 700">${VND.format(parseInt(room.price * room.quantity * distance))}</span></p>
+                                        </div>
+                                    </div>
+                                    <div class="row selected-infor guest-number">
+                                    </div>
+                                `;
                 const guestNumber = roomInfoDiv.querySelector(".guest-number");
                 for (var i = 0; i < room.quantity; i++) {
                     var roomType = room.type;
@@ -276,29 +312,29 @@
                         roomType = "FamilySuite";
                     }
                     guestNumber.innerHTML += `
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <p>Room ${i + 1}</p>
-                                    <select id="room-${roomIndex}" class="rooms-list form-control">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                    </select>
-                                    <span class="select-arrow"></span>
-                                </div>
-                            </div>
-                        `
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <p>Room ${i + 1}</p>
+                                            <select id="room-${roomIndex}" class="rooms-list form-control">
+                                                <option>1</option>
+                                                <option>2</option>
+                                                <option>3</option>
+                                            </select>
+                                            <span class="select-arrow"></span>
+                                        </div>
+                                    </div>
+                                `
                     roomIndex++;
                 }
                 roomInfoDiv.innerHTML += `
-                            <hr/>
-                        `
+                                    <hr/>
+                                `
 
                 displayContainer.appendChild(roomInfoDiv);
             });
             displayContainer.innerHTML += `
-                            <p style="font-weight: 700; margin: 32px 0 24px;">Total price: ${VND.format(totalPrice)}</p>
-                        `
+                                    <p style="font-weight: 700; margin: 32px 0 24px;">Total price: ${VND.format(totalPrice)}</p>
+                                `
 
             const checkin = localStorage.getItem('checkin');
             const checkout = localStorage.getItem('checkout');

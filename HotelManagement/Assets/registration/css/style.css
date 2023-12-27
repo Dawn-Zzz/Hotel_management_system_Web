@@ -523,3 +523,8 @@ iframe {
         padding-right: 15px;
     }
 }
+
+.text-danger {
+    color: red;
+    font-size: .75rem;
+}

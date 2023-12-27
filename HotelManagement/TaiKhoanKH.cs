@@ -12,16 +12,28 @@ namespace HotelManagement
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class TaiKhoanKH
     {
+        [EmailAddress(ErrorMessage = "Please input your email")]
         [DisplayName("Account")]
+        [Required(ErrorMessage = "This field is required")]
         public string TenTaiKhoan { get; set; }
+
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         [DisplayName("Password")]
+        [Required(ErrorMessage = "This field is required")]
         public string MatKhau { get; set; }
-        [DisplayName("Guest ID")]
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("MatKhau", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
         public Nullable<int> MaKhachHang { get; set; }
-    
+
         public virtual KhachHang KhachHang { get; set; }
     }
 }
