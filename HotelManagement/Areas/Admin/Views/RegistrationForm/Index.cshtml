@@ -12,10 +12,8 @@
 {
     <div class="input-group">
         <div class="form-outline">
-
             @Html.TextBox("sdt", null, new { @class = "form-control bg-light border-0 small", @placeholder = "Search Phone Number" })
         </div>
-
         <input type="submit" value=" Tìm " name="name" class="btn btn-primary" />
     </div>
 }
@@ -23,6 +21,12 @@
 <p class="ml-32 mt-32 mb-24">
     @Html.ActionLink("Add New Registration Form", "Create", "RegistrationForm", null, new { @class = "create-btn" })
 </p>
+<div class="filter-buttons">
+    @Html.ActionLink("Chưa nhận phòng", "Index", new { filter = "ChuaNhanPhong" }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Đã nhận phòng", "Index", new { filter = "DaNhanPhong" }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Đã hủy phòng", "Index", new { filter = "DaHuyPhong" }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Đã trả phòng", "Index", new { filter = "DaTraPhong" }, new { @class = "btn btn-info" })
+</div>
 <div class="table-section">
     <table class="table">
         <tr>
@@ -78,22 +82,6 @@
                     else
                     {
                         @: @Html.ActionLink("Edit", "Edit", new { id = item.MaPhieu })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         @: @Html.ActionLink("Details", "Details", new { id = item.MaPhieu })
                     }
                 </td>

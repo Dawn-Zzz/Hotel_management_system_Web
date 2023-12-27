@@ -19,18 +19,58 @@ namespace HotelManagement.Areas.Admin.Controllers
         private Hotel_ManagementEntities db = new Hotel_ManagementEntities();
 
         // GET: Admin/RegistrationForm
-        public ActionResult Index(int? page)
-        {
-            int pageSize = 10; // Số lượng phiếu đăng ký trên mỗi trang
-            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
+        //public ActionResult Index(int? page)
+        //{
+        //    int pageSize = 10; // Số lượng phiếu đăng ký trên mỗi trang
+        //    int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
 
-            var phieuThues = db.PhieuDangKies.Include(p => p.KhachHang)
-                .OrderByDescending(p => p.HienTrang == "Chưa nhận phòng")
-                .ThenByDescending(p => p.HienTrang == "Đã nhận phòng")
-                .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang cho danh sách phiếu đăng ký
+        //    var phieuThues = db.PhieuDangKies.Include(p => p.KhachHang)
+        //        .OrderByDescending(p => p.HienTrang == "Chưa nhận phòng")
+        //        .ThenByDescending(p => p.HienTrang == "Đã nhận phòng")
+        //        .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang cho danh sách phiếu đăng ký
+
+        //    return View(phieuThues);
+        //}
+
+        public ActionResult Index(int? page, string filter)
+        {
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+            IQueryable<PhieuDangKy> query = db.PhieuDangKies.Include(p => p.KhachHang).OrderByDescending(p => p.NgayLap);
+
+            if (!string.IsNullOrEmpty(filter))
+            {
+                // Lọc theo giá trị của filter
+                switch (filter)
+                {
+                    case "ChuaNhanPhong":
+                        query = query.Where(p => p.HienTrang == "Chưa nhận phòng");
+                        break;
+                    case "DaNhanPhong":
+                        query = query.Where(p => p.HienTrang == "Đã nhận phòng");
+                        break;
+                    case "DaHuyPhong":
+                        query = query.Where(p => p.HienTrang == "Đã hủy phòng");
+                        break;
+                    case "DaTraPhong":
+                        query = query.Where(p => p.HienTrang == "Đã trả phòng");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                query = query.Where(p => p.HienTrang == "Chưa nhận phòng");
+            }
+
+            var phieuThues = query.ToPagedList(pageNumber, pageSize);
 
             return View(phieuThues);
         }
+
+
 
         // GET: Admin/RegistrationForm/Details/5
         public ActionResult Details(int? id)
