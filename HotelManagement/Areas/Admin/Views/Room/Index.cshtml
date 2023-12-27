@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HotelManagement.Phong>
+﻿@model PagedList.IPagedList<HotelManagement.Phong>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -87,4 +88,9 @@
             </div>
         }
     }
+</div>
+</div>
+<!-- Hiển thị phân trang -->
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
 </div>

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HotelManagement.HoaDon>
+﻿@model PagedList.IPagedList<HotelManagement.HoaDon>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -13,11 +14,11 @@
         <div class="form-outline df-flex">
 
             @Html.TextBox("ngayDau", null, new { @class = "form-control bg-light border-0 small date-check", type = "date" })
-            
+
             @Html.TextBox("ngayCuoi", null, new { @class = "form-control bg-light border-0 small date-check", type = "date" })
         </div>
 
-        <input type="submit" value=" Tìm " date="date" class="btn btn-primary date-check" style="border-radius: 8px !important"/>
+        <input type="submit" value=" Tìm " date="date" class="btn btn-primary date-check" style="border-radius: 8px !important" />
     </div>
 }
 
@@ -28,19 +29,19 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.MaHoaDon)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().MaHoaDon)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().KhachHang.TenKhachHang)
             </th>
             <th>
                 Total Amount
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NhanVien.TenNhanVien)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().NhanVien.TenNhanVien)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayLapHoaDon)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().NgayLapHoaDon)
             </th>
             <th>
                 Action
@@ -84,4 +85,8 @@
             }
         }
     </table>
+</div>
+<!-- Hiển thị phân trang -->
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
 </div>

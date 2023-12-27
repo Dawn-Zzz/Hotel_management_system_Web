@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HotelManagement;
+using PagedList;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -18,11 +19,17 @@ namespace HotelManagement.Areas.Admin.Controllers
         private Hotel_ManagementEntities db = new Hotel_ManagementEntities();
 
         // GET: Admin/RegistrationForm
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var phieuThues = db.PhieuDangKies.Include(p => p.KhachHang).OrderByDescending(p => p.HienTrang == "Chưa nhận phòng")
-                    .ThenByDescending(p => p.HienTrang == "Đã nhận phòng");
-            return View(phieuThues.ToList());
+            int pageSize = 10; // Số lượng phiếu đăng ký trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
+
+            var phieuThues = db.PhieuDangKies.Include(p => p.KhachHang)
+                .OrderByDescending(p => p.HienTrang == "Chưa nhận phòng")
+                .ThenByDescending(p => p.HienTrang == "Đã nhận phòng")
+                .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang cho danh sách phiếu đăng ký
+
+            return View(phieuThues);
         }
 
         // GET: Admin/RegistrationForm/Details/5
@@ -207,15 +214,21 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         [Route("Search")]
-        public async Task<ActionResult> Search(string sdt)
+        public async Task<ActionResult> Search(string sdt, int? page)
         {
+            int pageSize = 10; // Số lượng kết quả tìm kiếm trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
+
             IQueryable<PhieuDangKy> query = db.PhieuDangKies;
+
             if (!string.IsNullOrEmpty(sdt))
             {
                 query = query.Where(pt => pt.KhachHang.SoDienThoai.ToLower().Contains(sdt.ToLower()));
             }
 
-            var ketqua = await query.ToListAsync();
+            var ketqua = query.OrderByDescending(p => p.HienTrang == "Chưa nhận phòng")
+                                    .ThenByDescending(p => p.HienTrang == "Đã nhận phòng")
+                                    .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang cho kết quả tìm kiếm
 
             return View("Index", ketqua);
         }

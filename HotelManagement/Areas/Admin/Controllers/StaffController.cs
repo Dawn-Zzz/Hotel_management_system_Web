@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HotelManagement;
+using PagedList;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -16,10 +17,16 @@ namespace HotelManagement.Areas.Admin.Controllers
         private Hotel_ManagementEntities db = new Hotel_ManagementEntities();
 
         // GET: Admin/Staff
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var nhanViens = db.NhanViens.Include(n => n.TaiKhoanNVs);
-            return View(nhanViens.ToList());
+            int pageSize = 10; // Số lượng kết quả hiển thị trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
+
+            var nhanViens = db.NhanViens.Include(nv => nv.TaiKhoanNVs)
+                                        .OrderBy(nv => nv.TenNhanVien)
+                                        .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang cho dữ liệu
+
+            return View(nhanViens);
         }
 
         // GET: Admin/Staff/Details/5
@@ -158,8 +165,11 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         [Route("Search")]
-        public async Task<ActionResult> Search(string name)
+        public async Task<ActionResult> Search(int? page, string name)
         {
+            int pageSize = 10; // Số lượng kết quả hiển thị trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
+
             IQueryable<NhanVien> query = db.NhanViens; // Bắt đầu với tất cả các nhân viên
 
             if (!string.IsNullOrEmpty(name))
@@ -168,7 +178,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                 query = query.Where(nv => nv.TenNhanVien.ToLower().Contains(name.ToLower()));
             }
 
-            var ketqua = await query.ToListAsync(); // Thực hiện truy vấn
+            var ketqua = query.OrderBy(nv => nv.TenNhanVien)
+                                    .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang cho kết quả tìm kiếm
 
             return View("Index", ketqua);
         }

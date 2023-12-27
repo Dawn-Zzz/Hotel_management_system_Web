@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HotelManagement;
+using PagedList;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -16,10 +17,15 @@ namespace HotelManagement.Areas.Admin.Controllers
         private Hotel_ManagementEntities db = new Hotel_ManagementEntities();
 
         // GET: Admin/Invoice
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var hoaDons = db.HoaDons.Include(h => h.NhanVien).Include(h => h.KhachHang).Include(h => h.PhieuDangKy);
-            return View(hoaDons.ToList());
+            int pageSize = 10; // Số lượng hóa đơn trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại
+
+            var hoaDons = db.HoaDons.Include(h => h.NhanVien).Include(h => h.KhachHang).Include(h => h.PhieuDangKy)
+                            .ToList().ToPagedList(pageNumber, pageSize);
+
+            return View(hoaDons);
         }
 
         // GET: Admin/Invoice/Details/5
@@ -140,8 +146,11 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         [Route("Search")]
-        public async Task<ActionResult> Search(DateTime? ngayDau, DateTime? ngayCuoi)
+        public async Task<ActionResult> Search(DateTime? ngayDau, DateTime? ngayCuoi, int? page)
         {
+            int pageSize = 10; // Số lượng hoá đơn trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
+
             IQueryable<HoaDon> query = db.HoaDons;
 
             if (ngayDau.HasValue)
@@ -154,7 +163,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                 query = query.Where(hd => hd.NgayLapHoaDon <= ngayCuoi.Value);
             }
 
-            var ketqua = await query.ToListAsync();
+            // Trả về danh sách hoá đơn được phân trang
+            var ketqua = query.OrderByDescending(h => h.NgayLapHoaDon).ToPagedList(pageNumber, pageSize);
 
             return View("Index", ketqua);
         }

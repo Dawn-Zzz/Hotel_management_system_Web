@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HotelManagement.KhachHang>
+﻿@model PagedList.IPagedList<HotelManagement.KhachHang>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -32,19 +33,19 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenKhachHang)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().TenKhachHang)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgaySinh)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().NgaySinh)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SoDienThoai)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().SoDienThoai)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CCCD)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CCCD)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LoaiKhachHang)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().LoaiKhachHang)
             </th>
             @*<th>
                     @Html.DisplayNameFor(model => model.TaiKhoanKHs.First().TenTaiKhoan)
@@ -90,4 +91,8 @@
         }
 
     </table>
+</div>
+<!-- Hiển thị phân trang -->
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
 </div>

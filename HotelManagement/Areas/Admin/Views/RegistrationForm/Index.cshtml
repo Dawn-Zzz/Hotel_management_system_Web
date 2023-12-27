@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HotelManagement.PhieuDangKy>
+﻿﻿@model PagedList.IPagedList<HotelManagement.PhieuDangKy>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -26,22 +27,22 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.KhachHang.TenKhachHang)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().KhachHang.TenKhachHang)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KhachHang.SoDienThoai)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().KhachHang.SoDienThoai)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ThoiGianNhanPhong)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ThoiGianNhanPhong)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ThoiGianTraPhong)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ThoiGianTraPhong)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayLap)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().NgayLap)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HienTrang)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().HienTrang)
             </th>
             <th>
                 Action
@@ -81,10 +82,26 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
                         @: @Html.ActionLink("Details", "Details", new { id = item.MaPhieu })
                     }
                 </td>
             </tr>
         }
     </table>
+</div>
+<!-- Hiển thị phân trang -->
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
 </div>

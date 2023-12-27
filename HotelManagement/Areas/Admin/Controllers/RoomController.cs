@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HotelManagement;
+using PagedList;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -16,10 +17,15 @@ namespace HotelManagement.Areas.Admin.Controllers
         private Hotel_ManagementEntities db = new Hotel_ManagementEntities();
 
         // GET: Admin/Room
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            var phongs = db.Phongs.Include(p => p.LoaiPhong);
-            return View(phongs.ToList());
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có
+            int PageSize = 12;
+
+            var phongs = db.Phongs.Include(p => p.LoaiPhong).OrderBy(p => p.MaPhong);
+            var pagedPhongs = phongs.ToPagedList(pageNumber, PageSize);
+
+            return View(pagedPhongs);
         }
 
         // GET: Admin/Room/Details/5
@@ -135,8 +141,11 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         [Route("Search")]
-        public async Task<ActionResult> Search(string maPhong)
+        public async Task<ActionResult> Search(string maPhong, int? page)
         {
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có
+            int PageSize = 12;
+
             IQueryable<Phong> query = db.Phongs;
 
             if (!string.IsNullOrEmpty(maPhong))
@@ -144,9 +153,9 @@ namespace HotelManagement.Areas.Admin.Controllers
                 query = query.Where(p => p.MaPhong.ToLower().Contains(maPhong.ToLower()));
             }
 
-            var ketqua = await query.ToListAsync();
+            var phongs = query.OrderBy(p => p.MaPhong).ToPagedList(pageNumber, PageSize);
 
-            return View("Index", ketqua);
+            return View("Index", phongs);
         }
     }
 }

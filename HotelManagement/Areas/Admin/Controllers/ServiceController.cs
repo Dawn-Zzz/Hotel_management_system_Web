@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using HotelManagement;
+using PagedList;
 
 namespace HotelManagement.Areas.Admin.Controllers
 {
@@ -16,9 +17,15 @@ namespace HotelManagement.Areas.Admin.Controllers
         private Hotel_ManagementEntities db = new Hotel_ManagementEntities();
 
         // GET: Admin/Service
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(db.DichVus.ToList());
+            int pageSize = 10; // Số lượng kết quả hiển thị trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
+
+            var dichVus = db.DichVus.OrderBy(dv => dv.TenDichVu)
+                                     .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang cho dữ liệu
+
+            return View(dichVus);
         }
 
         // GET: Admin/Service/Details/5
@@ -126,16 +133,20 @@ namespace HotelManagement.Areas.Admin.Controllers
         }
 
         [Route("Search")]
-        public async Task<ActionResult> Search(string tenDV)
+        public async Task<ActionResult> Search(int? page, string tenDV)
         {
+            int pageSize = 10; // Số lượng kết quả hiển thị trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, mặc định là 1 nếu không có trang được chọn
+
             IQueryable<DichVu> query = db.DichVus;
 
             if (!string.IsNullOrEmpty(tenDV))
             {
-                query = query.Where(nv => nv.TenDichVu.ToLower().Contains(tenDV.ToLower()));
+                query = query.Where(dv => dv.TenDichVu.ToLower().Contains(tenDV.ToLower()));
             }
 
-            var ketqua = await query.ToListAsync();
+            var ketqua = query.OrderBy(dv => dv.TenDichVu)
+                                    .ToPagedList(pageNumber, pageSize); // Thực hiện phân trang cho kết quả tìm kiếm
 
             return View("Index", ketqua);
         }

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<HotelManagement.NhanVien>
+﻿@model PagedList.IPagedList<HotelManagement.NhanVien>
+@using PagedList.Mvc;
+
 
 @{
     ViewBag.Title = "Index";
@@ -27,19 +29,19 @@
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenNhanVien)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().TenNhanVien)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgaySinh)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().NgaySinh)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SoDienThoai)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().SoDienThoai)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CCCD)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().CCCD)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ChucDanh)
+                @Html.DisplayNameFor(model => model.FirstOrDefault().ChucDanh)
             </th>
             <th>
                 Action
@@ -72,4 +74,7 @@
         }
 
     </table>
+</div>
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
 </div>
