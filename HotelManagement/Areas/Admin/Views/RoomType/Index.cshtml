@@ -34,8 +34,11 @@
                 @Html.DisplayNameFor(model => model.FirstOrDefault().GiaLoaiPhong)
             </th>
             @*<th>
-                    @Html.DisplayNameFor(model => model.HinhAnh)
-                </th>*@
+            @Html.DisplayNameFor(model => model.HinhAnh)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FirstOrDefault().SoNguoiToiDa)
+            </th>
             <th>
                 Action
             </th>
@@ -55,8 +58,11 @@
                     @String.Format("{0:#,##0}", giaLP).Replace(",", ".") VNĐ
                 </td>
                 @*<td>
-                        <img src="~/Assets/admin/img/@item.HinhAnh" style="width: 100px;" />
-                    </td>*@
+                    <img src="~/Assets/admin/img/@item.HinhAnh" style="width: 100px;" />
+                </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoNguoiToiDa)
+                </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.MaLoaiPhong.Trim() })
                     @Html.ActionLink("Details", "Details", new { id = item.MaLoaiPhong.Trim() })

@@ -54,7 +54,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh")] LoaiPhong loaiPhong)
+        public ActionResult Create([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh,SoNguoiToiDa")] LoaiPhong loaiPhong)
         {
             if (ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh")] LoaiPhong loaiPhong)
+        public ActionResult Edit([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh,SoNguoiToiDa")] LoaiPhong loaiPhong)
         {
             if (ModelState.IsValid)
             {

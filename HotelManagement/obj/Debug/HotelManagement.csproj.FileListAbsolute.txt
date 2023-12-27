@@ -1729,3 +1729,10 @@ D:\OneDrive\Máy tính\BTL_Nam3_Hotel_Management\Hotel_management_system_Web\Hot
 D:\OneDrive\Máy tính\BTL_Nam3_Hotel_Management\Hotel_management_system_Web\HotelManagement\obj\Debug\HotelManagement.csproj.CopyComplete
 D:\OneDrive\Máy tính\BTL_Nam3_Hotel_Management\Hotel_management_system_Web\HotelManagement\obj\Debug\HotelManagement.dll
 D:\OneDrive\Máy tính\BTL_Nam3_Hotel_Management\Hotel_management_system_Web\HotelManagement\obj\Debug\HotelManagement.pdb
+C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\BouncyCastle.Crypto.dll
+C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\itextsharp.dll
+C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\PagedList.dll
+C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\PagedList.Mvc.dll
+C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\itextsharp.xml
+C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\PagedList.xml
+C:\Users\FPTSHOP\Desktop\QLKS\Hotel_management_system_Web\HotelManagement\bin\PagedList.Mvc.xml

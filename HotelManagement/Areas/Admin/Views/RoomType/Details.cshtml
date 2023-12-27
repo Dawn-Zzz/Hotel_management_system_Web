@@ -24,6 +24,14 @@
             </tr>
             <tr class="row">
                 <th class="col-md-4" style="border-top: none">
+                    @Html.DisplayNameFor(model => model.SoNguoiToiDa)
+                </th>
+                <td class="col-md-2" style="border-top: none">
+                    @Html.DisplayFor(model => model.SoNguoiToiDa)
+                </td>
+            </tr>
+            <tr class="row">
+                <th class="col-md-4" style="border-top: none">
                     @Html.DisplayNameFor(model => model.GiaLoaiPhong)
                 </th>
                 <td class="col-md-2" style="border-top: none">
@@ -34,6 +42,7 @@
                     @String.Format("{0:#,##0}", giaLP).Replace(",", ".") VNĐ
                 </td>
             </tr>
+
         </table>
     </div>
 </div>
