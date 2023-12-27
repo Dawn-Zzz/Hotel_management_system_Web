@@ -24,7 +24,7 @@ namespace HotelManagement
         }
     
         public int MaPhieu { get; set; }
-        [DisplayName("Invoice Date")]
+        [DisplayName("Registration Date")]
         [DataType(DataType.Date, ErrorMessage = "Date only")]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime? NgayLap { get; set; }
