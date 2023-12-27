@@ -80,6 +80,9 @@
                     </td>
                     <td>
                         @Html.ActionLink("Details", "Details", new { id = item.MaHoaDon.Trim() })
+                        <a href="@Url.Action("GenerateReport", "Invoice", new { id = item.MaHoaDon.Trim() })">
+                            <i class="fas fa-download"></i>
+                        </a>
                     </td>
                 </tr>
             }
