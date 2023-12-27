@@ -109,10 +109,16 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaNhanVien,CCCD,SoDienThoai,TenNhanVien,NgaySinh,ChucDanh")] NhanVien nhanVien, [Bind(Include = "TenTaiKhoan,MatKhau,MaNhanVien")] TaiKhoanNV taiKhoannv)
         {
-            var existingEmployee = db.NhanViens.FirstOrDefault(e => e.SoDienThoai == nhanVien.SoDienThoai && e.MaNhanVien != nhanVien.MaNhanVien);
-            if (existingEmployee != null)
+            var existingEmployeePhone = db.NhanViens.FirstOrDefault(e => e.SoDienThoai == nhanVien.SoDienThoai && e.MaNhanVien != nhanVien.MaNhanVien);
+            if (existingEmployeePhone != null)
             {
                 ModelState.AddModelError("SoDienThoai", "Số điện thoại đã tồn tại cho một nhân viên khác.");
+            }
+
+            var existingEmployeeCCCD = db.NhanViens.FirstOrDefault(e => e.CCCD == nhanVien.CCCD && e.MaNhanVien != nhanVien.MaNhanVien);
+            if (existingEmployeeCCCD != null)
+            {
+                ModelState.AddModelError("CCCD", "CCCD đã tồn tại cho một nhân viên khác.");
             }
             if (ModelState.IsValid)
             {
