@@ -33,7 +33,6 @@ namespace HotelManagement
         [Required(ErrorMessage = "Giá loại phòng không được để trống.")]
         public decimal GiaLoaiPhong { get; set; }
         [DisplayName("Room Category Images")]
-        [Required(ErrorMessage = "Hình ảnh không được để trống.")]
         public string HinhAnh { get; set; }
         [DisplayName("Capacity")]
         [Required(ErrorMessage = "Số người tối đa không được để trống.")]

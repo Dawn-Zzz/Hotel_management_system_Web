@@ -8,7 +8,7 @@
 <h2 class="card-title title ml-32">Add New Room Type</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "RoomType", FormMethod.Post, new {enctype = "multipart/form-data"})) 
 {
     @Html.AntiForgeryToken()
     

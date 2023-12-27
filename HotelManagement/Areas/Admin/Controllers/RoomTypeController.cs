@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -54,13 +55,29 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh,SoNguoiToiDa")] LoaiPhong loaiPhong)
+        [ValidateInput(false)]
+        public ActionResult Create([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh,SoNguoiToiDa")] LoaiPhong loaiPhong, HttpPostedFileBase HinhAnh)
         {
             if (ModelState.IsValid)
             {
-                db.LoaiPhongs.Add(loaiPhong);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (HinhAnh.ContentLength > 0)
+                    {
+                        string _FileName = Path.GetFileName(HinhAnh.FileName);
+                        string _path = Path.Combine(Server.MapPath("~/Assets/admim/img"), _FileName);
+
+                        HinhAnh.SaveAs(_path);
+                        loaiPhong.HinhAnh = _FileName;
+                    }
+                    db.LoaiPhongs.Add(loaiPhong);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    ViewBag.Message = "Không thành công";
+                }
             }
 
             return View(loaiPhong);
