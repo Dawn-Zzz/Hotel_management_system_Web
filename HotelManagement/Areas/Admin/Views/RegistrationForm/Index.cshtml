@@ -91,5 +91,5 @@
 </div>
 <!-- Hiển thị phân trang -->
 <div class="text-center">
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, filter = ViewBag.Filter }), PagedListRenderOptions.ClassicPlusFirstAndLast)
 </div>

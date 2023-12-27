@@ -65,6 +65,8 @@ namespace HotelManagement.Areas.Admin.Controllers
                 query = query.Where(p => p.HienTrang == "Chưa nhận phòng");
             }
 
+            ViewBag.Filter = filter;
+
             var phieuThues = query.ToPagedList(pageNumber, pageSize);
 
             return View(phieuThues);
