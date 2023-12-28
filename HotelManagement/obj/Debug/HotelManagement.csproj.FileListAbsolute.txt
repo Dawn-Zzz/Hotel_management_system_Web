@@ -1859,3 +1859,6 @@ D:\OneDrive\Uni\3rd\HK1\Web\BaiTapLon\Hotel_management_system_Web\HotelManagemen
 C:\Users\ngbin\OneDrive\Máy tính\BTL\Hotel_management_system_Web\HotelManagement\bin\BouncyCastle.Crypto.dll
 C:\Users\ngbin\OneDrive\Máy tính\BTL\Hotel_management_system_Web\HotelManagement\bin\itextsharp.dll
 C:\Users\ngbin\OneDrive\Máy tính\BTL\Hotel_management_system_Web\HotelManagement\bin\itextsharp.xml
+D:\OneDrive\Máy tính\BTL_Nam3_HotelManagement\Hotel_management_system_Web\HotelManagement\bin\BouncyCastle.Crypto.dll
+D:\OneDrive\Máy tính\BTL_Nam3_HotelManagement\Hotel_management_system_Web\HotelManagement\bin\itextsharp.dll
+D:\OneDrive\Máy tính\BTL_Nam3_HotelManagement\Hotel_management_system_Web\HotelManagement\bin\itextsharp.xml
