@@ -400,6 +400,27 @@
                 var selectedRooms = JSON.parse(storedData);
 
                 displaySelectedRooms(selectedRooms);
+
+                $.ajax({
+                    url: '/Booking/GetListRoomTypeID',
+                    type: 'GET',
+                    data: {},
+                    success: function (data) {
+                        for (let i = 0; i < data.length; i++) {
+                            $.ajax({
+                                url: '/Booking/GetSoNguoiToiDaByRoomTypeID',
+                                type: 'GET',
+                                data: { maLoaiPhong: data[i] },
+                                success: function (data) {
+                                    $("#room-" + i).empty();
+                                    for (var j = 1; j <= data; j++) {
+                                        $("#room-" + i).append('<option>' + j + '</option>');
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
             }
         });
 

@@ -149,6 +149,32 @@ namespace HotelManagement.Controllers
             return Json(availableRoomList, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetSoNguoiToiDaByRoomTypeID(string maLoaiPhong)
+        {
+            var soNguoiToiDa = db.LoaiPhongs.Where(lp => lp.MaLoaiPhong == maLoaiPhong).Select(lp => lp.SoNguoiToiDa).FirstOrDefault();
+
+            return Json(soNguoiToiDa, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetListRoomTypeID()
+        {
+            // Lấy danh sách sách đã mượn từ Session hoặc tạo danh sách mới nếu chưa tồn tại
+            List<Phong> listPhong;
+
+            if (Session["listPhongClient"] == null)
+            {
+                listPhong = new List<Phong>();
+            }
+            else
+            {
+                listPhong = (List<Phong>)Session["listPhongClient"];
+            }
+
+            var RoomTypeIds = listPhong.Select(phong => phong.MaLoaiPhong);
+
+            return Json(RoomTypeIds, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public ActionResult AddBookRoom(string maLoaiPhong,List<string> phongs)
         {
