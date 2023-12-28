@@ -56,6 +56,16 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaDichVu,TenDichVu,GiaDichVu")] DichVu dichVu)
         {
+            var existingServiceCode = db.DichVus.FirstOrDefault(dv => dv.MaDichVu == dichVu.MaDichVu);
+            var existingServiceName = db.DichVus.FirstOrDefault(dv => dv.TenDichVu == dichVu.TenDichVu);
+            if (existingServiceCode != null)
+            {
+                ModelState.AddModelError("serviceCode", "Mã dịch vụ đã tồn tại");
+            }
+            if (existingServiceName != null)
+            {
+                ModelState.AddModelError("serviceName", "Tên dịch vụ đã tồn tại");
+            }
             if (ModelState.IsValid)
             {
                 db.DichVus.Add(dichVu);
@@ -88,6 +98,11 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "MaDichVu,TenDichVu,GiaDichVu")] DichVu dichVu)
         {
+            var existingServiceName = db.DichVus.FirstOrDefault(dv => dv.TenDichVu == dichVu.TenDichVu && dv.MaDichVu != dichVu.MaDichVu);
+            if (existingServiceName != null)
+            {
+                ModelState.AddModelError("TenDichVu", "Tên loại phòng đã tồn tại cho một loại phòng khác");
+            }
             if (ModelState.IsValid)
             {
                 db.Entry(dichVu).State = EntityState.Modified;

@@ -58,6 +58,16 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh,SoNguoiToiDa")] LoaiPhong loaiPhong, HttpPostedFileBase HinhAnh)
         {
+            var existingRoomTypeCode = db.LoaiPhongs.FirstOrDefault(lp => lp.MaLoaiPhong == loaiPhong.MaLoaiPhong);
+            var existingRoomTypeName = db.LoaiPhongs.FirstOrDefault(lp => lp.TenLoaiPhong == loaiPhong.TenLoaiPhong);
+            if (existingRoomTypeCode != null)
+            {
+                ModelState.AddModelError("roomTypeCode", "Mã loại phòng đã tồn tại");
+            }
+            if (existingRoomTypeName != null)
+            {
+                ModelState.AddModelError("roomTypeName", "Tên loại phòng đã tồn tại");
+            }
             if (ModelState.IsValid)
             {
                 try
@@ -113,6 +123,11 @@ namespace HotelManagement.Areas.Admin.Controllers
         [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh,SoNguoiToiDa")] LoaiPhong loaiPhong, HttpPostedFileBase HinhAnh, FormCollection form)
         {
+            var existingRoomTypeName = db.LoaiPhongs.FirstOrDefault(lp => lp.TenLoaiPhong == loaiPhong.TenLoaiPhong && lp.MaLoaiPhong != loaiPhong.MaLoaiPhong);
+            if (existingRoomTypeName != null)
+            {
+                ModelState.AddModelError("TenLoaiPhong", "Tên loại phòng đã tồn tại cho một loại phòng khác");
+            }
             if (ModelState.IsValid)
             {
                 try

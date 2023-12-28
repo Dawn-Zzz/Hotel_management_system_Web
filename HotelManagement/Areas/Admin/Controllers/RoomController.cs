@@ -60,6 +60,11 @@ namespace HotelManagement.Areas.Admin.Controllers
         //public ActionResult Create([Bind(Include = "MaPhong/*,HienTrang*/,MaLoaiPhong")] Phong phong)
         public ActionResult Create([Bind(Include = "MaPhong,MaLoaiPhong")] Phong phong)
         {
+            var existingRoom = db.Phongs.FirstOrDefault(p => p.MaPhong == phong.MaPhong);
+            if (existingRoom != null)
+            {
+                ModelState.AddModelError("roomCode", "Mã phòng đã tồn tại.");
+            }
             if (ModelState.IsValid)
             {
                 db.Phongs.Add(phong);

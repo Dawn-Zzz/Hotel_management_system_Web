@@ -19,7 +19,7 @@
             @Html.LabelFor(model => model.MaDichVu, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.MaDichVu, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaDichVu, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("serviceCode", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -27,7 +27,7 @@
             @Html.LabelFor(model => model.TenDichVu, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TenDichVu, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TenDichVu, "", new { @class = "text-danger" })
+                @Html.ValidationMessage("serviceName", new { @class = "text-danger" })
             </div>
         </div>
 
