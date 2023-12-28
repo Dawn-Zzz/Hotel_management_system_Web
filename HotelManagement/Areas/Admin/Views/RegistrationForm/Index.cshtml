@@ -18,15 +18,31 @@
     </div>
 }
 
-<p class="ml-32 mt-32 mb-24">
-    @Html.ActionLink("Add New Registration Form", "Create", "RegistrationForm", null, new { @class = "create-btn" })
-</p>
-<div class="filter-buttons">
-    @Html.ActionLink("Chưa nhận phòng", "Index", new { filter = "ChuaNhanPhong" }, new { @class = "btn btn-info" })
-    @Html.ActionLink("Đã nhận phòng", "Index", new { filter = "DaNhanPhong" }, new { @class = "btn btn-info" })
-    @Html.ActionLink("Đã hủy phòng", "Index", new { filter = "DaHuyPhong" }, new { @class = "btn btn-info" })
-    @Html.ActionLink("Đã trả phòng", "Index", new { filter = "DaTraPhong" }, new { @class = "btn btn-info" })
+<div class="row button-list">
+    <p class="ml-32 mt-32 mb-24">
+        @Html.ActionLink("Add New", "Create", "RegistrationForm", null, new { @class = "create-btn" })
+    </p>
+    <ul class="mt-32 mb-24 ml-12">
+        <li>
+            <a class="create-btn-outline filter-list">Filter</a>
+            <ul class="filter-buttons">
+                <li>
+                    @Html.ActionLink("Chưa nhận phòng", "Index", new { filter = "ChuaNhanPhong" }, new { @class = "btn btn-info" })
+                </li>
+                <li>
+                    @Html.ActionLink("Đã nhận phòng", "Index", new { filter = "DaNhanPhong" }, new { @class = "btn btn-info" })
+                </li>
+                <li>
+                    @Html.ActionLink("Đã hủy phòng", "Index", new { filter = "DaHuyPhong" }, new { @class = "btn btn-info" })
+                </li>
+                <li>
+                    @Html.ActionLink("Đã trả phòng", "Index", new { filter = "DaTraPhong" }, new { @class = "btn btn-info" })
+                </li>
+            </ul>
+        </li>
+    </ul>
 </div>
+
 <div class="table-section">
     <table class="table">
         <tr>

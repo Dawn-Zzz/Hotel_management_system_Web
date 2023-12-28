@@ -85,14 +85,11 @@ namespace HotelManagement.Controllers
             var query = db.TaiKhoanKHs.SingleOrDefault(m => m.TenTaiKhoan == user.TenTaiKhoan && m.MatKhau == user.MatKhau);
             if (query != null)
             {
-                // Xác thực thành công
-                //Response.Write("<script>alert('Login Successfully')</script>");
                 Session["User"] = query;
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                // Tài khoản không tồn tại
                 Response.Write("<script>alert('Invalid Credentials')</script>");
                 return View();
             }
@@ -159,30 +156,8 @@ namespace HotelManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(TaiKhoanKH user)
         {
-            //if (ModelState.IsValid)
-            //{
-            //    var user = new ApplicationUser { UserName = model.TenTaiKhoan, Email = model.TenTaiKhoan };
-            //    var result = await UserManager.CreateAsync(user, model.MatKhau);
-            //    if (result.Succeeded)
-            //    {
-            //        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-            //        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-            //        // Send an email with this link
-            //        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-            //        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-            //        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-            //        return RedirectToAction("Index", "Home");
-            //    }
-            //    AddErrors(result);
-            //}
-
-            //// If we got this far, something failed, redisplay form
-            //return View(model);
             if (ModelState.IsValid)
             {
-                // Xử lý khi mô hình hợp lệ
                 using (Hotel_ManagementEntities db = new Hotel_ManagementEntities())
                 {
                     if (db.TaiKhoanNVs.Any(x => x.TenTaiKhoan == user.TenTaiKhoan))
@@ -203,7 +178,6 @@ namespace HotelManagement.Controllers
             }
             else
             {
-                // Mô hình không hợp lệ, trả về view với các thông báo lỗi
                 return View(user);
             }
         }

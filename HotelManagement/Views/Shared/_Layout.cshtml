@@ -9,6 +9,7 @@
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/Style.css")
     @Styles.Render("~/Content/StyleCustom.css")
+    @Styles.Render("~/Content/Loader.css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -108,12 +109,14 @@
                 </p>
             </div>
         </div>
+        <div class="loader"></div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="@Url.Content("~/Scripts/main.js")"></script>
+    <script src="@Url.Content("~/Scripts/Loader.js")"></script>
     <script src="@Url.Content("~/Scripts/jquery-3.4.1.js")"></script>
 </body>
 </html>

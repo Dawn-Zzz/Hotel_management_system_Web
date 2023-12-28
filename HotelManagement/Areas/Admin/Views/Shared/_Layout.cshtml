@@ -19,6 +19,7 @@
     @Styles.Render("~/Assets/admin/css/sb-admin-2.css")
     @Styles.Render("~/Assets/admin/css/Style.css")
     @Styles.Render("~/Assets/admin/css/Responsive.css")
+    @Styles.Render("~/Content/Loader.css")
 
 </head>
 
@@ -323,12 +324,12 @@
             <!-- End of Main Content -->
             <!-- Footer -->
             @*<footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2021</span>
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; Your Website 2021</span>
+                        </div>
                     </div>
-                </div>
-            </footer>*@
+                </footer>*@
             <!-- End of Footer -->
 
         </div>
@@ -360,6 +361,7 @@
             </div>
         </div>
     </div>
+    <div class="loader"></div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="~/Assets/admin/vendor/jquery/jquery.min.js"></script>
@@ -383,6 +385,7 @@
 
     <!--Custom js-->
     <script src="~/Assets/admin/js/script.js"></script>
+    <script src="~/Scripts/Loader.js"></script>
 
     <script src="~/Scripts/jquery.js"></script>
     <script src="~/Scripts/jquery.validation.js"></script>
