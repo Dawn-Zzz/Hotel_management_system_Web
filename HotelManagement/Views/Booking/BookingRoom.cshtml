@@ -154,7 +154,54 @@
     <script src="~/Scripts/Validate.js"></script>
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     <script>
+        var age = 0;
+        var roomIndex = 0;
+        var roomsList = [];
+        const birthDayInput = document.getElementById("client-age");
+        const submitBookBtn = document.getElementById("submit-book-btn");
+        var validateObj = {
+            form: '#booking-form',
+            formGroupSelector: '.form-group',
+            errorSelector: '.form-message',
+            rules: [
+                Validator.isRequired('#client-name', "Please enter your name"),
+                Validator.isPhoneNumber('#client-phone-number', "Please enter your phone number"),
+                Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
+            ],
+            onSubmit: function (dataNumOfPeople) {
+                for (var i = 0; i < roomsList.length; ++i)
+                    dataNumOfPeople[i] = roomsList[i].value;
+                console.log(dataNumOfPeople);
+
+                $.ajax({
+                    url: '/Booking/AddBookRoom',
+                    type: 'GET',
+                    data: { listNumOfPeople: dataNumOfPeople },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                });
+                $.ajax({
+                    url: '/Booking/CreateBooking',
+                    type: 'POST',
+                    data: {
+                        phoneNumber: document.getElementById("client-phone-number").value,
+                        name: document.getElementById("client-name").value,
+                        birth: document.getElementById("client-age").value,
+                        checkIn: JSON.parse(localStorage.getItem('checkin')).data,
+                        checkOut: JSON.parse(localStorage.getItem('checkout')).data
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                });
+            }
+        }
+
+        
+
         $(document).ready(function () {
+            Validator(validateObj);
             // Sự kiện khi rời khỏi ô nhập số điện thoại
             $("#client-phone-number").blur(function () {
                 var phoneNumber = $(this).val();
@@ -175,7 +222,52 @@
                                 $("#client-age").val(data.dateOfBirth);
                                 $("#client-age").prop('disabled', true);
                             }
+                            const birthdate = new Date(birthDayInput.value);
 
+                            const currentYear = new Date().getFullYear();
+
+                            const birthYear = birthdate.getFullYear();
+
+                            age = currentYear - birthYear;
+                            console.log(age)
+                            Validator({
+                                form: '#booking-form',
+                                formGroupSelector: '.form-group',
+                                errorSelector: '.form-message',
+                                rules: [
+                                    Validator.isRequired('#client-name', "Please enter your name"),
+                                    Validator.isPhoneNumber('#client-phone-number', "Please enter your phone number"),
+                                    Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
+                                ],
+                                onSubmit: function (dataNumOfPeople) {
+                                    for (var i = 0; i < roomsList.length; ++i)
+                                        dataNumOfPeople[i] = roomsList[i].value;
+                                    console.log(dataNumOfPeople);
+
+                                    $.ajax({
+                                        url: '/Booking/AddBookRoom',
+                                        type: 'GET',
+                                        data: { listNumOfPeople: dataNumOfPeople },
+                                        success: function (data) {
+                                            console.log(data);
+                                        },
+                                    });
+                                    $.ajax({
+                                        url: '/Booking/CreateBooking',
+                                        type: 'POST',
+                                        data: {
+                                            phoneNumber: document.getElementById("client-phone-number").value,
+                                            name: document.getElementById("client-name").value,
+                                            birth: document.getElementById("client-age").value,
+                                            checkIn: JSON.parse(localStorage.getItem('checkin')).data,
+                                            checkOut: JSON.parse(localStorage.getItem('checkout')).data
+                                        },
+                                        success: function (data) {
+                                            console.log(data);
+                                        },
+                                    });
+                                }
+                            });
                         } else {
                             // Số điện thoại không tồn tại trong db
                             $("#client-name").val("");
@@ -192,28 +284,7 @@
             });
         });
 
-        var age = 0;
-        var roomIndex = 0;
-        var roomsList = [];
-        const birthDayInput = document.getElementById("client-age");
-        const submitBookBtn = document.getElementById("submit-book-btn");
-        var validateObj = {
-            form: '#booking-form',
-            formGroupSelector: '.form-group',
-            errorSelector: '.form-message',
-            rules: [
-                Validator.isRequired('#client-name', "Please enter your name"),
-                Validator.isPhoneNumber('#client-phone-number', "Please enter your phone number"),
-                Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
-            ],
-            onSubmit: function (data) {
-                console.log(data);
-            }
-        }
-        if (birthDayInput.value == '') {
-            Validator(validateObj)
-        }
-        birthDayInput.onchange = () => {
+        $("#client-age").blur(function () {
             const birthdate = new Date(birthDayInput.value);
 
             const currentYear = new Date().getFullYear();
@@ -221,7 +292,7 @@
             const birthYear = birthdate.getFullYear();
 
             age = currentYear - birthYear;
-
+            console.log(age)
             Validator({
                 form: '#booking-form',
                 formGroupSelector: '.form-group',
@@ -231,7 +302,6 @@
                     Validator.isPhoneNumber('#client-phone-number', "Please enter your phone number"),
                     Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
                 ],
-                //Xử lý nút đặt phòng
                 onSubmit: function (dataNumOfPeople) {
                     for (var i = 0; i < roomsList.length; ++i)
                         dataNumOfPeople[i] = roomsList[i].value;
@@ -260,8 +330,9 @@
                         },
                     });
                 }
-            })
-        }
+            });
+        });
+
         const bd = document.querySelector("#client-age");
         const VND = new Intl.NumberFormat('vi-VN', {
             style: 'currency',
