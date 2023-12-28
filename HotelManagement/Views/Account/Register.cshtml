@@ -61,7 +61,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+            @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -70,21 +70,22 @@
                     @Html.TextBoxFor(m => m.TenTaiKhoan, new { @class = "input100", placeholder = "Type your email" })
                     <i class="fa-solid fa-user input-icon"></i>
                 </div>
-                    @Html.ValidationMessageFor(m => m.TenTaiKhoan, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.TenTaiKhoan, "", new { @class = "text-danger" })
+                <label class="text-danger">@ViewBag.DuplicateMessage</label>
 
                 <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
                     <span class="label-input100">Password</span>
                     @Html.PasswordFor(m => m.MatKhau, new { @class = "input100", placeholder = "Type your password" })
                     <i class="fa-solid fa-lock input-icon"></i>
                 </div>
-                    @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
 
                 <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
                     <span class="label-input100">Password</span>
                     @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input100", placeholder = "Type your password" })
                     <i class="fa-solid fa-lock input-icon"></i>
                 </div>
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                 <div class="container-login100-form-btn m-t-24">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
@@ -94,7 +95,7 @@
                     </div>
                 </div>
 
-                <div class="flex-col-c p-t-155">
+                <div class="flex-col-c p-t-125">
                     <span class="txt1 p-b-17">
                         Having an account?
                     </span>

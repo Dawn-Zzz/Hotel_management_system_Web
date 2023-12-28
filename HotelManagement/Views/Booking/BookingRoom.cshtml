@@ -4,6 +4,8 @@
 }
 @{
     var user = Session["User"] as HotelManagement.TaiKhoanKH;
+    DateTime ngaySinh = user.KhachHang.NgaySinh;
+    DateTime ngaySinhDate = ngaySinh.Date;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -98,8 +100,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <span class="form-label">Age <span class="required-icon">*</span></span>
-                                            <input class="form-control client-age" id="client-age" type="date" value="@user.KhachHang.NgaySinh">
-                                            <span class="form-message">@user.KhachHang.NgaySinh</span>
+                                            <input class="form-control client-age" id="client-age" type="date" value="@ngaySinhDate">
+                                            <span class="form-message"></span>
                                         </div>
                                     </div>
                                 </div>

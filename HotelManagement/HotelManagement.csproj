@@ -2469,6 +2469,8 @@
     <Content Include="Views\Booking\BookingRoom.cshtml" />
     <Content Include="Service\Email\Templates\ResetPassword.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
+    <Content Include="Views\Shared\_AddInfoLayout.cshtml" />
+    <Content Include="Views\Account\AddGuestInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

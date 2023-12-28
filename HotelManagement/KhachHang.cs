@@ -40,7 +40,7 @@ namespace HotelManagement
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Required(ErrorMessage = "Ngày sinh khách hàng chưa được chọn.")]
         [CustomValidation(typeof(KhachHang), "ValidateDateOfBirth")]
-        public System.DateTime? NgaySinh { get; set; }
+        public System.DateTime NgaySinh { get; set; }
         [DisplayName("Phone Number")]
         [Required(ErrorMessage = "Số điện thoại không được để trống.")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Số điện thoại phải là 10 chữ số.")]

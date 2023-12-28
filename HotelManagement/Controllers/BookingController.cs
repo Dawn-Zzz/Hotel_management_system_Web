@@ -288,7 +288,7 @@ namespace HotelManagement.Controllers
             if (khachHang != null)
             {
                 // Nếu số điện thoại đã tồn tại, trả về thông tin khách hàng
-                return Json(new { exists = true, customerName = khachHang.TenKhachHang, dateOfBirth = khachHang.NgaySinh?.ToString("yyyy-MM-dd") });
+                return Json(new { exists = true, customerName = khachHang.TenKhachHang, dateOfBirth = khachHang.NgaySinh.ToString("yyyy-MM-dd") });
             }
             else
             {
