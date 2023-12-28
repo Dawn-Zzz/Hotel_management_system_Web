@@ -275,8 +275,8 @@ namespace HotelManagement.Controllers
             }
 
             db.SaveChanges();
-            //return RedirectToAction("Index");
-            return Json(new { Success = true, Message = "Lưu dữ liệu thành công!" });
+            return RedirectToAction("Index");
+            //return Json(new { Success = true, Message = "Lưu dữ liệu thành công!" });
         }
 
         [HttpPost]

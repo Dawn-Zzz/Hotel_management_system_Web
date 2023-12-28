@@ -4,8 +4,6 @@
 }
 @{
     var user = Session["User"] as HotelManagement.TaiKhoanKH;
-    DateTime ngaySinh = @user.KhachHang.NgaySinh;
-    DateTime ngaySinhDate = ngaySinh.Date;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -80,6 +78,8 @@
                             else
                             {
                                 var guestFullName = @user.KhachHang.TenKhachHang;
+                                DateTime ngaySinh = @user.KhachHang.NgaySinh;
+                                DateTime ngaySinhDate = ngaySinh.Date;
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
@@ -161,6 +161,14 @@
         var roomsList = [];
         const birthDayInput = document.getElementById("client-age");
         const submitBookBtn = document.getElementById("submit-book-btn");
+
+        function removeFormSubmit(formSelector) {
+            var form = document.querySelector(formSelector);
+            if (form) {
+                form.onsubmit = null;
+            }
+        }
+
         var validateObj = {
             form: '#booking-form',
             formGroupSelector: '.form-group',
@@ -200,97 +208,135 @@
             }
         }
 
-        
-
-        $(document).ready(function () {
-            Validator(validateObj);
-            // Sự kiện khi rời khỏi ô nhập số điện thoại
-            $("#client-phone-number").blur(function () {
-                var phoneNumber = $(this).val();
-                // Gửi yêu cầu kiểm tra số điện thoại đã tồn tại
-                $.ajax({
-                    url: '/Booking/CheckPhoneNumber', // Thay đổi đường dẫn tương ứng với ứng dụng của bạn
-                    type: 'POST',
-                    data: { phoneNumber: phoneNumber },
-                    success: function (data) {
-                        // Xử lý kết quả từ máy chủ
-                        if (data.exists) {
-                            // Số điện thoại đã tồn tại trong db
-                            // Cập nhật tên khách hàng và đóng băng ô nhập số điện thoại
-                            $("#client-name").val(data.customerName);
-                            $("#client-name").prop('disabled', true);
-                            $("#client-name").css({
-                                "opacity": "0.3"
-                            });
-                            // Cập nhật ngày sinh nếu có
-                            if (data.dateOfBirth) {
-                                $("#client-age").val(data.dateOfBirth);
-                                $("#client-age").prop('disabled', true);
-                                $("#client-age").css({
+        if (@Json.Encode(user == null)) {
+            $(document).ready(function () {
+                Validator(validateObj);
+                // Sự kiện khi rời khỏi ô nhập số điện thoại
+                $("#client-phone-number").blur(function () {
+                    var phoneNumber = $(this).val();
+                    // Gửi yêu cầu kiểm tra số điện thoại đã tồn tại
+                    $.ajax({
+                        url: '/Booking/CheckPhoneNumber', // Thay đổi đường dẫn tương ứng với ứng dụng của bạn
+                        type: 'POST',
+                        data: { phoneNumber: phoneNumber },
+                        success: function (data) {
+                            // Xử lý kết quả từ máy chủ
+                            if (data.exists) {
+                                // Số điện thoại đã tồn tại trong db
+                                // Cập nhật tên khách hàng và đóng băng ô nhập số điện thoại
+                                $("#client-name").val(data.customerName);
+                                $("#client-name").prop('disabled', true);
+                                $("#client-name").css({
                                     "opacity": "0.3"
                                 });
-                            }
-                            const birthdate = new Date(birthDayInput.value);
-
-                            const currentYear = new Date().getFullYear();
-
-                            const birthYear = birthdate.getFullYear();
-
-                            age = currentYear - birthYear;
-                            console.log(age)
-                            Validator({
-                                form: '#booking-form',
-                                formGroupSelector: '.form-group',
-                                errorSelector: '.form-message',
-                                rules: [
-                                    Validator.isRequired('#client-name', "Please enter your name"),
-                                    Validator.isPhoneNumber('#client-phone-number', "Please enter your phone number"),
-                                    Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
-                                ],
-                                onSubmit: function (dataNumOfPeople) {
-                                    for (var i = 0; i < roomsList.length; ++i)
-                                        dataNumOfPeople[i] = roomsList[i].value;
-                                    console.log(dataNumOfPeople);
-
-                                    $.ajax({
-                                        url: '/Booking/AddBookRoom',
-                                        type: 'GET',
-                                        data: { listNumOfPeople: dataNumOfPeople },
-                                        success: function (data) {
-                                            console.log(data);
-                                        },
-                                    });
-                                    $.ajax({
-                                        url: '/Booking/CreateBooking',
-                                        type: 'POST',
-                                        data: {
-                                            phoneNumber: document.getElementById("client-phone-number").value,
-                                            name: document.getElementById("client-name").value,
-                                            birth: document.getElementById("client-age").value,
-                                            checkIn: JSON.parse(localStorage.getItem('checkin')).data,
-                                            checkOut: JSON.parse(localStorage.getItem('checkout')).data
-                                        },
-                                        success: function (data) {
-                                            console.log(data);
-                                        },
+                                // Cập nhật ngày sinh nếu có
+                                if (data.dateOfBirth) {
+                                    $("#client-age").val(data.dateOfBirth);
+                                    $("#client-age").prop('disabled', true);
+                                    $("#client-age").css({
+                                        "opacity": "0.3"
                                     });
                                 }
-                            });
-                        } else {
-                            // Số điện thoại không tồn tại trong db
-                            $("#client-name").val("");
-                            $("#client-age").val("");
+                                const birthdate = new Date(birthDayInput.value);
 
-                            $("#client-name").prop('disabled', false);
-                            $("#client-age").prop('disabled', false);
+                                const currentYear = new Date().getFullYear();
+
+                                const birthYear = birthdate.getFullYear();
+
+                                age = currentYear - birthYear;
+                                removeFormSubmit('#booking-form');
+                                Validator({
+                                    form: '#booking-form',
+                                    formGroupSelector: '.form-group',
+                                    errorSelector: '.form-message',
+                                    rules: [
+                                        Validator.isRequired('#client-name', "Please enter your name"),
+                                        Validator.isPhoneNumber('#client-phone-number', "Please enter your phone number"),
+                                        Validator.isAgeEnough('#client-age', "You must be at least 18 years old", age)
+                                    ],
+                                    onSubmit: function (dataNumOfPeople) {
+                                        for (var i = 0; i < roomsList.length; ++i)
+                                            dataNumOfPeople[i] = roomsList[i].value;
+                                        console.log(dataNumOfPeople);
+
+                                        $.ajax({
+                                            url: '/Booking/AddBookRoom',
+                                            type: 'GET',
+                                            data: { listNumOfPeople: dataNumOfPeople },
+                                            success: function (data) {
+                                                console.log(data);
+                                            },
+                                        });
+                                        $.ajax({
+                                            url: '/Booking/CreateBooking',
+                                            type: 'POST',
+                                            data: {
+                                                phoneNumber: document.getElementById("client-phone-number").value,
+                                                name: document.getElementById("client-name").value,
+                                                birth: document.getElementById("client-age").value,
+                                                checkIn: JSON.parse(localStorage.getItem('checkin')).data,
+                                                checkOut: JSON.parse(localStorage.getItem('checkout')).data
+                                            },
+                                            success: function (data) {
+                                                console.log(data);
+                                            },
+                                        });
+                                    }
+                                });
+                            } else {
+                                // Số điện thoại không tồn tại trong db
+                                $("#client-name").val("");
+                                $("#client-age").val("");
+
+                                $("#client-name").prop('disabled', false);
+                                $("#client-age").prop('disabled', false);
+                            }
+                        },
+                        error: function (error) {
+                            console.log(error);
                         }
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
+                    });
                 });
             });
-        });
+        }
+        else {
+            Validator({
+                form: '#booking-form',
+                formGroupSelector: '.form-group',
+                errorSelector: '.form-message',
+                rules: [
+                    
+                ],
+                onSubmit: function (dataNumOfPeople) {
+                    for (var i = 0; i < roomsList.length; ++i)
+                        dataNumOfPeople[i] = roomsList[i].value;
+                    console.log(dataNumOfPeople);
+
+                    $.ajax({
+                        url: '/Booking/AddBookRoom',
+                        type: 'GET',
+                        data: { listNumOfPeople: dataNumOfPeople },
+                        success: function (data) {
+                            console.log(data);
+                        },
+                    });
+                    $.ajax({
+                        url: '/Booking/CreateBooking',
+                        type: 'POST',
+                        data: {
+                            phoneNumber: document.getElementById("client-phone-number").value,
+                            name: document.getElementById("client-name").value,
+                            birth: document.getElementById("client-age").value,
+                            checkIn: JSON.parse(localStorage.getItem('checkin')).data,
+                            checkOut: JSON.parse(localStorage.getItem('checkout')).data
+                        },
+                        success: function (data) {
+                            console.log(data);
+                        },
+                    });
+                }
+            });
+        }
 
         $("#client-age").blur(function () {
             const birthdate = new Date(birthDayInput.value);
