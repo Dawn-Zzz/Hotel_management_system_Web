@@ -1,7 +1,7 @@
 ﻿@model HotelManagement.TaiKhoanKH
 @{
     ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    Layout = "~/Views/Shared/_AddInfoLayout.cshtml";
 }
 
 @*<main aria-labelledby="title">
@@ -55,39 +55,66 @@
         @Scripts.Render("~/bundles/jqueryval")
     }*@
 
-<span class="login100-form-title p-b-49">
+<span class="login100-form-title p-b-32">
     @ViewBag.Title
 </span>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <section id="loginForm">
             @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="wrap-input100 validate-input" data-validate="Username is reauired">
-                    <span class="label-input100">Email</span>
-                    @Html.TextBoxFor(m => m.TenTaiKhoan, new { @class = "input100", placeholder = "Type your email" })
-                    <i class="fa-solid fa-user input-icon"></i>
-                </div>
-                @Html.ValidationMessageFor(m => m.TenTaiKhoan, "", new { @class = "text-danger" })
-                <label class="text-danger">@ViewBag.DuplicateMessage</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="wrap-input100 validate-input" data-validate="Username is reauired">
+                        <span class="label-input100">Email</span>
+                        @Html.TextBoxFor(m => m.TenTaiKhoan, new { @class = "input100", placeholder = "Type your email" })
+                        <i class="fa-solid fa-user input-icon"></i>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.TenTaiKhoan, "", new { @class = "text-danger" })
+                    <label class="text-danger">@ViewBag.DuplicateMessage</label>
 
-                <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
-                    <span class="label-input100">Password</span>
-                    @Html.PasswordFor(m => m.MatKhau, new { @class = "input100", placeholder = "Type your password" })
-                    <i class="fa-solid fa-lock input-icon"></i>
-                </div>
-                @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
+                    <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        @Html.PasswordFor(m => m.MatKhau, new { @class = "input100", placeholder = "Type your password" })
+                        <i class="fa-solid fa-lock input-icon"></i>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
 
-                <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
-                    <span class="label-input100">Password</span>
-                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input100", placeholder = "Type your password" })
-                    <i class="fa-solid fa-lock input-icon"></i>
+                    <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
+                        <span class="label-input100">Password</span>
+                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input100", placeholder = "Type your password" })
+                        <i class="fa-solid fa-lock input-icon"></i>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
-                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
-                <div class="container-login100-form-btn m-t-24">
-                    <div class="wrap-login100-form-btn">
+                <div class="col-md-6">
+                    <div class="wrap-input100 validate-input" data-validate="Username is reauired">
+                        <span class="label-input100">Name</span>
+                        @Html.TextBoxFor(m => m.KhachHang.TenKhachHang, new { @class = "input100", placeholder = "Type your name" })
+                        <i class="fa-solid fa-user input-icon"></i>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.KhachHang.TenKhachHang, "", new { @class = "text-danger" })
+                    <label class="text-danger">@ViewBag.DuplicateMessage</label>
+
+                    <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
+                        <span class="label-input100">Phone Number</span>
+                        @Html.TextBoxFor(m => m.KhachHang.SoDienThoai, new { @class = "input100", placeholder = "Type your phone number" })
+                        <i class="fa-solid fa-phone input-icon"></i>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.KhachHang.SoDienThoai, "", new { @class = "text-danger" })
+
+                    <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
+                        <span class="label-input100">Birthday</span>
+                        @Html.TextBoxFor(m => m.KhachHang.NgaySinh, new { @class = "input100", placeholder = "Type your birthday", type = "date" })
+                        <i class="fa-solid fa-calendar input-icon"></i>
+                    </div>
+                    @Html.ValidationMessageFor(m => m.KhachHang.NgaySinh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+                <div class="container-login100-form-btn m-t-36">
+                    <div class="wrap-login100-form-btn width-32p">
                         <div class="login100-form-bgbtn"></div>
                         <button class="login100-form-btn" type="submit">
                             Signup
@@ -95,7 +122,7 @@
                     </div>
                 </div>
 
-                <div class="flex-col-c p-t-125">
+                <div class="flex-col-c p-t-20">
                     <span class="txt1 p-b-17">
                         Having an account?
                     </span>

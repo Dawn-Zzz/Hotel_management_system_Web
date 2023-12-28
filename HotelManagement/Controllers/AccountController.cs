@@ -172,9 +172,8 @@ namespace HotelManagement.Controllers
                     }
                     ModelState.Clear();
                     ViewBag.SuccessMessage = "Saved Successfully";
-                    return RedirectToAction("AddGuestInfo", new TaiKhoanKH());
+                    return RedirectToAction("Login", new TaiKhoanKH());
                 }
-                return RedirectToAction("Success");
             }
             else
             {
