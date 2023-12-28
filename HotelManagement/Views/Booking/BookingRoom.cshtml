@@ -4,7 +4,7 @@
 }
 @{
     var user = Session["User"] as HotelManagement.TaiKhoanKH;
-    DateTime ngaySinh = user.KhachHang.NgaySinh;
+    DateTime ngaySinh = @user.KhachHang.NgaySinh;
     DateTime ngaySinhDate = ngaySinh.Date;
 }
 <!DOCTYPE html>
@@ -100,8 +100,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <span class="form-label">Age <span class="required-icon">*</span></span>
-                                            <input class="form-control client-age" id="client-age" type="date" value="@ngaySinhDate">
-                                            <span class="form-message"></span>
+                                            <input class="form-control client-age" id="client-age" type="date" value="@ngaySinhDate.ToString("yyyy-MM-dd")">
+                                            <span class="form-message"> </span>
                                         </div>
                                     </div>
                                 </div>
@@ -219,10 +219,16 @@
                             // Cập nhật tên khách hàng và đóng băng ô nhập số điện thoại
                             $("#client-name").val(data.customerName);
                             $("#client-name").prop('disabled', true);
+                            $("#client-name").css({
+                                "opacity": "0.3"
+                            });
                             // Cập nhật ngày sinh nếu có
                             if (data.dateOfBirth) {
                                 $("#client-age").val(data.dateOfBirth);
                                 $("#client-age").prop('disabled', true);
+                                $("#client-age").css({
+                                    "opacity": "0.3"
+                                });
                             }
                             const birthdate = new Date(birthDayInput.value);
 
