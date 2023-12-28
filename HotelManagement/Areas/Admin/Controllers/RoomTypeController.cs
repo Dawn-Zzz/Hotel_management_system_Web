@@ -65,7 +65,7 @@ namespace HotelManagement.Areas.Admin.Controllers
                     if (HinhAnh.ContentLength > 0)
                     {
                         string _FileName = Path.GetFileName(HinhAnh.FileName);
-                        string _path = Path.Combine(Server.MapPath("~/Assets/admim/img"), _FileName);
+                        string _path = Path.Combine(Server.MapPath("~/Assets/admin/img"), _FileName);
 
                         HinhAnh.SaveAs(_path);
                         loaiPhong.HinhAnh = _FileName;
@@ -110,13 +110,36 @@ namespace HotelManagement.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh,SoNguoiToiDa")] LoaiPhong loaiPhong)
+        [ValidateInput(false)]
+        public ActionResult Edit([Bind(Include = "MaLoaiPhong,TenLoaiPhong,GiaLoaiPhong,HinhAnh,SoNguoiToiDa")] LoaiPhong loaiPhong, HttpPostedFileBase HinhAnh, FormCollection form)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(loaiPhong).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (HinhAnh != null)
+                    {
+                        string _FileName = Path.GetFileName(HinhAnh.FileName);
+                        string _path = Path.Combine(Server.MapPath("~/Assets/admin/img"), _FileName);
+
+                        HinhAnh.SaveAs(_path);
+                        loaiPhong.HinhAnh = _FileName;
+
+                        _path = Path.Combine(Server.MapPath("~/Assets/admin/img"), form["oldimage"]);
+                        if (System.IO.File.Exists(_path))
+                            System.IO.File.Delete(_path);
+                    }
+                    else
+                        loaiPhong.HinhAnh = form["oldimage"];
+                    db.Entry(loaiPhong).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    ViewBag.Message = "Không thành công";
+                }
+                
             }
             return View(loaiPhong);
         }
