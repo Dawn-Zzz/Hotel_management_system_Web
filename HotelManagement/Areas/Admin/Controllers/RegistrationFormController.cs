@@ -347,6 +347,13 @@ namespace HotelManagement.Areas.Admin.Controllers
             return Json(availableRoomList, JsonRequestBehavior.AllowGet);
         }
 
+        public ActionResult GetSoNguoiToiDaByRoomTypeID(string maLoaiPhong)
+        {
+            var soNguoiToiDa = db.LoaiPhongs.Where(lp => lp.MaLoaiPhong == maLoaiPhong).Select(lp => lp.SoNguoiToiDa).FirstOrDefault();
+
+            return Json(soNguoiToiDa, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult GetMaPhongByIndex(int index)
         {
             List<ChiTietThue> listPhong = Session["listPhong"] as List<ChiTietThue>;

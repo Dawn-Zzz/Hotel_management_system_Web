@@ -1862,3 +1862,10 @@ D:\OneDrive\Máy tính\BTL_Nam3_HotelManagement\Hotel_management_system_Web\Hote
 D:\OneDrive\Máy tính\BTL_Nam3_HotelManagement\Hotel_management_system_Web\HotelManagement\bin\roslyn\vbc.rsp
 D:\OneDrive\Máy tính\BTL_Nam3_HotelManagement\Hotel_management_system_Web\HotelManagement\bin\roslyn\VBCSCompiler.exe
 D:\OneDrive\Máy tính\BTL_Nam3_HotelManagement\Hotel_management_system_Web\HotelManagement\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ngbin\OneDrive\Máy tính\Project\Hotel_management_system_Web\HotelManagement\bin\BouncyCastle.Crypto.dll
+C:\Users\ngbin\OneDrive\Máy tính\Project\Hotel_management_system_Web\HotelManagement\bin\itextsharp.dll
+C:\Users\ngbin\OneDrive\Máy tính\Project\Hotel_management_system_Web\HotelManagement\bin\PagedList.dll
+C:\Users\ngbin\OneDrive\Máy tính\Project\Hotel_management_system_Web\HotelManagement\bin\PagedList.Mvc.dll
+C:\Users\ngbin\OneDrive\Máy tính\Project\Hotel_management_system_Web\HotelManagement\bin\itextsharp.xml
+C:\Users\ngbin\OneDrive\Máy tính\Project\Hotel_management_system_Web\HotelManagement\bin\PagedList.xml
+C:\Users\ngbin\OneDrive\Máy tính\Project\Hotel_management_system_Web\HotelManagement\bin\PagedList.Mvc.xml

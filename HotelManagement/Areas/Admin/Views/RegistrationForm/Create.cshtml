@@ -81,13 +81,8 @@
                         </div>
                         <div class="form-group ml-0">
                             <label class="control-label">Client Quantity</label>
-                            <select class="form-control clien-quantity">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
+                            <select class="form-control clien-quantity" id="Capacity">
+                                
                             </select>
                             <span class="form-message"></span>
                         </div>
@@ -128,6 +123,20 @@
                 // Thêm danh sách phòng mới vào combobox "Room"
                 for (var i = 0; i < data.length; i++) {
                     $("#roomNumber").append('<option value="' + data[i] + '">' + data[i] + '</option>');
+                }
+            }
+        });
+        $.ajax({
+            url: '/RegistrationForm/GetSoNguoiToiDaByRoomTypeID',
+            type: 'GET',
+            data: { maLoaiPhong: $("#roomType").val() },
+            success: function (data) {
+
+                $("#Capacity").empty();
+
+                // Thêm danh sách phòng mới vào combobox "Room"
+                for (var i = 1; i <= data; i++) {
+                    $("#Capacity").append('<option value="' + i + '">' + i + '</option>');
                 }
             }
         });
