@@ -20,6 +20,8 @@ namespace HotelManagement.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        Hotel_ManagementEntities db = new Hotel_ManagementEntities();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private HotelManagement.Services.Email.EmailService _emailService;
@@ -78,14 +80,13 @@ namespace HotelManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(TaiKhoanKH user)
         {
-            Hotel_ManagementEntities db = new Hotel_ManagementEntities();
-
             var tenTaiKhoan = user.TenTaiKhoan;
             var matKhau = user.MatKhau;
             var query = db.TaiKhoanKHs.SingleOrDefault(m => m.TenTaiKhoan == user.TenTaiKhoan && m.MatKhau == user.MatKhau);
             if (query != null)
             {
                 Session["User"] = query;
+                Session["MaKH"] = query.MaKhachHang;
                 return RedirectToAction("Index", "Home");
             }
             else
@@ -93,8 +94,6 @@ namespace HotelManagement.Controllers
                 Response.Write("<script>alert('Invalid Credentials')</script>");
                 return View();
             }
-
-
         }
 
 
@@ -154,31 +153,35 @@ namespace HotelManagement.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Register(TaiKhoanKH user)
+        public ActionResult Register([Bind(Include = "MaKhachHang,SoDienThoai,TenKhachHang,NgaySinh")] KhachHang khachHang, [Bind(Include = "TenTaiKhoan,MatKhau,ConfirmPassword")] TaiKhoanKH user)
         {
+            // Check if the username already exists in TaiKhoanKH
+            if (db.TaiKhoanKHs.Any(x => x.TenTaiKhoan == user.TenTaiKhoan))
+            {
+                ModelState.AddModelError("TenTaiKhoan", "Username already exists");
+            }
+
+            // Check if the phone number already exists in KhachHang
+            var existingCustomerPhone = db.KhachHangs.FirstOrDefault(k => k.SoDienThoai == khachHang.SoDienThoai);
+
+            if (existingCustomerPhone != null)
+            {
+                ModelState.AddModelError("SoDienThoai", "Số điện thoại đã đăng ký.");
+            }
+
             if (ModelState.IsValid)
             {
-                using (Hotel_ManagementEntities db = new Hotel_ManagementEntities())
-                {
-                    if (db.TaiKhoanNVs.Any(x => x.TenTaiKhoan == user.TenTaiKhoan))
-                    {
-                        ViewBag.DuplicateMessage = "Username already exists";
-                        return View("Register", user);
-                    }
-                    else
-                    {
-                        db.TaiKhoanKHs.Add(user);
-                        db.SaveChanges();
-                    }
-                    ModelState.Clear();
-                    ViewBag.SuccessMessage = "Saved Successfully";
-                    return RedirectToAction("Login", new TaiKhoanKH());
-                }
+                db.KhachHangs.Add(khachHang);
+
+                user.MaKhachHang = khachHang.MaKhachHang;
+                db.TaiKhoanKHs.Add(user);
+                db.SaveChanges();
+
+                ViewBag.SuccessMessage = "Saved Successfully";
+                return RedirectToAction("Login", new TaiKhoanKH());
             }
-            else
-            {
-                return View(user);
-            }
+
+            return View(khachHang);
         }
 
         [AllowAnonymous]

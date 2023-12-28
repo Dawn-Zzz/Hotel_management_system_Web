@@ -1,4 +1,4 @@
-﻿@model HotelManagement.TaiKhoanKH
+﻿@model HotelManagement.KhachHang
 @{
     ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_AddInfoLayout.cshtml";
@@ -69,48 +69,48 @@
                 <div class="col-md-6">
                     <div class="wrap-input100 validate-input" data-validate="Username is reauired">
                         <span class="label-input100">Email</span>
-                        @Html.TextBoxFor(m => m.TenTaiKhoan, new { @class = "input100", placeholder = "Type your email" })
+                        @Html.TextBoxFor(m => m.TaiKhoanKHs.FirstOrDefault().TenTaiKhoan, new { @class = "input100", placeholder = "Type your email" })
                         <i class="fa-solid fa-user input-icon"></i>
                     </div>
-                    @Html.ValidationMessageFor(m => m.TenTaiKhoan, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.TaiKhoanKHs.FirstOrDefault().TenTaiKhoan, "", new { @class = "text-danger" })
                     <label class="text-danger">@ViewBag.DuplicateMessage</label>
 
                     <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
                         <span class="label-input100">Password</span>
-                        @Html.PasswordFor(m => m.MatKhau, new { @class = "input100", placeholder = "Type your password" })
+                        @Html.PasswordFor(m => m.TaiKhoanKHs.FirstOrDefault().MatKhau, new { @class = "input100", placeholder = "Type your password" })
                         <i class="fa-solid fa-lock input-icon"></i>
                     </div>
-                    @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.TaiKhoanKHs.FirstOrDefault().MatKhau, "", new { @class = "text-danger" })
 
                     <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
                         <span class="label-input100">Password</span>
-                        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input100", placeholder = "Type your password" })
+                        @Html.PasswordFor(m => m.TaiKhoanKHs.FirstOrDefault().ConfirmPassword, new { @class = "input100", placeholder = "Type your password" })
                         <i class="fa-solid fa-lock input-icon"></i>
                     </div>
-                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.TaiKhoanKHs.FirstOrDefault().ConfirmPassword, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-6">
                     <div class="wrap-input100 validate-input" data-validate="Username is reauired">
                         <span class="label-input100">Name</span>
-                        @Html.TextBoxFor(m => m.KhachHang.TenKhachHang, new { @class = "input100", placeholder = "Type your name" })
+                        @Html.TextBoxFor(m => m.TenKhachHang, new { @class = "input100", placeholder = "Type your name"})
                         <i class="fa-solid fa-user input-icon"></i>
                     </div>
-                    @Html.ValidationMessageFor(m => m.KhachHang.TenKhachHang, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.TenKhachHang, "", new { @class = "text-danger" })
                     <label class="text-danger">@ViewBag.DuplicateMessage</label>
 
                     <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
                         <span class="label-input100">Phone Number</span>
-                        @Html.TextBoxFor(m => m.KhachHang.SoDienThoai, new { @class = "input100", placeholder = "Type your phone number" })
+                        @Html.TextBoxFor(m => m.SoDienThoai, new { @class = "input100", placeholder = "Type your phone number" })
                         <i class="fa-solid fa-phone input-icon"></i>
                     </div>
-                    @Html.ValidationMessageFor(m => m.KhachHang.SoDienThoai, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.SoDienThoai, "", new { @class = "text-danger" })
 
                     <div class="wrap-input100 validate-input m-t-24" data-validate="Password is required">
                         <span class="label-input100">Birthday</span>
-                        @Html.TextBoxFor(m => m.KhachHang.NgaySinh, new { @class = "input100", placeholder = "Type your birthday", type = "date" })
+                        @Html.TextBoxFor(m => m.NgaySinh, new { @class = "input100", placeholder = "Type your birthday", type = "date"})
                         <i class="fa-solid fa-calendar input-icon"></i>
                     </div>
-                    @Html.ValidationMessageFor(m => m.KhachHang.NgaySinh, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(m => m.NgaySinh, "", new { @class = "text-danger"})
                 </div>
             </div>
                 <div class="container-login100-form-btn m-t-36">
