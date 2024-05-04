@@ -84,7 +84,13 @@
                         <div class="p-3 text-center room-info">
                             <div class="book-room">
                                 <h2 class="room-type" id="room-type-@index">@Html.DisplayFor(modelItem => item.TenLoaiPhong)</h2>
-                                <p class="room-price"><span class="price" id="price-@index">@Html.DisplayFor(modelItem => item.GiaLoaiPhong)</span>/Night</p>
+                                <p class="room-price" style="display: none"><span class="price" id="price-@index">@Html.DisplayFor(modelItem => item.GiaLoaiPhong)</span>/Night</p>
+                                <p class="room-price">
+                                    <span class="price" >
+                                        @{ var gia = item.GiaLoaiPhong; }
+                                        @String.Format("{0:#,##0}", item.GiaLoaiPhong).Replace(",", ".") VNĐ
+                                    </span>/Night
+                                </p>
                             </div>
                             <div class="interior">
                                 <p class="bed" id="bed-@index">
@@ -159,7 +165,7 @@
     var dateCheckOut = document.querySelector("#checkout_date");
 
     var today = new Date();
-    today.setDate(today.getDate() + 1);
+    today.setDate(today.getDate() );
     var formattedToday = today.toISOString().split('T')[0];
     dateCheckIn.min = formattedToday;
 

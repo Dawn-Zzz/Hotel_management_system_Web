@@ -74,16 +74,16 @@
                     <i class="fa-solid fa-user input-icon"></i>
                 </div>
 
-                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                <div class="wrap-input100 validate-input m-b-23" data-validate="Password is required">
                     <span class="label-input100">Password</span>
                     @Html.PasswordFor(m => m.MatKhau, new { @class = "input100", placeholder = "Type your password" })
                     @Html.ValidationMessageFor(m => m.MatKhau, "", new { @class = "text-danger" })
                     <i class="fa-solid fa-lock input-icon"></i>
                 </div>
 
-                <div class="text-right p-t-8 p-b-31">
+                @*<div class="text-right p-t-8 p-b-31">
                     @Html.ActionLink("Forgot password", "ForgotPassword")
-                </div>
+                </div>*@
                 <div class="container-login100-form-btn">
                     <div class="wrap-login100-form-btn">
                         <div class="login100-form-bgbtn"></div>
