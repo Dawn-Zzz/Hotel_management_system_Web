@@ -1764,3 +1764,58 @@ textarea.form-control {
                 color: #fff;
                 border-radius: 50%;
             }
+
+
+.booked-room-container {
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+
+}
+
+    .booked-room-container .booked-history {
+        width: 50%;
+    }
+
+    .booked-room-container .booked-item:first-child {
+        border-top: 1px solid #ddd;
+    }
+
+    .booked-room-container .booked-item {
+        padding: 16px 32px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+
+        /*.booked-room-container .booked-item .booked-title {
+            color: #000;
+            font-size: 20px;
+            font-weight: 700;
+        }*/
+
+        .booked-room-container .booked-item .booked-name {
+            color: #000;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .booked-room-container .booked-item .booked-date {
+            display: flex;
+            /*font-size: 12px;*/
+        }
+
+        .booked-room-container .booked-item .booked-date div:first-child{
+            margin-right: 4px;
+        }
+
+        .booked-room-container .booked-item .booked-date div:last-child {
+            margin-left: 4px;
+        }
+
+.booked-history .title {
+    font-size: 24px;
+    color: #000;
+}

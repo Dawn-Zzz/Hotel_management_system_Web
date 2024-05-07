@@ -4097,7 +4097,8 @@ textarea.form-control-lg {
 }
 
 .nav-link:hover, .nav-link:focus {
-    color: var(--bs-nav-link-hover-color);
+    color: #fff;
+    cursor: pointer;
 }
 
 .nav-link.disabled {
@@ -4118,6 +4119,7 @@ textarea.form-control-lg {
 }
 
     .nav-tabs .nav-link {
+        cursor: pointer;
         margin-bottom: calc(-1 * var(--bs-nav-tabs-border-width));
         background: none;
         border: var(--bs-nav-tabs-border-width) solid transparent;

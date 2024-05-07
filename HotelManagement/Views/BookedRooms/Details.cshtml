@@ -1,0 +1,50 @@
+﻿@model HotelManagement.ChiTietThue
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>ChiTietThue</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.SoNguoiO)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.SoNguoiO)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PhieuDangKy.HienTrang)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PhieuDangKy.HienTrang)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Phong.MaLoaiPhong)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Phong.MaLoaiPhong)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>

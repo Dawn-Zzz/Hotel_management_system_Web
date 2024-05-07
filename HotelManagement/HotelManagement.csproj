@@ -365,6 +365,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BookedRoomsController.cs" />
     <Compile Include="Controllers\BookingController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -2127,6 +2128,7 @@
     <Content Include="Content\Account.css" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\aos.css" />
+    <Content Include="Content\BookedRooms.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -2471,6 +2473,11 @@
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
     <Content Include="Views\Shared\_AddInfoLayout.cshtml" />
     <Content Include="Views\Account\AddGuestInfo.cshtml" />
+    <Content Include="Views\BookedRooms\Create.cshtml" />
+    <Content Include="Views\BookedRooms\Delete.cshtml" />
+    <Content Include="Views\BookedRooms\Details.cshtml" />
+    <Content Include="Views\BookedRooms\Edit.cshtml" />
+    <Content Include="Views\BookedRooms\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,11 @@
+﻿
+.booked-room-container  {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    background-color: #ccc;
+}
+
+.booked-room-container .booked-history {
+    width: 65%;
+}

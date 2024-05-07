@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                             <div class="form-btn">
-                                <button class="submit-btn">Book Now</button>
+                                <button class="submit-btn" id="book-btn">Book Now</button>
                             </div>
                             <div class="form-btn" style=" text-align: center; margin-top: 24px; ">
                                 <a class="back-btn" href="Index">Back</a>
@@ -180,6 +180,7 @@
                     type: 'GET',
                     data: { listNumOfPeople: dataNumOfPeople },
                     success: function (data) {
+                        alert("Đặt phòng thành công!");
                         console.log(data);
                     },
                 });
@@ -194,6 +195,7 @@
                         checkOut: JSON.parse(localStorage.getItem('checkout')).data
                     },
                     success: function (data) {
+                        alert("Đặt phòng thành công!");
                         console.log(data);
                     },
                 });

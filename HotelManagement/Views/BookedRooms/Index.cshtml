@@ -1,0 +1,109 @@
+﻿@model IEnumerable<HotelManagement.ChiTietThue>
+
+@{
+    var user = Session["User"] as HotelManagement.TaiKhoanKH;
+}
+
+
+@{
+    ViewBag.Title = "Booked Rooms";
+    ViewBag.Description = "Booked History";
+    Html.RenderPartial("~/Views/Shared/_BackgroundIntroPartial.cshtml");
+}
+@if (user != null)
+{
+    <div class="booked-room-container">
+        <div class="booked-history">
+            <div>
+                <p class="title">Danh sách phòng đã đặt:</p>
+                <div class="booked-list">
+                    <div id="booked-list">
+                        @foreach (var item in Model)
+                        {
+                            if (item.PhieuDangKy.KhachHang.CCCD == user.KhachHang.CCCD)
+                            {
+
+                            <div class="booked-item">
+                                <div class="booked-title">
+                                    <div class="booked-name">Phòng @item.MaPhong</div>
+                                    <div class="booked-date">
+                                        <div>@item.PhieuDangKy.ThoiGianNhanPhong.Value.ToString("dd/MM/yyyy")</div>
+                                        -
+                                        <div>@item.PhieuDangKy.ThoiGianNhanPhong.Value.ToString("dd/MM/yyyy")</div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div>Ngày đặt phòng: @item.PhieuDangKy.NgayLap.Value.ToString("dd/MM/yyyy")</div>
+                                    <div>Số người ở: @item.SoNguoiO</div>
+                                </div>
+                            </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+else
+{
+    <div class="booked-room-container"> Đăng nhập để xem thông tin</div>
+}
+
+    <script>
+        const list = [
+            {
+                name: "LoaiPhong1",
+                quantity: 1,
+                checkIn: "1/1/2024",
+                checkOut: "1/1/2024",
+                bookDate: "1/1/2022",
+            },
+            {
+                name: "LoaiPhong2",
+                quantity: 2,
+                checkIn: "2/2/2024",
+                checkOut: "2/2/2024",
+                bookDate: "1/1/2022",
+            },
+            {
+                name: "LoaiPhong3",
+                quantity: 3,
+                checkIn: "3/3/2024",
+                checkOut: "3/3/2024",
+                bookDate: "1/1/2022",
+            },
+            {
+                name: "LoaiPhong4",
+                quantity: 4,
+                checkIn: "4/4/2024",
+                checkOut: "4/4/2024",
+                bookDate: "1/1/2022",
+            },
+        ]
+        const bookedList = document.getElementById("booked-list");
+        const htmls = list.map((item) => {
+            return `
+                            <div class = "booked-item">
+                                <div class = "booked-title">
+                                    <div class = "booked-name">${item.name}</div>
+                                    <div class = "booked-date">
+                                        <div>${item.checkIn}</div>
+                                         -
+                                        <div>${item.checkOut}</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div>Ngày đặt phòng: ${item.bookDate}</div>
+                                    <div>Số phòng: ${item.quantity}</div>
+                                </div>
+                            </div>
+                        `
+        })
+        //bookedList.innerHTML = htmls.join("");
+        console.log(list);
+
+    </script>
+
